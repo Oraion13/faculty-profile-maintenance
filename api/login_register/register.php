@@ -9,6 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
+require_once './verification_mail.php';
 
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
@@ -29,7 +30,6 @@ $data = json_decode(file_get_contents("php://input"));
 
 $users->username = $data->username;
 $users->email = $data->email;
-$users->password = password_hash($data->password, PASSWORD_BCRYPT);
 
 $validate = $users->read_single();
 
@@ -49,7 +49,12 @@ if ($validate) {
     }
 }
 
-if ($users->create()) {
+$users->password = password_hash($data->password, PASSWORD_BCRYPT);
+
+$verification_code = bin2hex(random_bytes(32));
+$users->verification_code = $verification_code;
+
+if ($users->create() && verification_mail($data->email, $data->username, $verification_code)) {
     header($_SERVER["SERVER_PROTOCOL"] . ' 201 ', true, 201);
     echo json_encode(
         array('message' => 'user created')

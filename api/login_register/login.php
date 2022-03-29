@@ -36,6 +36,14 @@ if (strpos($data->username, '@') !== false) {
 $validate = $users->read_single();
 
 if ($validate) {
+    if ($validate['is_verified'] === 0) {
+        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
+        echo json_encode(
+            array('message' => 'email not verified')
+        );
+        die();
+    }
+
     if (password_verify($data->password, $validate['password'])) {
         header($_SERVER["SERVER_PROTOCOL"] . ' 200 ', true, 200);
         $_SESSION['logged_in'] = true;
