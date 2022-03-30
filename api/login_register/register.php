@@ -54,7 +54,8 @@ $users->password = password_hash($data->password, PASSWORD_BCRYPT);
 $verification_code = bin2hex(random_bytes(32));
 $users->verification_code = $verification_code;
 
-if ($users->create() && verification_mail($data->email, $data->username, $verification_code)) {
+if ($users->create() && verification_mail($data->email, $data->username, $verification_code, 'Thanks for registration!<br>
+                                            Click the link below to verify the account,<br>', 'verify')) {
     header($_SERVER["SERVER_PROTOCOL"] . ' 201 ', true, 201);
     echo json_encode(
         array('message' => 'user created')

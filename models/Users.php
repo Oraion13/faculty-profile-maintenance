@@ -10,6 +10,8 @@ class Users
     public $email;
     public $password;
     public $verification_code;
+    public $password_reset_token;
+    public $password_reset_token_expire;
 
     public function __construct($db)
     {
@@ -76,7 +78,7 @@ class Users
 
     public function verify_user()
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE email = :email OR verification_code = :verification_code';
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE email = :email AND verification_code = :verification_code';
 
         $stmt = $this->conn->prepare($query);
 
@@ -99,13 +101,73 @@ class Users
 
     public function update_verification()
     {
-        $query = "UPDATE `users` SET `is_verified`='1' WHERE email = :email";
+        $query = "UPDATE " . $this->table . " SET `is_verified`='1' WHERE email = :email";
 
         $stmt = $this->conn->prepare($query);
 
         $this->email = htmlspecialchars(strip_tags($this->email));
 
         $stmt->bindParam(':email', $this->email);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function password_reset()
+    {
+        $query = "UPDATE " . $this->table . " SET password_reset_token = :password_reset_token, password_reset_token_expire = :password_reset_token_expire WHERE email = :email";
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->email = htmlspecialchars(strip_tags($this->email));
+
+        $stmt->bindParam(':password_reset_token', $this->password_reset_token);
+        $stmt->bindParam(':password_reset_token_expire', $this->password_reset_token_expire);
+        $stmt->bindParam(':email', $this->email);
+
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function verify_password_reset()
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE email = :email AND password_reset_token = :password_reset_token AND password_reset_token_expire = :password_reset_token_expire';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->password_reset_token = htmlspecialchars(strip_tags($this->password_reset_token));
+        $this->password_reset_token_expire = htmlspecialchars(strip_tags($this->password_reset_token_expire));
+
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':password_reset_token', $this->password_reset_token);
+        $stmt->bindParam(':password_reset_token_expire', $this->password_reset_token_expire);
+
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row) {
+            return $row;
+        }
+
+        return false;
+    }
+
+    public function update_password_reset()
+    {
+        $query = "UPDATE " . $this->table . " SET password = :password, password_reset_token = NULL, password_reset_token_expire = NULL WHERE email = :email";
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->password = htmlspecialchars(strip_tags($this->password));
+
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':password', $this->password);
 
         if ($stmt->execute()) {
             return true;
