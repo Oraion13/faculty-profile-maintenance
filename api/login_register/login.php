@@ -9,12 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
+require_once '../../utils/send.php';
 
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => $_SESSION['username'] . ' already logged in')
-    );
+    send(400, $_SESSION['username'] . ' already logged in');
     die();
 }
 
@@ -37,31 +35,19 @@ $validate = $users->read_single();
 
 if ($validate) {
     if ($validate['is_verified'] === 0) {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-        echo json_encode(
-            array('message' => 'email not verified')
-        );
+        send(400, 'email not verified');
         die();
     }
 
     if (password_verify($data->password, $validate['password'])) {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 200 ', true, 200);
         $_SESSION['logged_in'] = true;
         $_SESSION['username'] = $validate['username'];
-        echo json_encode(
-            array('message' => $validate['username'] . ' logged in')
-        );
+        send(200, $validate['username'] . ' logged in');
     } else {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
         // header('X-PHP-Response-Code: 400', true, 400);
         // header("HTTP/1.1 404 Not Found");
-        echo json_encode(
-            array('message' => 'Incorrect password')
-        );
+        send(400, 'Incorrect password');
     }
 } else {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => 'incorrect username/email')
-    );
+    send(400, 'incorrect username/email');
 }

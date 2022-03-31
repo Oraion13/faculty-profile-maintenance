@@ -7,6 +7,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
+require_once '../../utils/send.php';
 
 if (isset($_GET['email']) && isset($_GET['verification_code'])) {
     $dbconnection = new DbConnection();
@@ -22,10 +23,7 @@ if (isset($_GET['email']) && isset($_GET['verification_code'])) {
     $users->password_reset_token_expire = $password_reset_token_expire;
 
     if (!$users->verify_password_reset()) {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-        echo json_encode(
-            array('message' => 'Invalid/expired link')
-        );
+        send(400, 'Invalid/expired link');
         die();
     }
 
@@ -42,16 +40,10 @@ if (isset($_GET['email']) && isset($_GET['verification_code'])) {
     $users->email = $_GET['email'];
 
     if ($users->update_password_reset()) {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 200);
-        echo json_encode(
-            array('message' => 'password updated successfully')
-        );
+        send(200, 'password updated successfully');
         die();
     } else {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-        echo json_encode(
-            array('message' => 'unable to reset password')
-        );
+        send(400, 'unable to reset password');
         die();
     }
 }

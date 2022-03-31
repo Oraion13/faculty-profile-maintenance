@@ -10,12 +10,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
 require_once './verification_mail.php';
+require_once '../../utils/send.php';
 
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => $_SESSION['username'] . ' already logged in')
-    );
+    send(400, $_SESSION['username'] . ' already logged in');
     die();
 }
 
@@ -35,16 +33,10 @@ $validate = $users->read_single();
 
 if ($validate) {
     if ($validate['username'] === $data->username) {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 409 ', true, 409);
-        echo json_encode(
-            array('message' => 'username already taken')
-        );
+        send(409, 'username already taken');
         die();
     } else {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 409 ', true, 409);
-        echo json_encode(
-            array('message' => 'email already registered')
-        );
+        send(409, 'email already registered');
         die();
     }
 }
@@ -56,13 +48,7 @@ $users->verification_code = $verification_code;
 
 if ($users->create() && verification_mail($data->email, $data->username, $verification_code, 'Thanks for registration!<br>
                                             Click the link below to verify the account,<br>', 'verify')) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 201 ', true, 201);
-    echo json_encode(
-        array('message' => 'user created')
-    );
+    send(201, 'user created');
 } else {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => 'unable to create user')
-    );
+    send(400, 'unable to create user');
 }

@@ -8,12 +8,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
 require_once './verification_mail.php';
+require_once '../../utils/send.php';
 
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => $_SESSION['username'] . ' already logged in')
-    );
+    send(400, $_SESSION['username'] . ' already logged in');
     die();
 }
 
@@ -25,10 +23,7 @@ $users = new Users($db);
 $data = json_decode(file_get_contents("php://input"));
 
 if (strpos($data->email, '@') === false) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => 'incorrect email')
-    );
+    send(400, 'incorrect email');
     die();
 }
 
@@ -37,10 +32,7 @@ $users->email = $data->email;
 $validate = $users->read_single();
 
 if ($validate['email'] !== $data->email) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => 'user not found')
-    );
+    send(400, 'user not found');
     die();
 }
 
@@ -53,13 +45,7 @@ $users->password_reset_token_expire = $password_reset_token_expire;
 
 if ($users->password_reset() && verification_mail($validate['email'], $validate['username'], $password_reset_token, 'Password reset link from AUTTVL!<br>
 Click the link below to reset your password,<br>', 'reset_password')) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 200 ', true, 200);
-    echo json_encode(
-        array('message' => 'password reset link sent to mail')
-    );
+    send(200, 'password reset link sent to mail');
 } else {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => 'unable to send password reset link')
-    );
+    send(400, 'unable to send password reset link');
 }

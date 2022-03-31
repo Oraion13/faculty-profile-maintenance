@@ -4,6 +4,7 @@ header('Access-Control-Allow-Origin: *');
 
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
+require_once '../../utils/send.php';
 
 if (isset($_GET['email']) && isset($_GET['verification_code'])) {
     $dbconnection = new DbConnection();
@@ -18,26 +19,14 @@ if (isset($_GET['email']) && isset($_GET['verification_code'])) {
     if ($validate) {
         if ($validate['is_verified'] === 0) {
             if ($users->update_verification()) {
-                header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 200);
-                echo json_encode(
-                    array('message' => 'email verified successfully')
-                );
+                send(200, 'email verified successfully');
             } else {
-                header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-                echo json_encode(
-                    array('message' => 'unable to verify user')
-                );
+                send(400, 'unable to verify user');
             }
         } else {
-            header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-            echo json_encode(
-                array('message' => 'user already registered')
-            );
+            send(400, 'user already registered');
         }
     } else {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-        echo json_encode(
-            array('message' => 'no user account found')
-        );
+        send(400, 'no user account found');
     }
 }
