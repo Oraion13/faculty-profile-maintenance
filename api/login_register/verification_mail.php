@@ -4,9 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require_once "../../dependencies/PHPMailer/src/Exception.php";
-require_once "../../dependencies/PHPMailer/src/PHPMailer.php";
-require_once "../../dependencies/PHPMailer/src/SMTP.php";
+require_once "../../modules/PHPMailer/src/Exception.php";
+require_once "../../modules/PHPMailer/src/PHPMailer.php";
+require_once "../../modules/PHPMailer/src/SMTP.php";
 
 function verification_mail($email, $username, $verification_code,$title, $message, $redirect)
 {
