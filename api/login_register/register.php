@@ -31,7 +31,7 @@ $data = json_decode(file_get_contents("php://input"));
 // Do some data cleaning
 
 // Check if the fields are not empty
-if (!$data->username || !$data->email || !$data->password) {
+if (!$data->full_name || !$data->username || !$data->email || !$data->password) {
     send(400, 'error', 'provide the required fields');
     die();
 }
@@ -53,12 +53,14 @@ if ($validate) {
     }
 }
 
+$users->full_name = $data->full_name;
 // Generates a password hash
 $users->password = password_hash($data->password, PASSWORD_BCRYPT);
 
 // Email verification code
 $verification_code = bin2hex(random_bytes(32));
 $users->verification_code = $verification_code;
+$users->is_verified = 0;
 
 // Creates an user and send an email verification link
 if ($users->create() && verification_mail(

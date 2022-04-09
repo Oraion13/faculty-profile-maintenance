@@ -7,10 +7,12 @@ class Users
     private $table = 'faculty_users';
 
     public $id;
+    public $full_name;
     public $username;
     public $email;
     public $password;
     public $verification_code;
+    public $is_verified;
     public $password_reset_token;
     public $password_reset_token_expire;
     public $position_id;
@@ -39,20 +41,24 @@ class Users
     // Insert a new data
     public function create()
     {
-        $query = 'INSERT INTO ' . $this->table . ' SET username = :username, email = :email, password = :password, verification_code = :verification_code, is_verified = 0';
+        $query = 'INSERT INTO ' . $this->table . ' SET full_name = :full_name username = :username, email = :email, password = :password, verification_code = :verification_code, is_verified = :is_verified';
 
         $stmt = $this->conn->prepare($query);
 
         // clean the data
+        $this->full_name = htmlspecialchars(strip_tags($this->full_name));
         $this->username = htmlspecialchars(strip_tags($this->username));
         $this->email = htmlspecialchars(strip_tags($this->email));
         $this->password = htmlspecialchars(strip_tags($this->password));
         $this->verification_code = htmlentities($this->verification_code);
+        $this->is_verified = htmlentities($this->is_verified);
 
+        $stmt->bindParam(':full_name', $this->full_name);
         $stmt->bindParam(':username', $this->username);
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
         $stmt->bindParam(':verification_code', $this->verification_code);
+        $stmt->bindParam(':is_verified', $this->is_verified);
 
         // If data inserted successfully, return True
         if ($stmt->execute()) {
