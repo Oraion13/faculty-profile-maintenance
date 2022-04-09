@@ -9,54 +9,68 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
+require_once './verification_mail.php';
+require_once '../../utils/send.php';
 
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => $_SESSION['username'] . ' already logged in')
-    );
+// To check if an user is already logged in
+if (isset($_SESSION['user_id'])) {
+    send(400, 'error', $_SESSION['username'] . ' already logged in');
     die();
 }
 
+// Connect with DB
 $dbconnection = new DbConnection();
 $db = $dbconnection->connect();
 
+// Create an object for users table to do operations
 $users = new Users($db);
 
+// Get input data as json
 $data = json_decode(file_get_contents("php://input"));
 
 // Do some data cleaning
 
+// Check if the fields are not empty
+if (!$data->username || !$data->email || !$data->password) {
+    send(400, 'error', 'provide the required fields');
+    die();
+}
+
 $users->username = $data->username;
 $users->email = $data->email;
-$users->password = password_hash($data->password, PASSWORD_BCRYPT);
 
+// Get the user
 $validate = $users->read_single();
 
+// Checks if email id and username are unique
 if ($validate) {
     if ($validate['username'] === $data->username) {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 409 ', true, 409);
-        echo json_encode(
-            array('message' => 'username already taken')
-        );
+        send(409, 'error', 'username already taken');
         die();
     } else {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 409 ', true, 409);
-        echo json_encode(
-            array('message' => 'email already registered')
-        );
+        send(409, 'error', 'email already registered');
         die();
     }
 }
 
-if ($users->create()) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 201 ', true, 201);
-    echo json_encode(
-        array('message' => 'user created')
-    );
+// Generates a password hash
+$users->password = password_hash($data->password, PASSWORD_BCRYPT);
+
+// Email verification code
+$verification_code = bin2hex(random_bytes(32));
+$users->verification_code = $verification_code;
+
+// Creates an user and send an email verification link
+if ($users->create() && verification_mail(
+    $data->email,
+    $data->username,
+    $verification_code,
+    'Email verification from AUTTVL',
+    'Thanks for registration!<br>
+    Click the link below to verify the account,<br>',
+    'verify'
+)) {
+    send(201, 'message', 'user created');
 } else {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => 'unable to create user')
-    );
+    send(400, 'error', 'unable to create user');
 }

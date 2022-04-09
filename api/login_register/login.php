@@ -9,51 +9,52 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
+require_once '../../utils/send.php';
 
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => $_SESSION['username'] . ' already logged in')
-    );
+// To check if an user is already logged in
+if (isset($_SESSION['user_id'])) {
+    send(400, 'error', $_SESSION['username'] . ' already logged in');
     die();
 }
 
+// Connect with DB
 $dbconnection = new DbConnection();
 $db = $dbconnection->connect();
 
+// Create an object for users table to do operations
 $users = new Users($db);
 
+// Get input data as json
 $data = json_decode(file_get_contents("php://input"));
 
 // Do some data cleaning
 
+// Check if the given data is username or email
 if (strpos($data->username, '@') !== false) {
     $users->email = $data->username;
 } else {
     $users->username = $data->username;
 }
 
+// Check if the email is verified for the user
 $validate = $users->read_single();
 
 if ($validate) {
+    if ($validate['is_verified'] === 0) {
+        send(400, 'error', 'email not verified');
+        die();
+    }
+
+    // If the user has given correct crediantials, they will be logged in and a new SESSION will be started
     if (password_verify($data->password, $validate['password'])) {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 200 ', true, 200);
-        $_SESSION['logged_in'] = true;
+        $_SESSION['user_id'] = $validate['user_id'];
         $_SESSION['username'] = $validate['username'];
-        echo json_encode(
-            array('message' => $validate['username'] . ' logged in')
-        );
+        send(200, 'message', $validate['username'] . ' logged in');
     } else {
-        header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
         // header('X-PHP-Response-Code: 400', true, 400);
         // header("HTTP/1.1 404 Not Found");
-        echo json_encode(
-            array('message' => 'Incorrect password')
-        );
+        send(400, 'error', 'Incorrect password');
     }
 } else {
-    header($_SERVER["SERVER_PROTOCOL"] . ' 400 ', true, 400);
-    echo json_encode(
-        array('message' => 'incorrect username/email')
-    );
+    send(400, 'error', 'incorrect username/email');
 }
