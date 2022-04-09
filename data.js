@@ -33,3 +33,13 @@ const reset_password = {
 
 /* --------------------------- User Details -------------------- */
 
+const user_info = {
+    "user_id": 23,
+    "phone": 1234567890,
+    "address": "71, south street, Tirunelveli, Tvl - 627 650",
+    "present_position": "Currently working in technical support specialist",
+    "present_position_from": "2012-11-12",
+    "position_id": 6,
+    "department_id": 4,
+    "prev_position_id": 3
+}

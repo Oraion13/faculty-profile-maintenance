@@ -6,7 +6,7 @@ class Users
     private $conn;
     private $table = 'faculty_users';
 
-    public $id;
+    public $user_id;
     public $full_name;
     public $username;
     public $email;
@@ -41,7 +41,7 @@ class Users
     // Insert a new data
     public function create()
     {
-        $query = 'INSERT INTO ' . $this->table . ' SET full_name = :full_name username = :username, email = :email, password = :password, verification_code = :verification_code, is_verified = :is_verified';
+        $query = 'INSERT INTO ' . $this->table . ' SET full_name = :full_name, username = :username, email = :email, password = :password, verification_code = :verification_code, is_verified = :is_verified';
 
         $stmt = $this->conn->prepare($query);
 
