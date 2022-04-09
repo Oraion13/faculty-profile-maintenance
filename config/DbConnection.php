@@ -8,7 +8,7 @@ class DbConnection
     private $password = '';
     private $conn;
 
-    // DB Connect
+    // Connect to DB
     public function connect()
     {
         $this->conn = null;

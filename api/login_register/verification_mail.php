@@ -8,7 +8,7 @@ require_once "../../dependencies/PHPMailer/src/Exception.php";
 require_once "../../dependencies/PHPMailer/src/PHPMailer.php";
 require_once "../../dependencies/PHPMailer/src/SMTP.php";
 
-function verification_mail($email, $username, $verification_code, $message, $redirect)
+function verification_mail($email, $username, $verification_code,$title, $message, $redirect)
 {
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
@@ -38,7 +38,7 @@ function verification_mail($email, $username, $verification_code, $message, $red
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'Email verification from AUTTVL';
+        $mail->Subject = $title;
         $mail->Body    = "$message
                             <a href='http://localhost/faculty-profile-maintenance/api/login_register/$redirect.php?email=$email&verification_code=$verification_code'>verify</a>";
         // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
