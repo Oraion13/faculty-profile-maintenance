@@ -34,9 +34,10 @@ const reset_password = {
 /* --------------------------- User Details -------------------- */
 
 const user_info = {
-    "user_id": 23,
     "phone": 1234567890,
-    "address": "71, south street, Tirunelveli, Tvl - 627 650",
-    "position_id": 6,
-    "department_id": 4
+    "address": "654, south street, Tirunelveli, tvl - 627 600",
+    "position_id": 4,
+    "department_id": 3,
+    "position_present_where": "College of Engineering Guindy, Anna University, Chennai",
+    "position_present_from": "2012-05-01"
 }

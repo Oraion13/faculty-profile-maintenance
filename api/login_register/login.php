@@ -49,7 +49,14 @@ if ($validate) {
     if (password_verify($data->password, $validate['password'])) {
         $_SESSION['user_id'] = $validate['user_id'];
         $_SESSION['username'] = $validate['username'];
-        send(200, 'message', $validate['username'] . ' logged in');
+        echo json_encode(
+            array(
+                'user_id' => $validate['user_id'],
+                'username' => $validate['username'],
+                'email' => $validate['email'],
+                'full_name' => $validate['full_name']
+            )
+        );
     } else {
         // header('X-PHP-Response-Code: 400', true, 400);
         // header("HTTP/1.1 404 Not Found");
