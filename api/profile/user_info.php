@@ -54,11 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $User_info->user_id = $_GET['ID'];
     $User_info->phone = $data->phone;
     $User_info->address = $data->address;
-    $User_info->present_position = $data->present_position;
-    $User_info->present_position_from = $data->present_position_from;
     $User_info->position_id = $data->position_id;
     $User_info->department_id = $data->department_id;
-    $User_info->prev_position = $data->prev_position;
 
     // If no user info exists
     if (!$all_data) {
@@ -88,11 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $User_info->user_id = $_GET['ID'];
     $User_info->phone = $data->phone;
     $User_info->address = $data->address;
-    $User_info->present_position = $data->present_position;
-    $User_info->present_position_from = $data->present_position_from;
     $User_info->position_id = $data->position_id;
     $User_info->department_id = $data->department_id;
-    $User_info->prev_position = $data->prev_position;
 
     $error = false;
     $message = '';
@@ -115,30 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             } else {
                 $error = true;
                 $errormsg .= 'address ';
-            }
-        }
-        if (strcmp($all_data['present_position'], $data->present_position) !== 0) {
-            if ($User_info->update('present_position')) {
-                $message .= 'present position ';
-            } else {
-                $error = true;
-                $errormsg .= 'present position ';
-            }
-        }
-        if (strcmp($all_data['prev_position'], $data->prev_position) !== 0) {
-            if ($User_info->update('prev_position')) {
-                $message .= 'faculty\'s previous position ';
-            } else {
-                $error = true;
-                $errormsg .= 'faculty\'s previous position ';
-            }
-        }
-        if (strcmp($all_data['present_position_from'], $data->present_position_from) !== 0) {
-            if ($User_info->update('present_position_from')) {
-                $message .= 'present position from ';
-            } else {
-                $error = true;
-                $errormsg .= 'present position from ';
             }
         }
         if (strcmp($all_data['position_id'], $data->position_id) !== 0) {

@@ -10,11 +10,8 @@ class User_info
     public $user_id = 0;
     public $phone = 0;
     public $address = '';
-    public $present_position = '';
-    public $present_position_from = '';
     public $position_id = 0;
     public $department_id = 0;
-    public $prev_position = 0;
 
     // Connect to the DB
     public function __construct($db)
@@ -50,7 +47,7 @@ class User_info
     // Insert user info
     public function create()
     {
-        $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, phone = :phone, address = :address, present_position = :present_position,  prev_position = :prev_position, present_position_from = :present_position_from, position_id = :position_id, department_id = :department_id';
+        $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, phone = :phone, address = :address, position_id = :position_id, department_id = :department_id';
 
         $stmt = $this->conn->prepare($query);
 
@@ -58,18 +55,12 @@ class User_info
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->phone = htmlspecialchars(strip_tags($this->phone));
         $this->address = htmlspecialchars(strip_tags($this->address));
-        $this->present_position = htmlspecialchars(strip_tags($this->present_position));
-        $this->prev_position = htmlspecialchars(strip_tags($this->prev_position));
-        $this->present_position_from = htmlspecialchars(strip_tags($this->present_position_from));
         $this->position_id = htmlspecialchars(strip_tags($this->position_id));
         $this->department_id = htmlspecialchars(strip_tags($this->department_id));
 
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':phone', $this->phone);
         $stmt->bindParam(':address', $this->address);
-        $stmt->bindParam(':present_position', $this->present_position);
-        $stmt->bindParam(':prev_position', $this->prev_position);
-        $stmt->bindParam(':present_position_from', $this->present_position_from);
         $stmt->bindParam(':position_id', $this->position_id);
         $stmt->bindParam(':department_id', $this->department_id);
 
