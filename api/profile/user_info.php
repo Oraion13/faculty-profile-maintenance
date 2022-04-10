@@ -4,7 +4,6 @@ session_start();
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 require_once '../../config/DbConnection.php';
@@ -56,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $User_info->address = $data->address;
     $User_info->position_id = $data->position_id;
     $User_info->department_id = $data->department_id;
+    $User_info->position_present_where = $data->position_present_where;
+    $User_info->position_present_from = $data->position_present_from;
 
     // If no user info exists
     if (!$all_data) {
@@ -87,6 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $User_info->address = $data->address;
     $User_info->position_id = $data->position_id;
     $User_info->department_id = $data->department_id;
+    $User_info->position_present_where = $data->position_present_where;
+    $User_info->position_present_from = $data->position_present_from;
 
     $error = false;
     $message = '';
@@ -117,6 +120,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             } else {
                 $error = true;
                 $errormsg .= 'faculty position ';
+            }
+        }
+        if (strcmp($all_data['department_id'], $data->department_id) !== 0) {
+            if ($User_info->update('department_id')) {
+                $message .= 'department ';
+            } else {
+                $error = true;
+                $errormsg .= 'department ';
+            }
+        }
+        if (strcmp($all_data['position_present_where'], $data->position_present_where) !== 0) {
+            if ($User_info->update('position_present_where')) {
+                $message .= 'position present where ';
+            } else {
+                $error = true;
+                $errormsg .= 'position present where ';
+            }
+        }
+        if (strcmp($all_data['position_present_from'], $data->position_present_from) !== 0) {
+            if ($User_info->update('position_present_from')) {
+                $message .= 'position present from ';
+            } else {
+                $error = true;
+                $errormsg .= 'position present from ';
             }
         }
         if (strcmp($all_data['department_id'], $data->department_id) !== 0) {
