@@ -18,12 +18,6 @@ $db = $dbconnection->connect();
 // Create an object for users table to do operations
 $User_info = new User_info($db);
 
-// To check if an user is already logged in
-if (!isset($_SESSION['user_id']) || !isset($_GET['ID'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
-
 // If a user logged in ...
 $User_info->user_id = $_GET['ID'];
 $all_data = $User_info->read();
@@ -32,9 +26,17 @@ $all_data = $User_info->read();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($all_data) {
         echo json_encode($all_data);
+        die();
     } else {
         send(400, 'error', 'no user info found');
+        die();
     }
+}
+
+// To check if an user is already logged in
+if (!isset($_SESSION['user_id']) || !isset($_GET['ID'])) {
+    send(400, 'error', 'no user logged in');
+    die();
 }
 
 // POST a new user info
