@@ -27,12 +27,14 @@ class User_info
     // Read all data of a user
     public function read()
     {
-        $columns = $this->table . '.user_info_id, ' . $this->table . '.user_id, ' . $this->table . '.phone, ' . $this->table . '.address, '
-            . $this->table . '.position_id, ' . $this->positions . '.position, ' . $this->table . '.department_id, '
-            . $this->departments . '.department, ' . $this->table . '.position_present_where, ' . $this->table . '.position_present_from';
+        $columns = $this->table . '.user_info_id, ' . $this->table . '.user_id, ' . $this->table . '.phone, '
+            . $this->table . '.address, ' . $this->table . '.position_id, ' . $this->positions . '.position, '
+            . $this->table . '.department_id, ' . $this->departments . '.department, '
+            . $this->table . '.position_present_where, ' . $this->table . '.position_present_from';
         $query = 'SELECT ' . $columns . ' FROM ((' . $this->table . ' INNER JOIN ' . $this->positions . ' ON '
-            . $this->table . '.user_id = :user_id AND ' . $this->table . '.position_id = ' . $this->positions . '.position_id) 
-            INNER JOIN ' . $this->departments . ' ON ' . $this->table . '.department_id = ' . $this->departments . '.department_id)';
+            . $this->table . '.user_id = :user_id AND ' . $this->table . '.position_id = '
+            . $this->positions . '.position_id) INNER JOIN ' . $this->departments . ' ON '
+            . $this->table . '.department_id = ' . $this->departments . '.department_id)';
 
         $stmt = $this->conn->prepare($query);
 
@@ -57,7 +59,9 @@ class User_info
     // Insert user info
     public function create()
     {
-        $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, phone = :phone, address = :address, position_id = :position_id, department_id = :department_id, position_present_where = :position_present_where, position_present_from = :department_id';
+        $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, phone = :phone, address = :address, 
+        position_id = :position_id, department_id = :department_id, position_present_where = :position_present_where, 
+        position_present_from = :position_present_from';
 
         $stmt = $this->conn->prepare($query);
 
