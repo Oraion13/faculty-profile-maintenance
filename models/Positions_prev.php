@@ -49,7 +49,7 @@ class Positions_prev
         return false;
     }
 
-    // Insert user info
+    // Insert a user's previous position
     public function create()
     {
         $query = 'INSERT INTO ' . $this->table
@@ -82,7 +82,7 @@ class Positions_prev
         return false;
     }
 
-    // Update a field in user_info
+    // Update a field in positions_prev
     public function update($to_update)
     {
         $to_set = $to_update . ' = :' . $to_update;
@@ -94,6 +94,24 @@ class Positions_prev
         $this->position_prev_id = htmlspecialchars(strip_tags($this->position_prev_id));
 
         $stmt->bindParam(':' . $to_update, $this->$to_update);
+        $stmt->bindParam(':position_prev_id', $this->position_prev_id);
+
+        // If data updated successfully, return True
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Delete a field in positions_prev
+    public function delete_row()
+    {
+        $query = 'DELETE ' . $this->table . ' WHERE position_prev_id = :position_prev_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->position_prev_id = htmlspecialchars(strip_tags($this->position_prev_id));
+
         $stmt->bindParam(':position_prev_id', $this->position_prev_id);
 
         // If data updated successfully, return True
