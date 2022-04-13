@@ -170,6 +170,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $User_info_api->get();
 }
 
+// To check if an user is logged in
+if (!isset($_SESSION['user_id'])) {
+    send(400, 'error', 'no user logged in');
+    die();
+}
+
 // If a user logged in ...
 
 // POST a new user info

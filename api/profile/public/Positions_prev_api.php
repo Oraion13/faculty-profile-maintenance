@@ -175,6 +175,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Positions_prev_api->get();
 }
 
+// To check if an user is logged in
+if (!isset($_SESSION['user_id'])) {
+    send(400, 'error', 'no user logged in');
+    die();
+}
+
 // If a user logged in ...
 
 // POST/UPDATE (PUT) a user's previous positions
