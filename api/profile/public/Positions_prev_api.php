@@ -33,9 +33,11 @@ class Positions_prev_api
         $all_data = $this->Positions_prev->read();
 
         if ($all_data) {
+            $data = array();
             while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
-                echo json_encode($row);
+                array_push($data, $row);
             }
+            echo json_encode($data);
             die();
         } else {
             send(400, 'error', 'no user info about previous positions found');
@@ -46,48 +48,36 @@ class Positions_prev_api
     // POST a new user's previous position
     public function post()
     {
-        // Authorization
-        if ($_SESSION['user_id'] != $_GET['ID']) {
-            send(401, 'error', 'unauthorized');
-            die();
-        }
-
-        // Get input data as json
-        $data = json_decode(file_get_contents("php://input"));
-
-        // Check the total number of data
-        if (count($data['positions_prev']) === 0) {
-            send(400, 'error', 'no data recieved');
-            die();
-        }
-
-        // Clean the data
-        $this->Positions_prev->user_id = $_SESSION['user_id'];
-
-        $count = 0;
-        $error = false;
-        while ($count < count($data['positions_prev'])) {
-            $this->Positions_prev->position_id = $data->positions_prev[$count]->position_id;
-            $this->Positions_prev->department_id = $data->positions_prev[$count]->department_id;
-            $this->Positions_prev->position_present_where = $data->positions_prev[$count]->position_present_where;
-            $this->Positions_prev->position_present_from = $data->positions_prev[$count]->position_present_from;
-            $this->Positions_prev->position_present_to = $data->positions_prev[$count]->position_present_to;
-
-            // Try to add a new previous position for user
-            if (!$this->Positions_prev->create()) {
-                $error = true;
-                break;
-            }
-        }
-
-        if (!$error) {
-            $this->get();
-        } else {
+        if (!$this->Positions_prev->create()) {
+            // If can't post the data, throw an error message
             send(400, 'error', 'previous positions cannot be added');
+            die();
         }
     }
 
-    // UPDATE (PUT) a existing user's previous position
+    // PUT a user's previous position
+    public function update($DB_data, $to_update, $update_str)
+    {
+        if (strcmp($DB_data, $to_update) !== 0) {
+            if (!$this->Positions_prev->update($update_str)) {
+                // If can't update the data, throw an error message
+                send(400, 'error', $update_str . ' cannot be updated');
+                die();
+            }
+        }
+    }
+
+    // DELETE a user's previous position
+    public function delete_data()
+    {
+        if (!$this->Positions_prev->delete_row()) {
+            // If can't delete the data, throw an error message
+            send(400, 'error', 'data cannot be deleted');
+            die();
+        }
+    }
+
+    // POST/UPDATE (PUT)/DELETE a user's previous positions
     public function put()
     {
         // Authorization
@@ -99,89 +89,96 @@ class Positions_prev_api
         // Get input data as json
         $data = json_decode(file_get_contents("php://input"));
 
+        if (count($data) <= 0) {
+            send(400, 'error', 'no data recieved');
+            die();
+        }
+
         // Get all the user's previous position info from DB
         $this->Positions_prev->user_id = $_SESSION['user_id'];
         $all_data = $this->Positions_prev->read();
 
+        // Store all position_prev_id's in an array
+        $DB_data = array();
+        $data_IDs = array();
+        while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+            array_push($DB_data, $row);
+        }
+
+        // Insert the data which has no ID
         $count = 0;
-        $error = false;
-        $message = '';
-        while ($count < count($data['positions_prev'])) {
-            // If a previous position's id is given replace the previous tupule, else add a new one
-            if (!$data->positions_prev[$count]->position_prev_id) {
+        while ($count < count($data)) {
+            // Clean the data
+            $this->Positions_prev->position_id = $data[$count]->position_id;
+            $this->Positions_prev->department_id = $data[$count]->department_id;
+            $this->Positions_prev->position_prev_where = $data[$count]->position_prev_where;
+            $this->Positions_prev->position_prev_from = $data[$count]->position_prev_from;
+            $this->Positions_prev->position_prev_to = $data[$count]->position_prev_to;
+
+            if ($data[$count]->position_prev_id === 0) {
                 $this->post();
-                $count += 1;
+                array_splice($data, $count, 1);
                 continue;
             }
 
+            // Store the IDs
+            array_push($data_IDs, $data[$count]->position_prev_id);
+
+            ++$count;
+        }
+
+        // Delete the data which is abandoned
+        $count = 0;
+        while ($count < count($DB_data)) {
+            if (!in_array($DB_data[$count]['position_prev_id'], $data_IDs)) {
+                $this->Positions_prev->position_prev_id = (int)$DB_data[$count]['position_prev_id'];
+                $this->delete_data();
+            }
+
+            ++$count;
+        }
+
+        // Update the data which is available
+        $count = 0;
+        $all_data = $this->Positions_prev->read();
+        while ($count < count($data)) {
             // Clean the data
-            $this->Positions_prev->position_prev_id = $data->positions_prev[$count]->position_prev_id;
-            $this->Positions_prev->position_id = $data->positions_prev[$count]->position_id;
-            $this->Positions_prev->department_id = $data->positions_prev[$count]->department_id;
-            $this->Positions_prev->position_present_where = $data->positions_prev[$count]->position_present_where;
-            $this->Positions_prev->position_present_from = $data->positions_prev[$count]->position_present_from;
-            $this->Positions_prev->position_present_to = $data->positions_prev[$count]->position_present_to;
+            // print_r($row);
+            foreach ($DB_data as $key => $element) {
+                if ($element['position_prev_id'] == $data[$count]->position_prev_id) {
+                    $this->Positions_prev->position_prev_id = $element['position_prev_id'];
+                    $this->Positions_prev->position_id = $data[$count]->position_id;
+                    $this->Positions_prev->department_id = $data[$count]->department_id;
+                    $this->Positions_prev->position_prev_where = $data[$count]->position_prev_where;
+                    $this->Positions_prev->position_prev_from = $data[$count]->position_prev_from;
+                    $this->Positions_prev->position_prev_to = $data[$count]->position_prev_to;
 
-            if (strcmp($all_data['position_id'], $data->positions_prev[$count]->position_id) !== 0) {
-                if (!$this->Positions_prev->update('position_id')) {
-                    $error = true;
-                    $message .= ',position number,';
-                }
-            }
-            if (strcmp($all_data['department_id'], $data->positions_prev[$count]->department_id) !== 0) {
-                if (!$this->Positions_prev->update('department_id')) {
-                    $error = true;
-                    $message .= ',department number,';
-                }
-            }
-            if (strcmp($all_data['position_present_where'], $data->positions_prev[$count]->position_present_where) !== 0) {
-                if (!$this->Positions_prev->update('position_present_where')) {
-                    $error = true;
-                    $message .= ',position present where number,';
-                }
-            }
-            if (strcmp($all_data['position_present_from'], $data->positions_prev[$count]->position_present_from) !== 0) {
-                if (!$this->Positions_prev->update('position_present_from')) {
-                    $error = true;
-                    $message .= ',position present from number,';
-                }
-            }
-            if (strcmp($all_data['position_present_to'], $data->positions_prev[$count]->position_present_to) !== 0) {
-                if (!$this->Positions_prev->update('position_present_to')) {
-                    $error = true;
-                    $message .= ',position present to number,';
+                    $this->update($element['position_id'], $data[$count]->position_id, 'position_id');
+                    $this->update($element['department_id'], $data[$count]->department_id, 'department_id');
+                    $this->update($element['position_prev_where'], $data[$count]->position_prev_where, 'position_prev_where');
+                    $this->update($element['position_prev_from'], $data[$count]->position_prev_from, 'position_prev_from');
+                    $this->update($element['position_prev_to'], $data[$count]->position_prev_to, 'position_prev_to');
                 }
             }
 
-            if ($error) {
-                break;
-            }
-            $count += 1;
+
+            ++$count;
         }
-        // If updated successfully, get the data, else throw an error message 
-        if (!$error) {
-            $this->get();
-        } else {
-            send(400, 'error', substr($message, 1, -1) . ' cannot be updated');
-        }
+
+        $this->get();
     }
 }
 
-// GET all the user info
+// GET all the user's previous positions
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Positions_prev_api = new Positions_prev_api();
-    $Positions_prev->get();
+    $Positions_prev_api->get();
 }
 
 // If a user logged in ...
 
-// POST a new user info
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// POST/UPDATE (PUT) a user's previous positions
+if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT') {
     $Positions_prev_api = new Positions_prev_api();
-    $Positions_prev->post();
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    $Positions_prev_api = new Positions_prev_api();
-    $Positions_prev->put();
+    $Positions_prev_api->put();
 }
