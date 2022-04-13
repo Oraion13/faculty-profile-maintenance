@@ -46,7 +46,6 @@ const User_info_api = {
 const Positions_prev_api = [
     {
         "position_prev_id": 1,
-        "user_id": 24,
         "position_id": 4,
         "department_id": 2,
         "position_prev_where": "College of Engineering Guindy, Anna University, Chennai",
@@ -55,7 +54,6 @@ const Positions_prev_api = [
     },
     {
         "position_prev_id": 19,
-        "user_id": 24,
         "position_id": 5,
         "department_id": 1,
         "position_prev_where": "MIT, Anna University, Chennai",
@@ -63,7 +61,6 @@ const Positions_prev_api = [
         "position_prev_to": "2003-07-07"
     }, {
         "position_prev_id": 18,
-        "user_id": 24,
         "position_id": 4,
         "department_id": 2,
         "position_prev_where": "College of Engineering Trichy, Anna University, Trichy",
@@ -72,7 +69,6 @@ const Positions_prev_api = [
     },
     {
         "position_prev_id": 0, // For new data
-        "user_id": 24,
         "position_id": 5,
         "department_id": 1,
         "position_prev_where": "Anna University Regional Campus Madurai, Madurai",

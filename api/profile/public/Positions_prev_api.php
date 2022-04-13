@@ -61,7 +61,7 @@ class Positions_prev_api
         if (strcmp($DB_data, $to_update) !== 0) {
             if (!$this->Positions_prev->update($update_str)) {
                 // If can't update the data, throw an error message
-                send(400, 'error', $update_str . ' cannot be updated');
+                send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
         }
@@ -89,10 +89,10 @@ class Positions_prev_api
         // Get input data as json
         $data = json_decode(file_get_contents("php://input"));
 
-        if (count($data) <= 0) {
-            send(400, 'error', 'no data recieved');
-            die();
-        }
+        // if (count($data) <= 0) {
+        //     send(400, 'error', 'no data recieved');
+        //     die();
+        // }
 
         // Get all the user's previous position info from DB
         $this->Positions_prev->user_id = $_SESSION['user_id'];
