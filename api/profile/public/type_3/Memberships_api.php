@@ -147,6 +147,8 @@ class Memberships_api
                     $this->Memberships->text = $data[$count]->membership;
 
                     $this->update($element['membership'], $data[$count]->membership, 'membership');
+
+                    break;
                 }
             }
 

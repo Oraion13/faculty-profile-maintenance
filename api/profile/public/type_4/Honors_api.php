@@ -151,6 +151,8 @@ class Honors_api
 
                     $this->update($element['honor'], $data[$count]->honor, 'honor');
                     $this->update($element['honored_at'], $data[$count]->honored_at, 'honored_at');
+
+                    break;
                 }
             }
 

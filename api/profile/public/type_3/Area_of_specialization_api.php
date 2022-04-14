@@ -147,6 +147,8 @@ class Area_of_specialization_api
                     $this->Area_of_specialization->text = $data[$count]->specialization;
 
                     $this->update($element['specialization'], $data[$count]->specialization, 'specialization');
+
+                    break;
                 }
             }
 

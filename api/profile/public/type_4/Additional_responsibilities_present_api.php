@@ -151,6 +151,8 @@ class Additional_responsibilities_present_api
 
                     $this->update($element['additional_responsibility_present'], $data[$count]->additional_responsibility_present, 'additional_responsibility_present');
                     $this->update($element['additional_responsibility_present_from'], $data[$count]->additional_responsibility_present_from, 'additional_responsibility_present_from');
+
+                    break;
                 }
             }
 

@@ -134,3 +134,20 @@ const Invited_lectures_api = [
         "invited_lecture_at": "2015-09-08"
     }
 ]
+
+/* --------------------------- Previous Additional Responsibilities -------------------*/
+
+const Additional_responsibilities_prev_api = [
+    {
+      "additional_responsibility_prev_id": 0, // For new data
+      "additional_responsibility_prev": "Scrutiny Officer, MIT, Anna University, Chennai",
+      "additional_responsibility_prev_from": "2005-09-08",
+      "additional_responsibility_prev_to": ""
+    },
+    {
+      "additional_responsibility_prev_id": 4,
+      "additional_responsibility_prev": "Anti-ragging Committee - Coordinator, University College of Engineering, Arni, Anna University, Chennai",
+      "additional_responsibility_prev_from": "2012-05-09",
+      "additional_responsibility_prev_to": "2015-03-18"
+    }
+  ]

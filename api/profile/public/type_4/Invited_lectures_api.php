@@ -151,6 +151,8 @@ class Invited_lectures_api
 
                     $this->update($element['invited_lecture'], $data[$count]->invited_lecture, 'invited_lecture');
                     $this->update($element['invited_lecture_at'], $data[$count]->invited_lecture_at, 'invited_lecture_at');
+
+                    break;
                 }
             }
 
