@@ -1,7 +1,7 @@
 <?php
 
-// Operations for 'faculty_memberships, faculty_area_of_specialization' is handeled here
-class Type_3
+// Operations for 'faculty_additional_responsibilities_present, faculty_honors, faculty_invited_lectures' is handeled here
+class Type_4
 {
     private $conn;
 
@@ -9,10 +9,12 @@ class Type_3
 
     public $id_name = '';
     public $text_name = '';
+    public $from_name = '';
 
     public $id = 0;
     public $user_id = 0;
     public $text = '';
+    public $from = '';
 
     // Connect to the DB
     public function __construct($db)
@@ -46,16 +48,18 @@ class Type_3
     public function create()
     {
         $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, '
-         . $this->text_name . ' = :' .$this->text_name ;
+            . $this->text_name . ' = :' . $this->text_name . ', ' . $this->from_name . ' = :' . $this->from_name;
 
         $stmt = $this->conn->prepare($query);
 
         // Clean the data
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->text = htmlspecialchars(strip_tags($this->text));
+        $this->from = htmlspecialchars(strip_tags($this->from));
 
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':' . $this->text_name, $this->text);
+        $stmt->bindParam(':' . $this->from_name, $this->from);
 
         // If data inserted successfully, return True
         if ($stmt->execute()) {
@@ -79,8 +83,11 @@ class Type_3
             case $this->text_name:
                 $temp = 'text';
                 break;
+            case $this->from_name:
+                $temp = 'from';
+                break;
         }
-
+        
         $this->$temp = htmlspecialchars(strip_tags($this->$temp));
         $this->id = htmlspecialchars(strip_tags($this->id));
 

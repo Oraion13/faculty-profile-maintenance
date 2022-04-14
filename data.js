@@ -102,3 +102,20 @@ const Area_of_specialization_api = [
         "specialization": "CLOUD COMPUTING"
     }
 ]
+
+/* --------------------------- Present Additional Responsibilities -------------------*/
+
+const Additional_responsibilities_present_api = [
+    {
+        "additional_responsibility_present_id": 0, // For new data
+        "additional_responsibility_present":
+            "ATTESTING OFFICER, Office of the Controller of Examinations, Anna University, Tirunelveli",
+        "additional_responsibility_present_from": "2015-05-05"
+    },
+    {
+        "additional_responsibility_present_id": 6,
+        "additional_responsibility_present":
+            "Student Counsellor, Department of Mechanical Engineering, Anna University,Chennai",
+        "additional_responsibility_present_from": "2020-05-05"
+    }
+]
