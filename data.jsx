@@ -273,3 +273,37 @@ const Books_published_api = [
     "published_at": ""
   }
 ]
+
+/* -------------------------------------- Papers Published ------------------------------------*/
+
+const Papers_published_api = [
+  {
+    "paper_published_id": 0, // For new data
+    "paper_published": "The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24",
+    "paper_published_at": "2006-09-08",
+    "is_international": 1
+  },
+  {
+    "paper_published_id": 1,
+    "paper_published": "Adaptive multipath multimedia streaming architecture for mobile networks with proactive buffering using mobile proxies, Journal of computing and information technology, published by SRCE-SveuÄ•iliÅ¡ni raÄ•unski centar. Vol. 15, Issue 3, pp. 215-226",
+    "paper_published_at": "2009-08-07",
+    "is_international": 0
+  }
+]
+
+/* -------------------------------------- Papers Presented ------------------------------------*/
+
+const Papers_presented_api = [
+  {
+    "paper_presented_id": 0, // For new data
+    "paper_presented": "The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24",
+    "paper_presented_at": "2006-09-08",
+    "is_international": 1
+  },
+  {
+    "paper_presented_id": 1,
+    "paper_presented": "Adaptive multipath multimedia streaming architecture for mobile networks with proactive buffering using mobile proxies, Journal of computing and information technology, published by SRCE-SveuÄ•iliÅ¡ni raÄ•unski centar. Vol. 15, Issue 3, pp. 215-226",
+    "paper_presented_at": "2009-08-07",
+    "is_international": 0
+  }
+]
