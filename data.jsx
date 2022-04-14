@@ -307,3 +307,20 @@ const Papers_presented_api = [
     "is_international": 0
   }
 ]
+
+/* -------------------------------------- Patents ------------------------------------*/
+
+const Patents_api = [
+  {
+    "patent_id": 0, // For new data
+    "patent": "Filed patent rights for Mini PC Device for Computer Tablein India.",
+    "file_number": 656561,
+    "patent_at": "2007-01-05"
+  },
+  {
+    "patent_id": 1,
+    "patent": "Sample 2",
+    "file_number": 532554,
+    "patent_at": ""
+  }
+]
