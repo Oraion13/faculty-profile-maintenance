@@ -10,7 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
 
-// TYPE 4 file
+// TYPE 5 file
 class Programme_organized_api
 {
     private $Programme_organized;
