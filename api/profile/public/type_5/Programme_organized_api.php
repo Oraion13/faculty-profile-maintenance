@@ -11,9 +11,9 @@ require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
 
 // TYPE 4 file
-class Degree_api
+class Programme_organized_api
 {
-    private $Degree;
+    private $Programme_organized;
 
     // Initialize connection with DB
     public function __construct()
@@ -23,24 +23,24 @@ class Degree_api
         $db = $dbconnection->connect();
 
         // Create an object for users table to do operations
-        $this->Degree = new Type_5($db);
+        $this->Programme_organized = new Type_5($db);
 
         // Set table name
-        $this->Degree->table = 'faculty_degree';
+        $this->Programme_organized->table = 'faculty_programme_organized';
 
         // Set column names
-        $this->Degree->id_name = 'degree_id';
-        $this->Degree->text_name = 'degree';
-        $this->Degree->from_name = 'degree_from';
-        $this->Degree->to_name = 'degree_to';
+        $this->Programme_organized->id_name = 'programme_organized_id';
+        $this->Programme_organized->text_name = 'programme_organized';
+        $this->Programme_organized->from_name = 'programme_organized_from';
+        $this->Programme_organized->to_name = 'programme_organized_to';
     }
 
-    // Get all the data of a user's degree
+    // Get all the data of a user's programme_organized
     public function get()
     {
         // Get the user info from DB
-        $this->Degree->user_id = $_GET['ID'];
-        $all_data = $this->Degree->read_by_id();
+        $this->Programme_organized->user_id = $_GET['ID'];
+        $all_data = $this->Programme_organized->read_by_id();
 
         if ($all_data) {
             $data = array();
@@ -50,25 +50,25 @@ class Degree_api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Degree found');
+            send(400, 'error', 'no user info about Programme_organized found');
             die();
         }
     }
-    // POST a new user's degree
+    // POST a new user's programme_organized
     public function post()
     {
-        if (!$this->Degree->create()) {
+        if (!$this->Programme_organized->create()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'degree cannot be added');
+            send(400, 'error', 'programme_organized cannot be added');
             die();
         }
     }
 
-    // PUT a user's degree
+    // PUT a user's programme_organized
     public function update($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Degree->update($update_str)) {
+            if (!$this->Programme_organized->update($update_str)) {
                 // If can't update the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
@@ -76,17 +76,17 @@ class Degree_api
         }
     }
 
-    // DELETE a user's degree
+    // DELETE a user's programme_organized
     public function delete_data()
     {
-        if (!$this->Degree->delete_row()) {
+        if (!$this->Programme_organized->delete_row()) {
             // If can't delete the data, throw an error message
             send(400, 'error', 'data cannot be deleted');
             die();
         }
     }
 
-    // POST/UPDATE (PUT)/DELETE a user's Degree
+    // POST/UPDATE (PUT)/DELETE a user's Programme_organized
     public function put()
     {
         // Authorization
@@ -98,11 +98,11 @@ class Degree_api
         // Get input data as json
         $data = json_decode(file_get_contents("php://input"));
 
-        // Get all the user's degree info from DB
-        $this->Degree->user_id = $_SESSION['user_id'];
-        $all_data = $this->Degree->read_by_id();
+        // Get all the user's programme_organized info from DB
+        $this->Programme_organized->user_id = $_SESSION['user_id'];
+        $all_data = $this->Programme_organized->read_by_id();
 
-        // Store all degree_id's in an array
+        // Store all programme_organized_id's in an array
         $DB_data = array();
         $data_IDs = array();
         while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
@@ -113,18 +113,18 @@ class Degree_api
         $count = 0;
         while ($count < count($data)) {
             // Clean the data
-            $this->Degree->text_title = $data[$count]->degree;
-            $this->Degree->from_text = $data[$count]->degree_from;
-            $this->Degree->to_int = $data[$count]->degree_to;
+            $this->Programme_organized->text_title = $data[$count]->programme_organized;
+            $this->Programme_organized->from_text = $data[$count]->programme_organized_from;
+            $this->Programme_organized->to_int = $data[$count]->programme_organized_to;
 
-            if ($data[$count]->degree_id === 0) {
+            if ($data[$count]->programme_organized_id === 0) {
                 $this->post();
                 array_splice($data, $count, 1);
                 continue;
             }
 
             // Store the IDs
-            array_push($data_IDs, $data[$count]->degree_id);
+            array_push($data_IDs, $data[$count]->programme_organized_id);
 
             ++$count;
         }
@@ -132,8 +132,8 @@ class Degree_api
         // Delete the data which is abandoned
         $count = 0;
         while ($count < count($DB_data)) {
-            if (!in_array($DB_data[$count]['degree_id'], $data_IDs)) {
-                $this->Degree->id = (int)$DB_data[$count]['degree_id'];
+            if (!in_array($DB_data[$count]['programme_organized_id'], $data_IDs)) {
+                $this->Programme_organized->id = (int)$DB_data[$count]['programme_organized_id'];
                 $this->delete_data();
             }
 
@@ -146,15 +146,15 @@ class Degree_api
             // Clean the data
             // print_r($row);
             foreach ($DB_data as $key => $element) {
-                if ($element['degree_id'] == $data[$count]->degree_id) {
-                    $this->Degree->id = $element['degree_id'];
-                    $this->Degree->text_title = $data[$count]->degree;
-                    $this->Degree->from_text = $data[$count]->degree_from;
-                    $this->Degree->to_int = $data[$count]->degree_to;
+                if ($element['programme_organized_id'] == $data[$count]->programme_organized_id) {
+                    $this->Programme_organized->id = $element['programme_organized_id'];
+                    $this->Programme_organized->text_title = $data[$count]->programme_organized;
+                    $this->Programme_organized->from_text = $data[$count]->programme_organized_from;
+                    $this->Programme_organized->to_int = $data[$count]->programme_organized_to;
 
-                    $this->update($element['degree'], $data[$count]->degree, 'degree');
-                    $this->update($element['degree_from'], $data[$count]->degree_from, 'degree_from');
-                    $this->update($element['degree_to'], $data[$count]->degree_to, 'degree_to');
+                    $this->update($element['programme_organized'], $data[$count]->programme_organized, 'programme_organized');
+                    $this->update($element['programme_organized_from'], $data[$count]->programme_organized_from, 'programme_organized_from');
+                    $this->update($element['programme_organized_to'], $data[$count]->programme_organized_to, 'programme_organized_to');
 
                     break;
                 }
@@ -167,10 +167,10 @@ class Degree_api
     }
 }
 
-// GET all the user's Degree
+// GET all the user's Programme_organized
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $Degree_api = new Degree_api();
-    $Degree_api->get();
+    $Programme_organized_api = new Programme_organized_api();
+    $Programme_organized_api->get();
 }
 
 // To check if an user is logged in
@@ -181,8 +181,8 @@ if (!isset($_SESSION['user_id'])) {
 
 // If a user logged in ...
 
-// POST/UPDATE (PUT) a user's Degree
+// POST/UPDATE (PUT) a user's Programme_organized
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT') {
-    $Degree_api = new Degree_api();
-    $Degree_api->put();
+    $Programme_organized_api = new Programme_organized_api();
+    $Programme_organized_api->put();
 }

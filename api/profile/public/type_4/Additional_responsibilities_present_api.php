@@ -26,7 +26,7 @@ class Additional_responsibilities_present_api
         $this->Additional_responsibilities_present = new Type_4($db);
 
         // Set table name
-        $this->Additional_responsibilities_present->table = 'faculty_Additional_responsibilities_present';
+        $this->Additional_responsibilities_present->table = 'faculty_additional_responsibilities_present';
 
         // Set column names
         $this->Additional_responsibilities_present->id_name = 'additional_responsibility_present_id';

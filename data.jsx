@@ -188,3 +188,54 @@ const Other_employment_api = [
         "other_employment_to": "2015-03-01"
     }
 ]
+
+/* -------------------------------------- Programme Attended ------------------------------------*/
+
+const Programme_attended_api = [
+    {
+        "programme_attended_id": 0, // For new data
+        "programme_attended": "Attended a National level Short Course on AICE-ISTE Winter School on Advanced Java Programming organized by PSG College of Technology",
+        "programme_attended_from": "2002-09-08",
+        "programme_attended_to": "2002-09-12"
+    },
+    {
+        "programme_attended_id": 3,
+        "programme_attended": "Participated in a National level workshop on Object Oriented Analysis and Design using UML and Fundamentals of Rational Rose organized by Rational Software Development Company, India",
+        "programme_attended_from": "2005-09-08",
+        "programme_attended_to": ""
+    }
+]
+
+/* -------------------------------------- Programme Chaired ------------------------------------*/
+
+const Programme_chaired_api = [
+    {
+        "programme_chaired_id": 0, // For new data
+        "programme_chaired": "Attended a National level Short Course on AICE-ISTE Winter School on Advanced Java Programming organized by PSG College of Technology",
+        "programme_chaired_from": "2002-09-08",
+        "programme_chaired_to": "2002-09-12"
+    },
+    {
+        "programme_chaired_id": 3,
+        "programme_chaired": "Participated in a National level workshop on Object Oriented Analysis and Design using UML and Fundamentals of Rational Rose organized by Rational Software Development Company, India",
+        "programme_chaired_from": "2005-09-08",
+        "programme_chaired_to": ""
+    }
+]
+
+/* -------------------------------------- Programme Organized ------------------------------------*/
+
+const Programme_organized_api = [
+    {
+        "programme_organized_id": 0, // For new data
+        "programme_organized": "Attended a National level Short Course on AICE-ISTE Winter School on Advanced Java Programming organized by PSG College of Technology",
+        "programme_organized_from": "2002-09-08",
+        "programme_organized_to": "2002-09-12"
+    },
+    {
+        "programme_organized_id": 3,
+        "programme_organized": "Participated in a National level workshop on Object Oriented Analysis and Design using UML and Fundamentals of Rational Rose organized by Rational Software Development Company, India",
+        "programme_organized_from": "2005-09-08",
+        "programme_organized_to": ""
+    }
+]

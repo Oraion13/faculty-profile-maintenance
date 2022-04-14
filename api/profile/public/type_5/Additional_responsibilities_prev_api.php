@@ -26,7 +26,7 @@ class Additional_responsibilities_prev_api
         $this->Additional_responsibilities_prev = new Type_5($db);
 
         // Set table name
-        $this->Additional_responsibilities_prev->table = 'faculty_Additional_responsibilities_prev';
+        $this->Additional_responsibilities_prev->table = 'faculty_additional_responsibilities_prev';
 
         // Set column names
         $this->Additional_responsibilities_prev->id_name = 'additional_responsibility_prev_id';
