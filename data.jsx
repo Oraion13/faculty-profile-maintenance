@@ -256,3 +256,20 @@ const Special_reprasentations_api = [
         "special_reprasentation_to": ""
     }
 ]
+
+/* -------------------------------------- Books Published ------------------------------------*/
+
+const Books_published_api = [
+  {
+    "book_published_id": 0, // For new data
+    "title": "Communications in Computer and Information Science",
+    "description": "978th edition authored by Vijayakumar P, Vijayakumar P and Kannan A and published by CCIS-Springer, The Gandhigram Rural Institute-Deemed to be Univer.",
+    "published_at": "2002-10-12"
+  },
+  {
+    "book_published_id": 1,
+    "title": "Information Security",
+    "description": "authored by S.Bose and published by Centre for Distance Education Anna University Chennai, Tamil Nadu, India",
+    "published_at": ""
+  }
+]
