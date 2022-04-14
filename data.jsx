@@ -239,3 +239,20 @@ const Programme_organized_api = [
         "programme_organized_to": ""
     }
 ]
+
+/* -------------------------------------- Special Reprasentations ------------------------------------*/
+
+const Special_reprasentations_api = [
+    {
+        "special_reprasentation_id": 0, // For new data
+        "special_reprasentation": "Reviewer in The International Journal of Computers and Applications,ACTA",
+        "special_reprasentation_from": "2002-09-08",
+        "special_reprasentation_to": "2002-10-12"
+    },
+    {
+        "special_reprasentation_id": 1,
+        "special_reprasentation": "Advisory Board Member in International Congress on Pervasive Computing and Management",
+        "special_reprasentation_from": "2005-09-08",
+        "special_reprasentation_to": ""
+    }
+]
