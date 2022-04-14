@@ -139,15 +139,52 @@ const Invited_lectures_api = [
 
 const Additional_responsibilities_prev_api = [
     {
-      "additional_responsibility_prev_id": 0, // For new data
-      "additional_responsibility_prev": "Scrutiny Officer, MIT, Anna University, Chennai",
-      "additional_responsibility_prev_from": "2005-09-08",
-      "additional_responsibility_prev_to": ""
+        "additional_responsibility_prev_id": 0, // For new data
+        "additional_responsibility_prev":
+            "Scrutiny Officer, MIT, Anna University, Chennai",
+        "additional_responsibility_prev_from": "2005-09-08",
+        "additional_responsibility_prev_to": ""
     },
     {
-      "additional_responsibility_prev_id": 4,
-      "additional_responsibility_prev": "Anti-ragging Committee - Coordinator, University College of Engineering, Arni, Anna University, Chennai",
-      "additional_responsibility_prev_from": "2012-05-09",
-      "additional_responsibility_prev_to": "2015-03-18"
+        "additional_responsibility_prev_id": 4,
+        "additional_responsibility_prev":
+            "Anti-ragging Committee - Coordinator, University College of Engineering, Arni, Anna University, Chennai",
+        "additional_responsibility_prev_from": "2012-05-09",
+        "additional_responsibility_prev_to": "2015-03-18"
     }
-  ]
+]
+
+/* -------------------------------------- Degree ------------------------------------*/
+
+const Degree_api = [
+    {
+        "degree_id": 0, // for new data
+        "degree":
+            "M.E. in COMPUTER SCIENCE ENGINEERING , MADURAI KAMARAJAR UNIVERSITY",
+        "degree_from": "2006-09-08",
+        "degree_to": "2009-03-01"
+    },
+    {
+        "degree_id": 5,
+        "degree": "M.B.A. ANNAMALAI UNIVERSITY, ANNAMALAI UNIVERSITY",
+        "degree_from": "2010-09-08",
+        "degree_to": "2012-03-01"
+    }
+]
+
+/* -------------------------------------- Other Employment ------------------------------------*/
+
+const Other_employment_api = [
+    {
+        "other_employment_id": 0, // For new data
+        "other_employment": "Assistant Professor, Annamalai University",
+        "other_employment_from": "2001-09-08",
+        "other_employment_to": "2009-03-01"
+    },
+    {
+        "other_employment_id": 3,
+        "other_employment": "Professor, CEG",
+        "other_employment_from": "2010-09-08",
+        "other_employment_to": "2015-03-01"
+    }
+]
