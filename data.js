@@ -45,7 +45,7 @@ const User_info_api = {
 /* --------------------------- Previous Positions -------------------*/
 const Positions_prev_api = [
     {
-        "position_prev_id": 1,
+        "position_prev_id": 0, // For new data
         "position_id": 4,
         "department_id": 2,
         "position_prev_where": "College of Engineering Guindy, Anna University, Chennai",
@@ -68,7 +68,7 @@ const Positions_prev_api = [
         "position_prev_to": "2008-08-01"
     },
     {
-        "position_prev_id": 0, // For new data
+        "position_prev_id": 20,
         "position_id": 5,
         "department_id": 1,
         "position_prev_where": "Anna University Regional Campus Madurai, Madurai",
@@ -87,5 +87,18 @@ const Memberships_api = [
     {
         "membership_id": 2,
         "membership": "CSI - Life Member : 54353454 "
+    }
+]
+
+/* --------------------------- Area of specialization -------------------*/
+
+const Area_of_specialization_api = [
+    {
+        "specialization_id": 0, // For new data
+        "specialization": "INFORMATION SECURITY"
+    },
+    {
+        "specialization_id": 11,
+        "specialization": "CLOUD COMPUTING"
     }
 ]
