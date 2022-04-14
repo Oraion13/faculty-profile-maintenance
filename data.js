@@ -119,3 +119,18 @@ const Additional_responsibilities_present_api = [
         "additional_responsibility_present_from": "2020-05-05"
     }
 ]
+
+/* --------------------------- Invited Lectures -------------------*/
+
+const Invited_lectures_api = [
+    {
+        "invited_lecture_id": 0, // For new data
+        "invited_lecture": "Delivered a Lecture on Network Programming, Security and Managemen in Faculty Development Programme organized by RCC, Anna University, Chennai - 600 025",
+        "invited_lecture_at": ""
+    },
+    {
+        "invited_lecture_id": 3,
+        "invited_lecture": "Delivered a Lecture on Unix and Network Programming in Faculty Development Programmeorganized by Department of Information Technology , MIT, Anna University, Chennai 600 044",
+        "invited_lecture_at": "2015-09-08"
+    }
+]
