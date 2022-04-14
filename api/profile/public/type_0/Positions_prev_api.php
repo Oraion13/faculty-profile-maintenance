@@ -6,9 +6,9 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
-require_once '../../../config/DbConnection.php';
-require_once '../../../models/Positions_prev.php';
-require_once '../../../utils/send.php';
+require_once '../../../../config/DbConnection.php';
+require_once '../../../../models/Positions_prev.php';
+require_once '../../../../utils/send.php';
 
 class Positions_prev_api
 {
@@ -157,6 +157,8 @@ class Positions_prev_api
                     $this->update($element['position_prev_where'], $data[$count]->position_prev_where, 'position_prev_where');
                     $this->update($element['position_prev_from'], $data[$count]->position_prev_from, 'position_prev_from');
                     $this->update($element['position_prev_to'], $data[$count]->position_prev_to, 'position_prev_to');
+
+                    break;
                 }
             }
 

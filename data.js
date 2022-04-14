@@ -76,3 +76,16 @@ const Positions_prev_api = [
         "position_prev_to": "2015-08-08"
     }
 ]
+
+/* --------------------------- Memberships -------------------*/
+
+const Memberships_api = [
+    {
+        "membership_id": 0, // For new data
+        "membership": "IEEE: 9532143"
+    },
+    {
+        "membership_id": 2,
+        "membership": "CSI - Life Member : 54353454 "
+    }
+]
