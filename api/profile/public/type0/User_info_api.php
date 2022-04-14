@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 require_once '../../../config/DbConnection.php';
-require_once '../../../models/User_info.php';
+require_once '../../../models/type0/User_info.php';
 require_once '../../../utils/send.php';
 
 class User_info_api

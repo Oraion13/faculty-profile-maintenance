@@ -7,7 +7,7 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 require_once '../../../config/DbConnection.php';
-require_once '../../../models/Positions_prev.php';
+require_once '../../../models/type0/Positions_prev.php';
 require_once '../../../utils/send.php';
 
 class Positions_prev_api
