@@ -30,7 +30,7 @@ class User_info_api
     {
         // Get the user info from DB
         $this->User_info->user_id = $_GET['ID'];
-        $all_data = $this->User_info->read();
+        $all_data = $this->User_info->read_by_id();
 
         if ($all_data) {
             echo json_encode($all_data);
@@ -63,7 +63,7 @@ class User_info_api
         $this->User_info->position_present_from = $data->position_present_from;
 
         // Get the user info from DB
-        $all_data = $this->User_info->read();
+        $all_data = $this->User_info->read_by_id();
 
         // If no user info exists
         if (!$all_data) {
@@ -100,7 +100,7 @@ class User_info_api
         $this->User_info->position_present_from = $data->position_present_from;
 
         // Get the user info from DB
-        $all_data = $this->User_info->read();
+        $all_data = $this->User_info->read_by_id();
 
         $error = false;
         $message = '';

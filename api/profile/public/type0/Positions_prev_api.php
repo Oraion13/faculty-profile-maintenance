@@ -30,7 +30,7 @@ class Positions_prev_api
     {
         // Get the user info from DB
         $this->Positions_prev->user_id = $_GET['ID'];
-        $all_data = $this->Positions_prev->read();
+        $all_data = $this->Positions_prev->read_by_id();
 
         if ($all_data) {
             $data = array();
@@ -96,7 +96,7 @@ class Positions_prev_api
 
         // Get all the user's previous position info from DB
         $this->Positions_prev->user_id = $_SESSION['user_id'];
-        $all_data = $this->Positions_prev->read();
+        $all_data = $this->Positions_prev->read_by_id();
 
         // Store all position_prev_id's in an array
         $DB_data = array();
@@ -140,7 +140,6 @@ class Positions_prev_api
 
         // Update the data which is available
         $count = 0;
-        $all_data = $this->Positions_prev->read();
         while ($count < count($data)) {
             // Clean the data
             // print_r($row);

@@ -25,7 +25,7 @@ class User_info
     }
 
     // Read all data of a user
-    public function read()
+    public function read_by_id()
     {
         $columns = $this->table . '.user_info_id, ' . $this->table . '.user_id, ' . $this->table . '.phone, '
             . $this->table . '.address, ' . $this->table . '.position_id, ' . $this->positions . '.position, '

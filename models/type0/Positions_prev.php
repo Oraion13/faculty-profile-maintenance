@@ -1,6 +1,6 @@
 <?php
 
-// Operations for 'faculty_position_prev_id' is handeled here
+// Operations for 'faculty_positions_prev' is handeled here
 class Positions_prev
 {
     private $conn;
@@ -24,7 +24,7 @@ class Positions_prev
     }
 
     // Read all data (previous positions) of a user
-    public function read()
+    public function read_by_id()
     {
         $columns = $this->table . '.position_prev_id, ' . $this->table . '.user_id, '
             . $this->table . '.position_id, ' . $this->positions . '.position, ' . $this->table . '.department_id, '
