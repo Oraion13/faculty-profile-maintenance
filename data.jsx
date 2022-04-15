@@ -381,3 +381,22 @@ const Extension_outreach_api = [
         "number_of_participants": 95
     }
 ]
+
+/* -------------------------------------- Sponsored Projects Completed ------------------------------------*/
+
+const Sponsored_projects_completed = [
+    {
+        "project_id": 0, // For new data
+        "project": "A Virtual Walk Through Of A Home, funded by Solutionstar Services India Private Limited",
+        "project_from": "2001-08-09",
+        "project_to": "2002-10-11",
+        "project_cost": 31.43
+    },
+    {
+        "project_id": 4,
+        "project": "Cross Lingual Information Access System",
+        "project_from": "2004-08-09",
+        "project_to": "2005-10-11",
+        "project_cost": "" // can be 0
+    }
+]
