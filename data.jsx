@@ -260,67 +260,86 @@ const Special_reprasentations_api = [
 /* -------------------------------------- Books Published ------------------------------------*/
 
 const Books_published_api = [
-  {
-    "book_published_id": 0, // For new data
-    "title": "Communications in Computer and Information Science",
-    "description": "978th edition authored by Vijayakumar P, Vijayakumar P and Kannan A and published by CCIS-Springer, The Gandhigram Rural Institute-Deemed to be Univer.",
-    "published_at": "2002-10-12"
-  },
-  {
-    "book_published_id": 1,
-    "title": "Information Security",
-    "description": "authored by S.Bose and published by Centre for Distance Education Anna University Chennai, Tamil Nadu, India",
-    "published_at": ""
-  }
+    {
+        "book_published_id": 0, // For new data
+        "title": "Communications in Computer and Information Science",
+        "description": "978th edition authored by Vijayakumar P, Vijayakumar P and Kannan A and published by CCIS-Springer, The Gandhigram Rural Institute-Deemed to be Univer.",
+        "published_at": "2002-10-12"
+    },
+    {
+        "book_published_id": 1,
+        "title": "Information Security",
+        "description": "authored by S.Bose and published by Centre for Distance Education Anna University Chennai, Tamil Nadu, India",
+        "published_at": ""
+    }
 ]
 
 /* -------------------------------------- Papers Published ------------------------------------*/
 
 const Papers_published_api = [
-  {
-    "paper_published_id": 0, // For new data
-    "paper_published": "The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24",
-    "paper_published_at": "2006-09-08",
-    "is_international": 1
-  },
-  {
-    "paper_published_id": 1,
-    "paper_published": "Adaptive multipath multimedia streaming architecture for mobile networks with proactive buffering using mobile proxies, Journal of computing and information technology, published by SRCE-SveuÄ•iliÅ¡ni raÄ•unski centar. Vol. 15, Issue 3, pp. 215-226",
-    "paper_published_at": "2009-08-07",
-    "is_international": 0
-  }
+    {
+        "paper_published_id": 0, // For new data
+        "paper_published": "The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24",
+        "paper_published_at": "2006-09-08",
+        "is_international": 1
+    },
+    {
+        "paper_published_id": 1,
+        "paper_published": "Adaptive multipath multimedia streaming architecture for mobile networks with proactive buffering using mobile proxies, Journal of computing and information technology, published by SRCE-SveuÄ•iliÅ¡ni raÄ•unski centar. Vol. 15, Issue 3, pp. 215-226",
+        "paper_published_at": "2009-08-07",
+        "is_international": 0
+    }
 ]
 
 /* -------------------------------------- Papers Presented ------------------------------------*/
 
 const Papers_presented_api = [
-  {
-    "paper_presented_id": 0, // For new data
-    "paper_presented": "The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24",
-    "paper_presented_at": "2006-09-08",
-    "is_international": 1
-  },
-  {
-    "paper_presented_id": 1,
-    "paper_presented": "Adaptive multipath multimedia streaming architecture for mobile networks with proactive buffering using mobile proxies, Journal of computing and information technology, published by SRCE-SveuÄ•iliÅ¡ni raÄ•unski centar. Vol. 15, Issue 3, pp. 215-226",
-    "paper_presented_at": "2009-08-07",
-    "is_international": 0
-  }
+    {
+        "paper_presented_id": 0, // For new data
+        "paper_presented": "The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24",
+        "paper_presented_at": "2006-09-08",
+        "is_international": 1
+    },
+    {
+        "paper_presented_id": 1,
+        "paper_presented": "Adaptive multipath multimedia streaming architecture for mobile networks with proactive buffering using mobile proxies, Journal of computing and information technology, published by SRCE-SveuÄ•iliÅ¡ni raÄ•unski centar. Vol. 15, Issue 3, pp. 215-226",
+        "paper_presented_at": "2009-08-07",
+        "is_international": 0
+    }
 ]
 
 /* -------------------------------------- Patents ------------------------------------*/
 
 const Patents_api = [
-  {
-    "patent_id": 0, // For new data
-    "patent": "Filed patent rights for Mini PC Device for Computer Tablein India.",
-    "file_number": 656561,
-    "patent_at": "2007-01-05"
-  },
-  {
-    "patent_id": 1,
-    "patent": "Sample 2",
-    "file_number": 532554,
-    "patent_at": ""
-  }
+    {
+        "patent_id": 0, // For new data
+        "patent": "Filed patent rights for Mini PC Device for Computer Tablein India.",
+        "file_number": 656561,
+        "patent_at": "2007-01-05"
+    },
+    {
+        "patent_id": 1,
+        "patent": "Sample 2",
+        "file_number": 532554,
+        "patent_at": ""
+    }
+]
+
+/* -------------------------------------- Experience Abroad ------------------------------------*/
+
+const Exp_abroad_api = [
+    {
+        "exp_abroad_id": 0, // For new data
+        "exp_abroad": "Visited Thiyagarajar College of Engineering Alumni Association, Dubai",
+        "exp_abroad_from": "2012-08-09",
+        "exp_abroad_to": "2012-10-11",
+        "purpose_of_visit": ""
+    },
+    {
+        "exp_abroad_id": 1,
+        "exp_abroad": "Visited WORLDCOMP-16 , USA",
+        "exp_abroad_from": "2016-06-08",
+        "exp_abroad_to": "",
+        "purpose_of_visit": "To attend and present a paper in the International Conference."
+    }
 ]
