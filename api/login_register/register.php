@@ -38,13 +38,14 @@ if (!$data->full_name || !$data->username || !$data->email || !$data->password) 
 
 $users->username = $data->username;
 $users->email = $data->email;
+$users->honorific = $data->honorific;
 
 // Get the user
 $validate = $users->read_single();
 
 // Checks if email id and username are unique
 if ($validate) {
-    if ($validate['username'] === $data->username) {
+    if (strcmp($validate['username'], $data->username) === 0) {
         send(409, 'error', 'username already taken');
         die();
     } else {

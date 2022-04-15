@@ -7,6 +7,7 @@ class Users
     private $table = 'faculty_users';
 
     public $user_id;
+    public $honorific;
     public $full_name;
     public $username;
     public $email;
@@ -201,6 +202,132 @@ class Users
 
         $stmt->bindParam(':email', $this->email);
         $stmt->bindParam(':password', $this->password);
+
+        // If data updated successfully, return True
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Read all data of a user by ID
+    public function read_by_id()
+    {
+        $columns = $this->table . '.user_id, ' . $this->table . '.honorific, '
+            . $this->table . '.full_name, ' . $this->table . '.username, '
+            . $this->table . '.email';
+        $query = 'SELECT ' . $columns . ' FROM ' . $this->table . ' WHERE user_id = :user_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        // Clean the data
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+
+        $stmt->bindParam(':user_id', $this->user_id);
+
+        if ($stmt->execute()) {
+            // If data exists, return the data
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($row) {
+                return $row;
+            }
+        }
+
+        return false;
+    }
+
+    // Update honorific
+    public function update_honorific()
+    {
+        $query = 'UPDATE ' . $this->table . ' SET honorific = :honorific WHERE user_id = :user_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->honorific = htmlspecialchars(strip_tags($this->honorific));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+
+        $stmt->bindParam(':honorific', $this->honorific);
+        $stmt->bindParam(':user_id', $this->user_id);
+
+        // If data updated successfully, return True
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Update full_name
+    public function update_full_name()
+    {
+        $query = 'UPDATE ' . $this->table . ' SET full_name = :full_name WHERE user_id = :user_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->full_name = htmlspecialchars(strip_tags($this->full_name));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+
+        $stmt->bindParam(':full_name', $this->full_name);
+        $stmt->bindParam(':user_id', $this->user_id);
+
+        // If data updated successfully, return True
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Update username
+    public function update_username()
+    {
+        $query = 'UPDATE ' . $this->table . ' SET username = :username WHERE user_id = :user_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->username = htmlspecialchars(strip_tags($this->username));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+
+        $stmt->bindParam(':username', $this->username);
+        $stmt->bindParam(':user_id', $this->user_id);
+
+        // If data updated successfully, return True
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Update email
+    public function update_email()
+    {
+        $query = 'UPDATE ' . $this->table . ' SET email = :email, is_verified = :is_verified WHERE user_id = :user_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->is_verified = htmlspecialchars(strip_tags($this->is_verified));
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':is_verified', $this->is_verified);
+        $stmt->bindParam(':user_id', $this->user_id);
+
+        // If data updated successfully, return True
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Delete a user
+    public function delete_row()
+    {
+        $query = 'DELETE FROM ' . $this->table . ' WHERE user_id = :user_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->user_id = htmlspecialchars(strip_tags($this->user_id));
+
+        $stmt->bindParam(':user_id', $this->user_id);
 
         // If data updated successfully, return True
         if ($stmt->execute()) {

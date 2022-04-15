@@ -384,7 +384,7 @@ const Extension_outreach_api = [
 
 /* -------------------------------------- Sponsored Projects Completed ------------------------------------*/
 
-const Sponsored_projects_completed = [
+const Sponsored_projects_completed_api = [
     {
         "project_id": 0, // For new data
         "project": "A Virtual Walk Through Of A Home, funded by Solutionstar Services India Private Limited",
