@@ -30,7 +30,7 @@ class Users
     {
         $columns = $this->table . '.user_id, ' . $this->table . '.honorific, '
             . $this->table . '.full_name, ' . $this->table . '.username, '
-            . $this->table . '.email';
+            . $this->table . '.email, ' . $this->table . '.is_verified';
         $query = 'SELECT ' . $columns . ' FROM ' . $this->table;
 
         $stmt = $this->conn->prepare($query);
@@ -215,7 +215,7 @@ class Users
     {
         $columns = $this->table . '.user_id, ' . $this->table . '.honorific, '
             . $this->table . '.full_name, ' . $this->table . '.username, '
-            . $this->table . '.email';
+            . $this->table . '.email, ' . $this->table . '.is_verified';
         $query = 'SELECT ' . $columns . ' FROM ' . $this->table . ' WHERE user_id = :user_id';
 
         $stmt = $this->conn->prepare($query);

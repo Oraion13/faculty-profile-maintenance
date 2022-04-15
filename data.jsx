@@ -1,6 +1,7 @@
 /* ----------------------- Register ------------------------ */
 
 const register = {
+    "honorific": "Mr.",
     "full_name": "full name",
     "username": 1234,
     "email": "example@email.com",

@@ -138,7 +138,7 @@ class Users_api
                     'Email verification from AUTTVL',
                     'Thanks for registration!<br>
                     Click the link below to verify the account,<br>',
-                    'verify'
+                    'Verify_api'
                 )) {
                     $error = true;
                     $message .= ',email,';
@@ -168,7 +168,7 @@ class Users_api
         $this->Users->user_id = $_SESSION['user_id'];
         if ($this->Users->delete_row()) {
             send(200, 'message', 'user deleted successfully');
-            header('Location: ../../../login_register/logout.php');
+            header('Location: ../../../login_register/Logout_api.php');
             return;
         } else {
             send(400, 'error', 'user cannot be deleted');
