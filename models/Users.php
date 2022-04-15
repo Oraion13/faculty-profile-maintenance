@@ -27,7 +27,10 @@ class Users
     // Read all data
     public function read()
     {
-        $query = 'SELECT * FROM ' . $this->table;
+        $columns = $this->table . '.user_id, ' . $this->table . '.honorific, '
+            . $this->table . '.full_name, ' . $this->table . '.username, '
+            . $this->table . '.email';
+        $query = 'SELECT ' . $columns . ' FROM ' . $this->table;
 
         $stmt = $this->conn->prepare($query);
         if ($stmt->execute()) {

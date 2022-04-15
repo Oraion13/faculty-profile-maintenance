@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2022 at 03:43 AM
+-- Generation Time: Apr 15, 2022 at 07:26 AM
 -- Server version: 8.0.28
 -- PHP Version: 8.1.4
 
@@ -546,6 +546,7 @@ INSERT INTO `faculty_sponsored_projects_completed` (`project_id`, `user_id`, `pr
 
 CREATE TABLE `faculty_users` (
   `user_id` int NOT NULL,
+  `honorific` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   `full_name` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
   `username` int NOT NULL,
   `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
@@ -560,9 +561,9 @@ CREATE TABLE `faculty_users` (
 -- Dumping data for table `faculty_users`
 --
 
-INSERT INTO `faculty_users` (`user_id`, `full_name`, `username`, `email`, `password`, `verification_code`, `is_verified`, `password_reset_token`, `password_reset_token_expire`) VALUES
-(24, 'Kannan', 1234, 'kannan13112@gmail.com', '$2y$10$7QADwVL4pbNhs6/7JmGVCec8PgA1ZTUQeyKXxiHbiB3eAC6kXCj82', '411988774bc5d7e0e70a3413ba0244f618c457fa6bd9fd9a43dd70d07dc07500', 1, NULL, NULL),
-(25, 'Oraion', 12345, 'kannan11132@gmail.com', '$2y$10$Ky9D5MFMQQ05BlrysGb2Qu8UMJHvAtlo64hAsLCbzdcqC8nl7G4ey', '7a13868f42666a590f0f1a2ff60d4c33175e3cc321723bf87f8277917e9c1ef2', 1, NULL, NULL);
+INSERT INTO `faculty_users` (`user_id`, `honorific`, `full_name`, `username`, `email`, `password`, `verification_code`, `is_verified`, `password_reset_token`, `password_reset_token_expire`) VALUES
+(24, 'Mr.', 'Kannan', 1234, 'kannan13112@gmail.com', '$2y$10$7QADwVL4pbNhs6/7JmGVCec8PgA1ZTUQeyKXxiHbiB3eAC6kXCj82', '411988774bc5d7e0e70a3413ba0244f618c457fa6bd9fd9a43dd70d07dc07500', 1, NULL, NULL),
+(25, 'Prof.', 'Oraion', 12345, 'kannan11132@gmail.com', '$2y$10$Ky9D5MFMQQ05BlrysGb2Qu8UMJHvAtlo64hAsLCbzdcqC8nl7G4ey', '7a13868f42666a590f0f1a2ff60d4c33175e3cc321723bf87f8277917e9c1ef2', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
