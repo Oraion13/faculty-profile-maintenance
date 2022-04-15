@@ -400,3 +400,26 @@ const Sponsored_projects_completed = [
         "project_cost": "" // can be 0
     }
 ]
+
+/* -------------------------------------- Research Guidance ------------------------------------*/
+
+const Research_guidance_api = [
+    {
+        "research_guidance_id": 0, // For new data
+        "phd_guided": 4,
+        "phd_guiding": 5,
+        "me_guided": 7,
+        "me_guiding": 6,
+        "ms_guided": 0,
+        "ms_guiding": 0
+    },
+    {
+        "research_guidance_id": 1,
+        "phd_guided": 1,
+        "phd_guiding": 2,
+        "me_guided": 3,
+        "me_guiding": 4,
+        "ms_guided": 5,
+        "ms_guiding": "" // can be 0
+    }
+]
