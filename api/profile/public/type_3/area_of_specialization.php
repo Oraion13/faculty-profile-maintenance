@@ -7,13 +7,13 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 require_once '../../../../config/DbConnection.php';
-require_once '../../../../models/Type_4.php';
+require_once '../../../../models/Type_3.php';
 require_once '../../../../utils/send.php';
 
-// TYPE 4 file
-class Invited_lectures_api
+// TYPE 3 file
+class Area_of_specialization_api
 {
-    private $Invited_lectures;
+    private $Area_of_specialization;
 
     // Initialize connection with DB
     public function __construct()
@@ -23,23 +23,21 @@ class Invited_lectures_api
         $db = $dbconnection->connect();
 
         // Create an object for users table to do operations
-        $this->Invited_lectures = new Type_4($db);
+        $this->Area_of_specialization = new Type_3($db);
 
         // Set table name
-        $this->Invited_lectures->table = 'faculty_invited_lectures';
+        $this->Area_of_specialization->table = 'faculty_area_of_specialization';
 
         // Set column names
-        $this->Invited_lectures->id_name = 'invited_lecture_id';
-        $this->Invited_lectures->text_name = 'invited_lecture';
-        $this->Invited_lectures->from_name = 'invited_lecture_at';
+        $this->Area_of_specialization->id_name = 'specialization_id';
+        $this->Area_of_specialization->text_name = 'specialization';
     }
 
-    // Get all the data of a user's invited_lecture
+    // Get all data
     public function get()
     {
         // Get the user info from DB
-        $this->Invited_lectures->user_id = $_GET['ID'];
-        $all_data = $this->Invited_lectures->read_by_id();
+        $all_data = $this->Area_of_specialization->read();
 
         if ($all_data) {
             $data = array();
@@ -49,25 +47,45 @@ class Invited_lectures_api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Invited_lectures found');
-            die();
-        }
-    }
-    // POST a new user's invited_lecture
-    public function post()
-    {
-        if (!$this->Invited_lectures->create()) {
-            // If can't post the data, throw an error message
-            send(400, 'error', 'invited_lecture cannot be added');
+            send(400, 'error', 'no info about Area of specialization found');
             die();
         }
     }
 
-    // PUT a user's invited_lecture
+    // Get all the data of a user's specialization by ID
+    public function get_by_id()
+    {
+        // Get the user info from DB
+        $this->Area_of_specialization->user_id = $_GET['ID'];
+        $all_data = $this->Area_of_specialization->read_by_id();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no user info about Area of specialization found');
+            die();
+        }
+    }
+    // POST a new user's specialization
+    public function post()
+    {
+        if (!$this->Area_of_specialization->create()) {
+            // If can't post the data, throw an error message
+            send(400, 'error', 'specialization cannot be added');
+            die();
+        }
+    }
+
+    // PUT a user's specialization
     public function update($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Invited_lectures->update($update_str)) {
+            if (!$this->Area_of_specialization->update($update_str)) {
                 // If can't update the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
@@ -75,17 +93,17 @@ class Invited_lectures_api
         }
     }
 
-    // DELETE a user's invited_lecture
+    // DELETE a user's specialization
     public function delete_data()
     {
-        if (!$this->Invited_lectures->delete_row()) {
+        if (!$this->Area_of_specialization->delete_row()) {
             // If can't delete the data, throw an error message
             send(400, 'error', 'data cannot be deleted');
             die();
         }
     }
 
-    // POST/UPDATE (PUT)/DELETE a user's Invited_lectures
+    // POST/UPDATE (PUT)/DELETE a user's Area of specialization
     public function put()
     {
         // Authorization
@@ -97,11 +115,11 @@ class Invited_lectures_api
         // Get input data as json
         $data = json_decode(file_get_contents("php://input"));
 
-        // Get all the user's invited_lecture info from DB
-        $this->Invited_lectures->user_id = $_SESSION['user_id'];
-        $all_data = $this->Invited_lectures->read_by_id();
+        // Get all the user's specialization info from DB
+        $this->Area_of_specialization->user_id = $_SESSION['user_id'];
+        $all_data = $this->Area_of_specialization->read_by_id();
 
-        // Store all invited_lecture_id	's in an array
+        // Store all specialization_id's in an array
         $DB_data = array();
         $data_IDs = array();
         while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
@@ -112,17 +130,16 @@ class Invited_lectures_api
         $count = 0;
         while ($count < count($data)) {
             // Clean the data
-            $this->Invited_lectures->text = $data[$count]->invited_lecture;
-            $this->Invited_lectures->from = $data[$count]->invited_lecture_at;
+            $this->Area_of_specialization->text = $data[$count]->specialization;
 
-            if ($data[$count]->invited_lecture_id     === 0) {
+            if ($data[$count]->specialization_id === 0) {
                 $this->post();
                 array_splice($data, $count, 1);
                 continue;
             }
 
             // Store the IDs
-            array_push($data_IDs, $data[$count]->invited_lecture_id);
+            array_push($data_IDs, $data[$count]->specialization_id);
 
             ++$count;
         }
@@ -130,8 +147,8 @@ class Invited_lectures_api
         // Delete the data which is abandoned
         $count = 0;
         while ($count < count($DB_data)) {
-            if (!in_array($DB_data[$count]['invited_lecture_id'], $data_IDs)) {
-                $this->Invited_lectures->id = (int)$DB_data[$count]['invited_lecture_id'];
+            if (!in_array($DB_data[$count]['specialization_id'], $data_IDs)) {
+                $this->Area_of_specialization->id = (int)$DB_data[$count]['specialization_id'];
                 $this->delete_data();
             }
 
@@ -144,13 +161,11 @@ class Invited_lectures_api
             // Clean the data
             // print_r($row);
             foreach ($DB_data as $key => $element) {
-                if ($element['invited_lecture_id'] == $data[$count]->invited_lecture_id) {
-                    $this->Invited_lectures->id = $element['invited_lecture_id'];
-                    $this->Invited_lectures->text = $data[$count]->invited_lecture;
-                    $this->Invited_lectures->from = $data[$count]->invited_lecture_at;
+                if ($element['specialization_id'] == $data[$count]->specialization_id) {
+                    $this->Area_of_specialization->id = $element['specialization_id'];
+                    $this->Area_of_specialization->text = $data[$count]->specialization;
 
-                    $this->update($element['invited_lecture'], $data[$count]->invited_lecture, 'invited_lecture');
-                    $this->update($element['invited_lecture_at'], $data[$count]->invited_lecture_at, 'invited_lecture_at');
+                    $this->update($element['specialization'], $data[$count]->specialization, 'specialization');
 
                     break;
                 }
@@ -159,14 +174,18 @@ class Invited_lectures_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
-// GET all the user's Invited_lectures
+// GET all the user info
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $Invited_lectures_api = new Invited_lectures_api();
-    $Invited_lectures_api->get();
+    $Area_of_specialization_api = new Area_of_specialization_api();
+    if (isset($_GET['ID'])) {
+        $Area_of_specialization_api->get_by_id();
+    } else {
+        $Area_of_specialization_api->get();
+    }
 }
 
 // To check if an user is logged in
@@ -177,8 +196,8 @@ if (!isset($_SESSION['user_id'])) {
 
 // If a user logged in ...
 
-// POST/UPDATE (PUT) a user's Invited_lectures
+// POST/UPDATE (PUT) a user's Area_of_specialization
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT') {
-    $Invited_lectures_api = new Invited_lectures_api();
-    $Invited_lectures_api->put();
+    $Area_of_specialization_api = new Area_of_specialization_api();
+    $Area_of_specialization_api->put();
 }

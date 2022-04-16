@@ -25,8 +25,27 @@ class User_info_api
         $this->User_info = new User_info($db);
     }
 
-    // Get all data of a user info
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->User_info->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no user info found');
+            die();
+        }
+    }
+
+    // Get all data of a user info by ID
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->User_info->user_id = $_GET['ID'];
@@ -67,9 +86,9 @@ class User_info_api
 
         // If no user info exists
         if (!$all_data) {
-            // If no user info exists, insert and get the data
+            // If no user info exists, insert and get_by_id the data
             if ($this->User_info->create()) {
-                $this->get();
+                $this->get_by_id();
             } else {
                 send(400, 'error', 'user info cannot be created');
             }
@@ -107,7 +126,7 @@ class User_info_api
         // If user info already exists, update the user info that changed
         if ($all_data) {
             $this->User_info->user_info_id = $all_data['user_info_id'];
-            
+
             if (strcmp($all_data['phone'], $data->phone) !== 0) {
                 if (!$this->User_info->update('phone')) {
                     $error = true;
@@ -151,11 +170,11 @@ class User_info_api
                 }
             }
 
-            // If updated successfully, get the data, else throw an error message 
+            // If updated successfully, get_by_id the data, else throw an error message 
             if ($error) {
                 send(400, 'error', substr($message, 1, -1) . ' cannot be updated');
             } else {
-                $this->get();
+                $this->get_by_id();
             }
         } else {
             send(400, 'error', 'no user info found');
@@ -167,7 +186,11 @@ class User_info_api
 // GET all the user info
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $User_info_api = new User_info_api();
-    $User_info_api->get();
+    if (isset($_GET['ID'])) {
+        $User_info_api->get_by_id();
+    } else {
+        $User_info_api->get();
+    }
 }
 
 // To check if an user is logged in

@@ -24,7 +24,32 @@ class User_info
         $this->conn = $db;
     }
 
-    // Read all data of a user
+
+    // Read all data
+    public function read()
+    {
+        $columns = $this->table . '.user_info_id, ' . $this->table . '.user_id, ' . $this->table . '.phone, '
+            . $this->table . '.address, ' . $this->table . '.position_id, ' . $this->positions . '.position, '
+            . $this->table . '.department_id, ' . $this->departments . '.department, '
+            . $this->table . '.position_present_where, ' . $this->table . '.position_present_from';
+        $query = 'SELECT ' . $columns . ' FROM ((' . $this->table . ' INNER JOIN ' . $this->positions . ' ON '
+            . $this->table . '.position_id = ' . $this->positions . '.position_id) INNER JOIN '
+            . $this->departments . ' ON ' . $this->table . '.department_id = '
+            . $this->departments . '.department_id)';
+
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            // If data exists, return the data
+            if ($stmt) {
+                return $stmt;
+            }
+        }
+
+        return false;
+    }
+
+    // Read all data of a user  by ID
     public function read_by_id()
     {
         $columns = $this->table . '.user_info_id, ' . $this->table . '.user_id, ' . $this->table . '.phone, '

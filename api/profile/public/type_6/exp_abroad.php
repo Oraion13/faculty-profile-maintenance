@@ -36,8 +36,27 @@ class Exp_abroad_api
         $this->Exp_abroad->text_int_name = 'purpose_of_visit';
     }
 
-    // Get all the data of a user's exp_abroad
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->Exp_abroad->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about Area of specialization found');
+            die();
+        }
+    }
+
+    // Get all the data of a user's exp_abroad
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->Exp_abroad->user_id = $_GET['ID'];
@@ -167,14 +186,18 @@ class Exp_abroad_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
 // GET all the user's Exp_abroad
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Exp_abroad_api = new Exp_abroad_api();
-    $Exp_abroad_api->get();
+    if (isset($_GET['ID'])) {
+        $Exp_abroad_api->get_by_id();
+    } else {
+        $Exp_abroad_api->get();
+    }
 }
 
 // To check if an user is logged in

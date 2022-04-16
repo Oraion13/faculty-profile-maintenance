@@ -36,8 +36,27 @@ class Sponsored_projects_completed_api
         $this->Sponsored_projects_completed->text_int_name = 'project_cost';
     }
 
-    // Get all the data of a user's project
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->Sponsored_projects_completed->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about Area of specialization found');
+            die();
+        }
+    }
+
+    // Get all the data of a user's project
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->Sponsored_projects_completed->user_id = $_GET['ID'];
@@ -167,14 +186,18 @@ class Sponsored_projects_completed_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
 // GET all the user's Sponsored_projects_completed
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Sponsored_projects_completed_api = new Sponsored_projects_completed_api();
-    $Sponsored_projects_completed_api->get();
+    if (isset($_GET['ID'])) {
+        $Sponsored_projects_completed_api->get_by_id();
+    } else {
+        $Sponsored_projects_completed_api->get();
+    }
 }
 
 // To check if an user is logged in

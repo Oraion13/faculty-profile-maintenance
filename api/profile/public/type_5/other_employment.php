@@ -35,8 +35,27 @@ class Other_employment_api
         $this->Other_employment->to_name = 'other_employment_to';
     }
 
-    // Get all the data of a user's other_employment
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->Other_employment->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about Area of specialization found');
+            die();
+        }
+    }
+
+    // Get all the data of a user's other_employment
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->Other_employment->user_id = $_GET['ID'];
@@ -163,14 +182,19 @@ class Other_employment_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
 // GET all the user's Other_employment
+// GET all the user info
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Other_employment_api = new Other_employment_api();
-    $Other_employment_api->get();
+    if (isset($_GET['ID'])) {
+        $Other_employment_api->get_by_id();
+    } else {
+        $Other_employment_api->get();
+    }
 }
 
 // To check if an user is logged in

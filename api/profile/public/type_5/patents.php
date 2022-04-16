@@ -7,13 +7,13 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
 require_once '../../../../config/DbConnection.php';
-require_once '../../../../models/Type_3.php';
+require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
 
-// TYPE 3 file
-class Area_of_specialization_api
+// TYPE 5 file
+class Patents_api
 {
-    private $Area_of_specialization;
+    private $Patents;
 
     // Initialize connection with DB
     public function __construct()
@@ -23,22 +23,23 @@ class Area_of_specialization_api
         $db = $dbconnection->connect();
 
         // Create an object for users table to do operations
-        $this->Area_of_specialization = new Type_3($db);
+        $this->Patents = new Type_5($db);
 
         // Set table name
-        $this->Area_of_specialization->table = 'faculty_area_of_specialization';
+        $this->Patents->table = 'faculty_patents';
 
         // Set column names
-        $this->Area_of_specialization->id_name = 'specialization_id';
-        $this->Area_of_specialization->text_name = 'specialization';
+        $this->Patents->id_name = 'patent_id';
+        $this->Patents->text_name = 'patent';
+        $this->Patents->from_name = 'file_number';
+        $this->Patents->to_name = 'patent_at';
     }
 
-    // Get all the data of a user's specialization
+    // Get all data
     public function get()
     {
         // Get the user info from DB
-        $this->Area_of_specialization->user_id = $_GET['ID'];
-        $all_data = $this->Area_of_specialization->read_by_id();
+        $all_data = $this->Patents->read();
 
         if ($all_data) {
             $data = array();
@@ -48,25 +49,45 @@ class Area_of_specialization_api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Area of specialization found');
-            die();
-        }
-    }
-    // POST a new user's specialization
-    public function post()
-    {
-        if (!$this->Area_of_specialization->create()) {
-            // If can't post the data, throw an error message
-            send(400, 'error', 'specialization cannot be added');
+            send(400, 'error', 'no info about Area of specialization found');
             die();
         }
     }
 
-    // PUT a user's specialization
+    // Get all the data of a user's patent
+    public function get_by_id()
+    {
+        // Get the user info from DB
+        $this->Patents->user_id = $_GET['ID'];
+        $all_data = $this->Patents->read_by_id();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no user info about Patents found');
+            die();
+        }
+    }
+    // POST a new user's patent
+    public function post()
+    {
+        if (!$this->Patents->create()) {
+            // If can't post the data, throw an error message
+            send(400, 'error', 'patent cannot be added');
+            die();
+        }
+    }
+
+    // PUT a user's patent
     public function update($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Area_of_specialization->update($update_str)) {
+            if (!$this->Patents->update($update_str)) {
                 // If can't update the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
@@ -74,17 +95,17 @@ class Area_of_specialization_api
         }
     }
 
-    // DELETE a user's specialization
+    // DELETE a user's patent
     public function delete_data()
     {
-        if (!$this->Area_of_specialization->delete_row()) {
+        if (!$this->Patents->delete_row()) {
             // If can't delete the data, throw an error message
             send(400, 'error', 'data cannot be deleted');
             die();
         }
     }
 
-    // POST/UPDATE (PUT)/DELETE a user's Area of specialization
+    // POST/UPDATE (PUT)/DELETE a user's Patents
     public function put()
     {
         // Authorization
@@ -96,11 +117,11 @@ class Area_of_specialization_api
         // Get input data as json
         $data = json_decode(file_get_contents("php://input"));
 
-        // Get all the user's specialization info from DB
-        $this->Area_of_specialization->user_id = $_SESSION['user_id'];
-        $all_data = $this->Area_of_specialization->read_by_id();
+        // Get all the user's patent info from DB
+        $this->Patents->user_id = $_SESSION['user_id'];
+        $all_data = $this->Patents->read_by_id();
 
-        // Store all specialization_id's in an array
+        // Store all patent_id's in an array
         $DB_data = array();
         $data_IDs = array();
         while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
@@ -111,16 +132,18 @@ class Area_of_specialization_api
         $count = 0;
         while ($count < count($data)) {
             // Clean the data
-            $this->Area_of_specialization->text = $data[$count]->specialization;
+            $this->Patents->text_title = $data[$count]->patent;
+            $this->Patents->from_text = $data[$count]->file_number;
+            $this->Patents->to_int = $data[$count]->patent_at;
 
-            if ($data[$count]->specialization_id === 0) {
+            if ($data[$count]->patent_id === 0) {
                 $this->post();
                 array_splice($data, $count, 1);
                 continue;
             }
 
             // Store the IDs
-            array_push($data_IDs, $data[$count]->specialization_id);
+            array_push($data_IDs, $data[$count]->patent_id);
 
             ++$count;
         }
@@ -128,8 +151,8 @@ class Area_of_specialization_api
         // Delete the data which is abandoned
         $count = 0;
         while ($count < count($DB_data)) {
-            if (!in_array($DB_data[$count]['specialization_id'], $data_IDs)) {
-                $this->Area_of_specialization->id = (int)$DB_data[$count]['specialization_id'];
+            if (!in_array($DB_data[$count]['patent_id'], $data_IDs)) {
+                $this->Patents->id = (int)$DB_data[$count]['patent_id'];
                 $this->delete_data();
             }
 
@@ -142,11 +165,15 @@ class Area_of_specialization_api
             // Clean the data
             // print_r($row);
             foreach ($DB_data as $key => $element) {
-                if ($element['specialization_id'] == $data[$count]->specialization_id) {
-                    $this->Area_of_specialization->id = $element['specialization_id'];
-                    $this->Area_of_specialization->text = $data[$count]->specialization;
+                if ($element['patent_id'] == $data[$count]->patent_id) {
+                    $this->Patents->id = $element['patent_id'];
+                    $this->Patents->text_title = $data[$count]->patent;
+                    $this->Patents->from_text = $data[$count]->file_number;
+                    $this->Patents->to_int = $data[$count]->patent_at;
 
-                    $this->update($element['specialization'], $data[$count]->specialization, 'specialization');
+                    $this->update($element['patent'], $data[$count]->patent, 'patent');
+                    $this->update($element['file_number'], $data[$count]->file_number, 'file_number');
+                    $this->update($element['patent_at'], $data[$count]->patent_at, 'patent_at');
 
                     break;
                 }
@@ -155,14 +182,18 @@ class Area_of_specialization_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
-// GET all the user's Area_of_specialization
+// GET all the user's Patents
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $Area_of_specialization_api = new Area_of_specialization_api();
-    $Area_of_specialization_api->get();
+    $Patents_api = new Patents_api();
+    if (isset($_GET['ID'])) {
+        $Patents_api->get_by_id();
+    } else {
+        $Patents_api->get();
+    }
 }
 
 // To check if an user is logged in
@@ -173,8 +204,8 @@ if (!isset($_SESSION['user_id'])) {
 
 // If a user logged in ...
 
-// POST/UPDATE (PUT) a user's Area_of_specialization
+// POST/UPDATE (PUT) a user's Patents
 if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT') {
-    $Area_of_specialization_api = new Area_of_specialization_api();
-    $Area_of_specialization_api->put();
+    $Patents_api = new Patents_api();
+    $Patents_api->put();
 }

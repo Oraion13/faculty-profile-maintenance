@@ -22,7 +22,24 @@ class Type_4
         $this->conn = $db;
     }
 
-    // Read all data of a user
+    // Read all data
+    public function read()
+    {
+        $query = 'SELECT * FROM ' . $this->table;
+
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            // If data exists, return the data
+            if ($stmt) {
+                return $stmt;
+            }
+        }
+
+        return false;
+    }
+
+    // Read all data of a user by ID
     public function read_by_id()
     {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE user_id = :user_id';
@@ -87,7 +104,7 @@ class Type_4
                 $temp = 'from';
                 break;
         }
-        
+
         $this->$temp = htmlspecialchars(strip_tags($this->$temp));
         $this->id = htmlspecialchars(strip_tags($this->id));
 

@@ -36,8 +36,27 @@ class Research_degree_api
         $this->Research_degree->text_int_name = 'title';
     }
 
-    // Get all the data of a user's research_degree
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->Research_degree->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about Area of specialization found');
+            die();
+        }
+    }
+
+    // Get all the data of a user's research_degree
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->Research_degree->user_id = $_GET['ID'];
@@ -167,14 +186,18 @@ class Research_degree_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
 // GET all the user's Research_degree
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Research_degree_api = new Research_degree_api();
-    $Research_degree_api->get();
+    if (isset($_GET['ID'])) {
+        $Research_degree_api->get_by_id();
+    } else {
+        $Research_degree_api->get();
+    }
 }
 
 // To check if an user is logged in

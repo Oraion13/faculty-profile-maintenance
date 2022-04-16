@@ -35,8 +35,27 @@ class Programme_organized_api
         $this->Programme_organized->to_name = 'programme_organized_to';
     }
 
-    // Get all the data of a user's programme_organized
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->Programme_organized->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about Area of specialization found');
+            die();
+        }
+    }
+
+    // Get all the data of a user's programme_organized
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->Programme_organized->user_id = $_GET['ID'];
@@ -163,14 +182,19 @@ class Programme_organized_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
 // GET all the user's Programme_organized
+// GET all the user info
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Programme_organized_api = new Programme_organized_api();
-    $Programme_organized_api->get();
+    if (isset($_GET['ID'])) {
+        $Programme_organized_api->get_by_id();
+    } else {
+        $Programme_organized_api->get();
+    }
 }
 
 // To check if an user is logged in

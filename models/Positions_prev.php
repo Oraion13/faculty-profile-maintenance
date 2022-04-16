@@ -23,7 +23,28 @@ class Positions_prev
         $this->conn = $db;
     }
 
-    // Read all data (previous positions) of a user
+    // Read all data
+    public function read()
+    {
+        $columns = $this->table . '.position_prev_id, ' . $this->table . '.user_id, '
+            . $this->table . '.position_id, ' . $this->positions . '.position, ' . $this->table . '.department_id, '
+            . $this->departments . '.department, ' . $this->table . '.position_prev_where, '
+            . $this->table . '.position_prev_from, ' . $this->table . '.position_prev_to';
+        $query = 'SELECT ' . $columns . ' FROM ((' . $this->table . ' INNER JOIN ' . $this->positions . ' ON '
+            . $this->table . '.position_id = ' . $this->positions . '.position_id) INNER JOIN '
+            . $this->departments . ' ON ' . $this->table . '.department_id = '
+            . $this->departments . '.department_id)';
+
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute()) {
+            return $stmt;
+        }
+
+        return false;
+    }
+
+    // Read all data (previous positions) of a user by ID
     public function read_by_id()
     {
         $columns = $this->table . '.position_prev_id, ' . $this->table . '.user_id, '

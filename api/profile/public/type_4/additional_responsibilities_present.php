@@ -34,8 +34,27 @@ class Additional_responsibilities_present_api
         $this->Additional_responsibilities_present->from_name = 'additional_responsibility_present_from';
     }
 
-    // Get all the data of a user's additional_responsibility_present
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->Additional_responsibilities_present->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about Additional responsibilities present found');
+            die();
+        }
+    }
+
+    // Get all the data of a user's additional_responsibility_present
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->Additional_responsibilities_present->user_id = $_GET['ID'];
@@ -159,14 +178,18 @@ class Additional_responsibilities_present_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
 // GET all the user's Additional_responsibilities_present
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Additional_responsibilities_present_api = new Additional_responsibilities_present_api();
-    $Additional_responsibilities_present_api->get();
+    if (isset($_GET['ID'])) {
+        $Additional_responsibilities_present_api->get_by_id();
+    } else {
+        $Additional_responsibilities_present_api->get();
+    }
 }
 
 // To check if an user is logged in

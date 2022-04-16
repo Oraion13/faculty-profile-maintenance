@@ -25,8 +25,28 @@ class Positions_prev_api
         $this->Positions_prev = new Positions_prev($db);
     }
 
-    // Get all the data of a user's previous position
+
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->Positions_prev->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about previous positions found');
+            die();
+        }
+    }
+
+    // Get all the data of a user's previous position by ID
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->Positions_prev->user_id = $_GET['ID'];
@@ -173,7 +193,11 @@ class Positions_prev_api
 // GET all the user's previous positions
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Positions_prev_api = new Positions_prev_api();
-    $Positions_prev_api->get();
+    if (isset($_GET['ID'])) {
+        $Positions_prev_api->get_by_id();
+    } else {
+        $Positions_prev_api->get();
+    }
 }
 
 // To check if an user is logged in

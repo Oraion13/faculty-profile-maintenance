@@ -33,8 +33,27 @@ class Memberships_api
         $this->Memberships->text_name = 'membership';
     }
 
-    // Get all the data of a user's membership
+    // Get all data
     public function get()
+    {
+        // Get the user info from DB
+        $all_data = $this->Memberships->read();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about memberships found');
+            die();
+        }
+    }
+
+    // Get all the data of a user's membership by ID
+    public function get_by_id()
     {
         // Get the user info from DB
         $this->Memberships->user_id = $_GET['ID'];
@@ -155,14 +174,18 @@ class Memberships_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 
-// GET all the user's memberships
+// GET all the user info
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Memberships_api = new Memberships_api();
-    $Memberships_api->get();
+    if (isset($_GET['ID'])) {
+        $Memberships_api->get_by_id();
+    } else {
+        $Memberships_api->get();
+    }
 }
 
 // To check if an user is logged in
