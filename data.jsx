@@ -34,7 +34,7 @@ const reset_password = {
 
 /* --------------------------- User Details -------------------- */
 
-const User_info_api = {
+const user_info = {
     "phone": 1234567890,
     "address": "654, south street, Tirunelveli, tvl - 627 600",
     "position_id": 4,
@@ -44,7 +44,7 @@ const User_info_api = {
 }
 
 /* --------------------------- Previous Positions -------------------*/
-const Positions_prev_api = [
+const positions_prev = [
     {
         "position_prev_id": 0, // For new data
         "position_id": 4,
@@ -80,7 +80,7 @@ const Positions_prev_api = [
 
 /* --------------------------- Memberships -------------------*/
 
-const Memberships_api = [
+const memberships = [
     {
         "membership_id": 0, // For new data
         "membership": "IEEE: 9532143"
@@ -93,7 +93,7 @@ const Memberships_api = [
 
 /* --------------------------- Area of specialization -------------------*/
 
-const Area_of_specialization_api = [
+const area_of_specialization = [
     {
         "specialization_id": 0, // For new data
         "specialization": "INFORMATION SECURITY"
@@ -106,7 +106,7 @@ const Area_of_specialization_api = [
 
 /* --------------------------- Present Additional Responsibilities -------------------*/
 
-const Additional_responsibilities_present_api = [
+const additional_responsibilities_present = [
     {
         "additional_responsibility_present_id": 0, // For new data
         "additional_responsibility_present":
@@ -123,7 +123,7 @@ const Additional_responsibilities_present_api = [
 
 /* --------------------------- Invited Lectures -------------------*/
 
-const Invited_lectures_api = [
+const invited_lectures = [
     {
         "invited_lecture_id": 0, // For new data
         "invited_lecture": "Delivered a Lecture on Network Programming, Security and Managemen in Faculty Development Programme organized by RCC, Anna University, Chennai - 600 025",
@@ -138,7 +138,7 @@ const Invited_lectures_api = [
 
 /* --------------------------- Previous Additional Responsibilities -------------------*/
 
-const Additional_responsibilities_prev_api = [
+const additional_responsibilities_prev = [
     {
         "additional_responsibility_prev_id": 0, // For new data
         "additional_responsibility_prev":
@@ -157,7 +157,7 @@ const Additional_responsibilities_prev_api = [
 
 /* -------------------------------------- Degree ------------------------------------*/
 
-const Degree_api = [
+const degree = [
     {
         "degree_id": 0, // for new data
         "degree":
@@ -175,7 +175,7 @@ const Degree_api = [
 
 /* -------------------------------------- Other Employment ------------------------------------*/
 
-const Other_employment_api = [
+const other_employment = [
     {
         "other_employment_id": 0, // For new data
         "other_employment": "Assistant Professor, Annamalai University",
@@ -192,7 +192,7 @@ const Other_employment_api = [
 
 /* -------------------------------------- Programme Attended ------------------------------------*/
 
-const Programme_attended_api = [
+const programme_attended = [
     {
         "programme_attended_id": 0, // For new data
         "programme_attended": "Attended a National level Short Course on AICE-ISTE Winter School on Advanced Java Programming organized by PSG College of Technology",
@@ -209,7 +209,7 @@ const Programme_attended_api = [
 
 /* -------------------------------------- Programme Chaired ------------------------------------*/
 
-const Programme_chaired_api = [
+const programme_chaired = [
     {
         "programme_chaired_id": 0, // For new data
         "programme_chaired": "Attended a National level Short Course on AICE-ISTE Winter School on Advanced Java Programming organized by PSG College of Technology",
@@ -226,7 +226,7 @@ const Programme_chaired_api = [
 
 /* -------------------------------------- Programme Organized ------------------------------------*/
 
-const Programme_organized_api = [
+const programme_organized = [
     {
         "programme_organized_id": 0, // For new data
         "programme_organized": "Attended a National level Short Course on AICE-ISTE Winter School on Advanced Java Programming organized by PSG College of Technology",
@@ -243,7 +243,7 @@ const Programme_organized_api = [
 
 /* -------------------------------------- Special Reprasentations ------------------------------------*/
 
-const Special_reprasentations_api = [
+const special_reprasentations = [
     {
         "special_reprasentation_id": 0, // For new data
         "special_reprasentation": "Reviewer in The International Journal of Computers and Applications,ACTA",
@@ -260,7 +260,7 @@ const Special_reprasentations_api = [
 
 /* -------------------------------------- Books Published ------------------------------------*/
 
-const Books_published_api = [
+const books_published = [
     {
         "book_published_id": 0, // For new data
         "title": "Communications in Computer and Information Science",
@@ -277,7 +277,7 @@ const Books_published_api = [
 
 /* -------------------------------------- Papers Published ------------------------------------*/
 
-const Papers_published_api = [
+const papers_published = [
     {
         "paper_published_id": 0, // For new data
         "paper_published": "The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24",
@@ -294,7 +294,7 @@ const Papers_published_api = [
 
 /* -------------------------------------- Papers Presented ------------------------------------*/
 
-const Papers_presented_api = [
+const papers_presented = [
     {
         "paper_presented_id": 0, // For new data
         "paper_presented": "The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24",
@@ -311,7 +311,7 @@ const Papers_presented_api = [
 
 /* -------------------------------------- Patents ------------------------------------*/
 
-const Patents_api = [
+const patents = [
     {
         "patent_id": 0, // For new data
         "patent": "Filed patent rights for Mini PC Device for Computer Tablein India.",
@@ -328,7 +328,7 @@ const Patents_api = [
 
 /* -------------------------------------- Experience Abroad ------------------------------------*/
 
-const Exp_abroad_api = [
+const exp_abroad = [
     {
         "exp_abroad_id": 0, // For new data
         "exp_abroad": "Visited Thiyagarajar College of Engineering Alumni Association, Dubai",
@@ -347,7 +347,7 @@ const Exp_abroad_api = [
 
 /* -------------------------------------- Research Degree ------------------------------------*/
 
-const Research_degree_api = [
+const research_degree = [
     {
         "research_degree_id": 0,
         "research_degree": "Ph.D. in INFORMATION SECURITY from Faculty of INFORMATION AND COMMUNICATION ENGINEERING, COLLEGE OF ENGINEERING GUINDY, ANNA UNIVERSITY",
@@ -366,7 +366,7 @@ const Research_degree_api = [
 
 /* -------------------------------------- Extension and Outreach Programme ------------------------------------*/
 
-const Extension_outreach_api = [
+const extension_outreach = [
     {
         "extension_outreach_id": 0, // For new data
         "extension_outreach": "Special Observer, H.Sc Tamil Nadu Government Examination , participated by 5000 and funded by Tamil Nadu Government at Madurai District during and",
@@ -385,7 +385,7 @@ const Extension_outreach_api = [
 
 /* -------------------------------------- Sponsored Projects Completed ------------------------------------*/
 
-const Sponsored_projects_completed_api = [
+const sponsored_projects_completed = [
     {
         "project_id": 0, // For new data
         "project": "A Virtual Walk Through Of A Home, funded by Solutionstar Services India Private Limited",
@@ -404,7 +404,7 @@ const Sponsored_projects_completed_api = [
 
 /* -------------------------------------- Research Guidance ------------------------------------*/
 
-const Research_guidance_api = [
+const research_guidance = [
     {
         "research_guidance_id": 0, // For new data
         "phd_guided": 4,
