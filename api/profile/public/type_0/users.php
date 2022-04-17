@@ -11,7 +11,7 @@ require_once '../../../../models/Users.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
 
-class Users_api extends Positions_prev implements api
+class Users_api extends Users implements api
 {
     private $Users;
 
