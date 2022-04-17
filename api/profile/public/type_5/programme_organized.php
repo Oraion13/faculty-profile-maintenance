@@ -9,6 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 5 file
 class Programme_organized_api
@@ -59,7 +60,7 @@ class Programme_organized_api
     {
         // Get the user info from DB
         $this->Programme_organized->user_id = $_GET['ID'];
-        $all_data = $this->Programme_organized->read_by_id();
+        $all_data = $this->Programme_organized->read_row();
 
         if ($all_data) {
             $data = array();
@@ -76,7 +77,7 @@ class Programme_organized_api
     // POST a new user's programme_organized
     public function post()
     {
-        if (!$this->Programme_organized->create()) {
+        if (!$this->Programme_organized->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'programme_organized cannot be added');
             die();
@@ -84,11 +85,11 @@ class Programme_organized_api
     }
 
     // PUT a user's programme_organized
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Programme_organized->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Programme_organized->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -96,7 +97,7 @@ class Programme_organized_api
     }
 
     // DELETE a user's programme_organized
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Programme_organized->delete_row()) {
             // If can't delete the data, throw an error message
@@ -119,7 +120,7 @@ class Programme_organized_api
 
         // Get all the user's programme_organized info from DB
         $this->Programme_organized->user_id = $_SESSION['user_id'];
-        $all_data = $this->Programme_organized->read_by_id();
+        $all_data = $this->Programme_organized->read_row();
 
         // Store all programme_organized_id's in an array
         $DB_data = array();
@@ -153,7 +154,7 @@ class Programme_organized_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['programme_organized_id'], $data_IDs)) {
                 $this->Programme_organized->id = (int)$DB_data[$count]['programme_organized_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -171,9 +172,9 @@ class Programme_organized_api
                     $this->Programme_organized->from_text = $data[$count]->programme_organized_from;
                     $this->Programme_organized->to_int = $data[$count]->programme_organized_to;
 
-                    $this->update($element['programme_organized'], $data[$count]->programme_organized, 'programme_organized');
-                    $this->update($element['programme_organized_from'], $data[$count]->programme_organized_from, 'programme_organized_from');
-                    $this->update($element['programme_organized_to'], $data[$count]->programme_organized_to, 'programme_organized_to');
+                    $this->update_by_id($element['programme_organized'], $data[$count]->programme_organized, 'programme_organized');
+                    $this->update_by_id($element['programme_organized_from'], $data[$count]->programme_organized_from, 'programme_organized_from');
+                    $this->update_by_id($element['programme_organized_to'], $data[$count]->programme_organized_to, 'programme_organized_to');
 
                     break;
                 }

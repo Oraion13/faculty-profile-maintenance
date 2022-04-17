@@ -1,5 +1,7 @@
 <?php
 
+require_once './model.php';
+
 // Operations for '
 // faculty_additional_responsibilities_prev, 
 // faculty_degree, 
@@ -15,7 +17,7 @@
 //
 // faculty_books_published'
 // is handeled here
-class Type_5
+class Type_5 implements model
 {
     private $conn;
 
@@ -56,7 +58,7 @@ class Type_5
     }
 
     // Read all data of a user by ID
-    public function read_by_id()
+    public function read_row()
     {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE user_id = :user_id';
 
@@ -78,7 +80,7 @@ class Type_5
     }
 
     // Insert user data
-    public function create()
+    public function post()
     {
         $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, '
             . $this->text_name . ' = :' . $this->text_name . ', ' . $this->from_name . ' = :' . $this->from_name
@@ -106,7 +108,7 @@ class Type_5
     }
 
     // Update a field
-    public function update($to_update)
+    public function update_row($to_update)
     {
         $to_set = $to_update . ' = :' . $to_update;
         $query = 'UPDATE ' . $this->table . ' SET ' . $to_set . ' WHERE ' . $this->id_name . ' = :' . $this->id_name;

@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_8.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 8 file
-class Research_guidance_api
+class Research_guidance_api extends Type_8 implements api
 {
     private $Research_guidance;
 
@@ -62,7 +63,7 @@ class Research_guidance_api
     {
         // Get the user info from DB
         $this->Research_guidance->user_id = $_GET['ID'];
-        $all_data = $this->Research_guidance->read_by_id();
+        $all_data = $this->Research_guidance->read_row();
 
         if ($all_data) {
             $data = array();
@@ -79,7 +80,7 @@ class Research_guidance_api
     // POST a new user's research_guidance
     public function post()
     {
-        if (!$this->Research_guidance->create()) {
+        if (!$this->Research_guidance->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'research_guidance cannot be added');
             die();
@@ -87,11 +88,11 @@ class Research_guidance_api
     }
 
     // PUT a user's research_guidance
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Research_guidance->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Research_guidance->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -99,7 +100,7 @@ class Research_guidance_api
     }
 
     // DELETE a user's research_guidance
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Research_guidance->delete_row()) {
             // If can't delete the data, throw an error message
@@ -122,7 +123,7 @@ class Research_guidance_api
 
         // Get all the user's research_guidance info from DB
         $this->Research_guidance->user_id = $_SESSION['user_id'];
-        $all_data = $this->Research_guidance->read_by_id();
+        $all_data = $this->Research_guidance->read_row();
 
         // Store all research_guidance_id's in an array
         $DB_data = array();
@@ -159,7 +160,7 @@ class Research_guidance_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['research_guidance_id'], $data_IDs)) {
                 $this->Research_guidance->id = (int)$DB_data[$count]['research_guidance_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -180,12 +181,12 @@ class Research_guidance_api
                     $this->Research_guidance->col5 = $data[$count]->ms_guided;
                     $this->Research_guidance->col6 = $data[$count]->ms_guiding;
 
-                    $this->update($element['phd_guided'], $data[$count]->phd_guided, 'phd_guided');
-                    $this->update($element['phd_guiding'], $data[$count]->phd_guiding, 'phd_guiding');
-                    $this->update($element['me_guided'], $data[$count]->me_guided, 'me_guided');
-                    $this->update($element['me_guiding'], $data[$count]->me_guiding, 'me_guiding');
-                    $this->update($element['ms_guided'], $data[$count]->ms_guided, 'ms_guided');
-                    $this->update($element['ms_guiding'], $data[$count]->ms_guiding, 'ms_guiding');
+                    $this->update_by_id($element['phd_guided'], $data[$count]->phd_guided, 'phd_guided');
+                    $this->update_by_id($element['phd_guiding'], $data[$count]->phd_guiding, 'phd_guiding');
+                    $this->update_by_id($element['me_guided'], $data[$count]->me_guided, 'me_guided');
+                    $this->update_by_id($element['me_guiding'], $data[$count]->me_guiding, 'me_guiding');
+                    $this->update_by_id($element['ms_guided'], $data[$count]->ms_guided, 'ms_guided');
+                    $this->update_by_id($element['ms_guiding'], $data[$count]->ms_guiding, 'ms_guiding');
 
                     break;
                 }

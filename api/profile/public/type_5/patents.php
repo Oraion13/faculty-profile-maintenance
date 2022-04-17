@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 5 file
-class Patents_api
+class Patents_api extends Type_5 implements api
 {
     private $Patents;
 
@@ -59,7 +60,7 @@ class Patents_api
     {
         // Get the user info from DB
         $this->Patents->user_id = $_GET['ID'];
-        $all_data = $this->Patents->read_by_id();
+        $all_data = $this->Patents->read_row();
 
         if ($all_data) {
             $data = array();
@@ -76,7 +77,7 @@ class Patents_api
     // POST a new user's patent
     public function post()
     {
-        if (!$this->Patents->create()) {
+        if (!$this->Patents->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'patent cannot be added');
             die();
@@ -84,11 +85,11 @@ class Patents_api
     }
 
     // PUT a user's patent
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Patents->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Patents->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -96,7 +97,7 @@ class Patents_api
     }
 
     // DELETE a user's patent
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Patents->delete_row()) {
             // If can't delete the data, throw an error message
@@ -119,7 +120,7 @@ class Patents_api
 
         // Get all the user's patent info from DB
         $this->Patents->user_id = $_SESSION['user_id'];
-        $all_data = $this->Patents->read_by_id();
+        $all_data = $this->Patents->read_row();
 
         // Store all patent_id's in an array
         $DB_data = array();
@@ -153,7 +154,7 @@ class Patents_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['patent_id'], $data_IDs)) {
                 $this->Patents->id = (int)$DB_data[$count]['patent_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -171,9 +172,9 @@ class Patents_api
                     $this->Patents->from_text = $data[$count]->file_number;
                     $this->Patents->to_int = $data[$count]->patent_at;
 
-                    $this->update($element['patent'], $data[$count]->patent, 'patent');
-                    $this->update($element['file_number'], $data[$count]->file_number, 'file_number');
-                    $this->update($element['patent_at'], $data[$count]->patent_at, 'patent_at');
+                    $this->update_by_id($element['patent'], $data[$count]->patent, 'patent');
+                    $this->update_by_id($element['file_number'], $data[$count]->file_number, 'file_number');
+                    $this->update_by_id($element['patent_at'], $data[$count]->patent_at, 'patent_at');
 
                     break;
                 }

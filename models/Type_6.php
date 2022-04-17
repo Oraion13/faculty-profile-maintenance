@@ -1,12 +1,14 @@
 <?php
 
+require_once './model.php';
+
 // Operations for '
 // faculty_exp_abroad,
 // faculty_research_degree,
 // faculty_extension_outreach,
 // faculty_sponsered_projects_completed
 // is handeled here
-class Type_6
+class Type_6 implements model
 {
     private $conn;
 
@@ -49,7 +51,7 @@ class Type_6
     }
 
     // Read all data of a user by ID
-    public function read_by_id()
+    public function read_row()
     {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE user_id = :user_id';
 
@@ -71,7 +73,7 @@ class Type_6
     }
 
     // Insert user data
-    public function create()
+    public function post()
     {
         $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, '
             . $this->text_name . ' = :' . $this->text_name . ', ' . $this->from_name . ' = :' . $this->from_name
@@ -102,7 +104,7 @@ class Type_6
     }
 
     // Update a field
-    public function update($to_update)
+    public function update_row($to_update)
     {
         $to_set = $to_update . ' = :' . $to_update;
         $query = 'UPDATE ' . $this->table . ' SET ' . $to_set . ' WHERE ' . $this->id_name . ' = :' . $this->id_name;

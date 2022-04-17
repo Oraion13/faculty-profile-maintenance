@@ -1,9 +1,11 @@
 <?php
 
+require_once './model.php';
+
 // Operations for '
 // faculty_research_guidance
 // is handeled here
-class Type_8
+class Type_8 implements model
 {
     private $conn;
 
@@ -50,7 +52,7 @@ class Type_8
     }
 
     // Read all data of a user  by ID
-    public function read_by_id()
+    public function read_row()
     {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE user_id = :user_id';
 
@@ -72,7 +74,7 @@ class Type_8
     }
 
     // Insert user data
-    public function create()
+    public function post()
     {
         $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, '
             . $this->col1_name . ' = :' . $this->col1_name . ', ' . $this->col2_name . ' = :' . $this->col2_name
@@ -109,7 +111,7 @@ class Type_8
     }
 
     // Update a field
-    public function update($to_update)
+    public function update_row($to_update)
     {
         $to_set = $to_update . ' = :' . $to_update;
         $query = 'UPDATE ' . $this->table . ' SET ' . $to_set . ' WHERE ' . $this->id_name . ' = :' . $this->id_name;

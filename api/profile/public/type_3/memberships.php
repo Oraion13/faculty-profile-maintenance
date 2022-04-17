@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_3.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 3 file
-class Memberships_api
+class Memberships_api extends Type_3 implements api
 {
     private $Memberships;
 
@@ -57,7 +58,7 @@ class Memberships_api
     {
         // Get the user info from DB
         $this->Memberships->user_id = $_GET['ID'];
-        $all_data = $this->Memberships->read_by_id();
+        $all_data = $this->Memberships->read_row();
 
         if ($all_data) {
             $data = array();
@@ -74,7 +75,7 @@ class Memberships_api
     // POST a new user's membership
     public function post()
     {
-        if (!$this->Memberships->create()) {
+        if (!$this->Memberships->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'membership cannot be added');
             die();
@@ -82,11 +83,11 @@ class Memberships_api
     }
 
     // PUT a user's membership
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Memberships->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Memberships->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -94,7 +95,7 @@ class Memberships_api
     }
 
     // DELETE a user's membership
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Memberships->delete_row()) {
             // If can't delete the data, throw an error message
@@ -117,7 +118,7 @@ class Memberships_api
 
         // Get all the user's membership info from DB
         $this->Memberships->user_id = $_SESSION['user_id'];
-        $all_data = $this->Memberships->read_by_id();
+        $all_data = $this->Memberships->read_row();
 
         // Store all membership_id's in an array
         $DB_data = array();
@@ -149,7 +150,7 @@ class Memberships_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['membership_id'], $data_IDs)) {
                 $this->Memberships->id = (int)$DB_data[$count]['membership_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -165,7 +166,7 @@ class Memberships_api
                     $this->Memberships->id = $element['membership_id'];
                     $this->Memberships->text = $data[$count]->membership;
 
-                    $this->update($element['membership'], $data[$count]->membership, 'membership');
+                    $this->update_by_id($element['membership'], $data[$count]->membership, 'membership');
 
                     break;
                 }

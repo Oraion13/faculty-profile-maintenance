@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 5 file
-class Special_respresentations_api
+class Special_respresentations_api extends Type_5 implements api
 {
     private $Special_representations;
 
@@ -59,7 +60,7 @@ class Special_respresentations_api
     {
         // Get the user info from DB
         $this->Special_representations->user_id = $_GET['ID'];
-        $all_data = $this->Special_representations->read_by_id();
+        $all_data = $this->Special_representations->read_row();
 
         if ($all_data) {
             $data = array();
@@ -76,7 +77,7 @@ class Special_respresentations_api
     // POST a new user's special_representation
     public function post()
     {
-        if (!$this->Special_representations->create()) {
+        if (!$this->Special_representations->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'special_representation cannot be added');
             die();
@@ -84,11 +85,11 @@ class Special_respresentations_api
     }
 
     // PUT a user's special_representation
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Special_representations->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Special_representations->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -96,7 +97,7 @@ class Special_respresentations_api
     }
 
     // DELETE a user's special_representation
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Special_representations->delete_row()) {
             // If can't delete the data, throw an error message
@@ -119,7 +120,7 @@ class Special_respresentations_api
 
         // Get all the user's special_representation info from DB
         $this->Special_representations->user_id = $_SESSION['user_id'];
-        $all_data = $this->Special_representations->read_by_id();
+        $all_data = $this->Special_representations->read_row();
 
         // Store all special_representation_id's in an array
         $DB_data = array();
@@ -153,7 +154,7 @@ class Special_respresentations_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['special_representation_id'], $data_IDs)) {
                 $this->Special_representations->id = (int)$DB_data[$count]['special_representation_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -171,9 +172,9 @@ class Special_respresentations_api
                     $this->Special_representations->from_text = $data[$count]->special_representation_from;
                     $this->Special_representations->to_int = $data[$count]->special_representation_to;
 
-                    $this->update($element['special_representation'], $data[$count]->special_representation, 'special_representation');
-                    $this->update($element['special_representation_from'], $data[$count]->special_representation_from, 'special_representation_from');
-                    $this->update($element['special_representation_to'], $data[$count]->special_representation_to, 'special_representation_to');
+                    $this->update_by_id($element['special_representation'], $data[$count]->special_representation, 'special_representation');
+                    $this->update_by_id($element['special_representation_from'], $data[$count]->special_representation_from, 'special_representation_from');
+                    $this->update_by_id($element['special_representation_to'], $data[$count]->special_representation_to, 'special_representation_to');
 
                     break;
                 }

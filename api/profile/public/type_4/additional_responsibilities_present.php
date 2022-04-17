@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_4.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 4 file
-class Additional_responsibilities_present_api
+class Additional_responsibilities_present_api extends Type_4 implements api
 {
     private $Additional_responsibilities_present;
 
@@ -58,7 +59,7 @@ class Additional_responsibilities_present_api
     {
         // Get the user info from DB
         $this->Additional_responsibilities_present->user_id = $_GET['ID'];
-        $all_data = $this->Additional_responsibilities_present->read_by_id();
+        $all_data = $this->Additional_responsibilities_present->read_row();
 
         if ($all_data) {
             $data = array();
@@ -75,7 +76,7 @@ class Additional_responsibilities_present_api
     // POST a new user's additional_responsibility_present
     public function post()
     {
-        if (!$this->Additional_responsibilities_present->create()) {
+        if (!$this->Additional_responsibilities_present->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'additional_responsibility_present cannot be added');
             die();
@@ -83,11 +84,11 @@ class Additional_responsibilities_present_api
     }
 
     // PUT a user's additional_responsibility_present
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Additional_responsibilities_present->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Additional_responsibilities_present->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -95,7 +96,7 @@ class Additional_responsibilities_present_api
     }
 
     // DELETE a user's additional_responsibility_present
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Additional_responsibilities_present->delete_row()) {
             // If can't delete the data, throw an error message
@@ -118,7 +119,7 @@ class Additional_responsibilities_present_api
 
         // Get all the user's additional_responsibility_present info from DB
         $this->Additional_responsibilities_present->user_id = $_SESSION['user_id'];
-        $all_data = $this->Additional_responsibilities_present->read_by_id();
+        $all_data = $this->Additional_responsibilities_present->read_row();
 
         // Store all additional_responsibility_present_id's in an array
         $DB_data = array();
@@ -151,7 +152,7 @@ class Additional_responsibilities_present_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['additional_responsibility_present_id'], $data_IDs)) {
                 $this->Additional_responsibilities_present->id = (int)$DB_data[$count]['additional_responsibility_present_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -168,8 +169,8 @@ class Additional_responsibilities_present_api
                     $this->Additional_responsibilities_present->text = $data[$count]->additional_responsibility_present;
                     $this->Additional_responsibilities_present->from = $data[$count]->additional_responsibility_present_from;
 
-                    $this->update($element['additional_responsibility_present'], $data[$count]->additional_responsibility_present, 'additional_responsibility_present');
-                    $this->update($element['additional_responsibility_present_from'], $data[$count]->additional_responsibility_present_from, 'additional_responsibility_present_from');
+                    $this->update_by_id($element['additional_responsibility_present'], $data[$count]->additional_responsibility_present, 'additional_responsibility_present');
+                    $this->update_by_id($element['additional_responsibility_present_from'], $data[$count]->additional_responsibility_present_from, 'additional_responsibility_present_from');
 
                     break;
                 }

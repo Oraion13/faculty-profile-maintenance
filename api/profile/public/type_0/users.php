@@ -9,9 +9,9 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Users.php';
 require_once '../../../../utils/send.php';
-require_once './verification_mail.php';
+require_once '../../../../utils/api.php';
 
-class Users_api
+class Users_api extends Positions_prev implements api
 {
     private $Users;
 
@@ -61,6 +61,31 @@ class Users_api
         }
     }
 
+    // Update a user
+    public function update_by_id($DB_data, $to_update, $update_str)
+    {
+        // later use
+    }
+
+    // Delete a user
+    public function delete_by_id()
+    {
+        // Authorization
+        if ($_SESSION['user_id'] != $_GET['ID']) {
+            send(401, 'error', 'unauthorized');
+            die();
+        }
+
+        $this->Users->user_id = $_SESSION['user_id'];
+        if ($this->Users->delete_row()) {
+            send(200, 'message', 'user deleted successfully');
+            header('Location: ../../../login_register/Logout_api.php');
+            return;
+        } else {
+            send(400, 'error', 'user cannot be deleted');
+        }
+    }
+
     // Update user's info
     public function put()
     {
@@ -104,7 +129,7 @@ class Users_api
                 // Get the user
                 $validate = $this->Users->read_single();
 
-                // Checks if email id and username are unique
+                // Checks if username is unique
                 if ($validate) {
                     send(409, 'error', 'username already taken');
                     die();
@@ -120,59 +145,57 @@ class Users_api
                 // Get the user
                 $validate = $this->Users->read_single();
 
-                // Checks if email id and username are unique
-                if (strcmp($validate['email'], $data->email) === 0) {
+                // Checks if mail is unique
+                if ($validate) {
                     send(409, 'error', 'email already taken');
                     die();
                 }
 
-                // Email verification code
-                $verification_code = bin2hex(random_bytes(32));
-                $this->Users->verification_code = $verification_code;
-                $this->Users->is_verified = 0;
-
-                if (!$this->Users->update_email() && verification_mail(
-                    $data->email,
-                    $data->username,
-                    $verification_code,
-                    'Email verification from AUTTVL',
-                    'Thanks for registration!<br>
-                    Click the link below to verify the account,<br>',
-                    'Verify_api'
-                )) {
+                if (!$this->Users->update_email()) {
                     $error = true;
                     $message .= ',email,';
                 }
             }
 
+            // if (strcmp($data->email, $all_data['email']) !== 0) {
+            //     // Get the user
+            //     $validate = $this->Users->read_single();
+
+            //     // Checks if email id and username are unique
+            //     if (strcmp($validate['email'], $data->email) === 0) {
+            //         send(409, 'error', 'email already taken');
+            //         die();
+            //     }
+
+            //     // Email verification code
+            //     $verification_code = bin2hex(random_bytes(32));
+            //     $this->Users->verification_code = $verification_code;
+            //     $this->Users->is_verified = 0;
+
+            //     if (!$this->Users->update_email() && verification_mail(
+            //         $data->email,
+            //         $data->username,
+            //         $verification_code,
+            //         'Email verification from AUTTVL',
+            //         'Thanks for registration!<br>
+            //         Click the link below to verify the account,<br>',
+            //         'Verify_api'
+            //     )) {
+            //         $error = true;
+            //         $message .= ',email,';
+            //     }
+            // }
+
             // If updated successfully, get the data, else throw an error message 
-            if ($error) {
-                send(400, 'error', substr($message, 1, -1) . ' cannot be updated');
-            } else {
-                $this->get_by_id();
-            }
+            $this->get_by_id();
         } else {
             send(400, 'error', 'no user found');
         }
     }
 
-    // Delete a user
-    public function delete_by_id()
+    public function post()
     {
-        // Authorization
-        if ($_SESSION['user_id'] != $_GET['ID']) {
-            send(401, 'error', 'unauthorized');
-            die();
-        }
-
-        $this->Users->user_id = $_SESSION['user_id'];
-        if ($this->Users->delete_row()) {
-            send(200, 'message', 'user deleted successfully');
-            header('Location: ../../../login_register/Logout_api.php');
-            return;
-        } else {
-            send(400, 'error', 'user cannot be deleted');
-        }
+        // Later use
     }
 }
 

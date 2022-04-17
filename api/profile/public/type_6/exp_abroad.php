@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_6.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 6 file
-class Exp_abroad_api
+class Exp_abroad_api extends Type_6 implements api
 {
     private $Exp_abroad;
 
@@ -60,7 +61,7 @@ class Exp_abroad_api
     {
         // Get the user info from DB
         $this->Exp_abroad->user_id = $_GET['ID'];
-        $all_data = $this->Exp_abroad->read_by_id();
+        $all_data = $this->Exp_abroad->read_row();
 
         if ($all_data) {
             $data = array();
@@ -77,7 +78,7 @@ class Exp_abroad_api
     // POST a new user's exp_abroad
     public function post()
     {
-        if (!$this->Exp_abroad->create()) {
+        if (!$this->Exp_abroad->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'exp_abroad cannot be added');
             die();
@@ -85,11 +86,11 @@ class Exp_abroad_api
     }
 
     // PUT a user's exp_abroad
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Exp_abroad->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Exp_abroad->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -97,7 +98,7 @@ class Exp_abroad_api
     }
 
     // DELETE a user's exp_abroad
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Exp_abroad->delete_row()) {
             // If can't delete the data, throw an error message
@@ -120,7 +121,7 @@ class Exp_abroad_api
 
         // Get all the user's exp_abroad info from DB
         $this->Exp_abroad->user_id = $_SESSION['user_id'];
-        $all_data = $this->Exp_abroad->read_by_id();
+        $all_data = $this->Exp_abroad->read_row();
 
         // Store all exp_abroad_id's in an array
         $DB_data = array();
@@ -155,7 +156,7 @@ class Exp_abroad_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['exp_abroad_id'], $data_IDs)) {
                 $this->Exp_abroad->id = (int)$DB_data[$count]['exp_abroad_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -174,10 +175,10 @@ class Exp_abroad_api
                     $this->Exp_abroad->to = $data[$count]->exp_abroad_to;
                     $this->Exp_abroad->text_int = $data[$count]->purpose_of_visit;
 
-                    $this->update($element['exp_abroad'], $data[$count]->exp_abroad, 'exp_abroad');
-                    $this->update($element['exp_abroad_from'], $data[$count]->exp_abroad_from, 'exp_abroad_from');
-                    $this->update($element['exp_abroad_to'], $data[$count]->exp_abroad_to, 'exp_abroad_to');
-                    $this->update($element['purpose_of_visit'], $data[$count]->purpose_of_visit, 'purpose_of_visit');
+                    $this->update_by_id($element['exp_abroad'], $data[$count]->exp_abroad, 'exp_abroad');
+                    $this->update_by_id($element['exp_abroad_from'], $data[$count]->exp_abroad_from, 'exp_abroad_from');
+                    $this->update_by_id($element['exp_abroad_to'], $data[$count]->exp_abroad_to, 'exp_abroad_to');
+                    $this->update_by_id($element['purpose_of_visit'], $data[$count]->purpose_of_visit, 'purpose_of_visit');
 
                     break;
                 }

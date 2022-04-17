@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_3.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 3 file
-class Area_of_specialization_api
+class Area_of_specialization_api extends Type_3 implements api
 {
     private $Area_of_specialization;
 
@@ -57,7 +58,7 @@ class Area_of_specialization_api
     {
         // Get the user info from DB
         $this->Area_of_specialization->user_id = $_GET['ID'];
-        $all_data = $this->Area_of_specialization->read_by_id();
+        $all_data = $this->Area_of_specialization->read_row();
 
         if ($all_data) {
             $data = array();
@@ -74,7 +75,7 @@ class Area_of_specialization_api
     // POST a new user's specialization
     public function post()
     {
-        if (!$this->Area_of_specialization->create()) {
+        if (!$this->Area_of_specialization->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'specialization cannot be added');
             die();
@@ -82,11 +83,11 @@ class Area_of_specialization_api
     }
 
     // PUT a user's specialization
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Area_of_specialization->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Area_of_specialization->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -94,7 +95,7 @@ class Area_of_specialization_api
     }
 
     // DELETE a user's specialization
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Area_of_specialization->delete_row()) {
             // If can't delete the data, throw an error message
@@ -117,7 +118,7 @@ class Area_of_specialization_api
 
         // Get all the user's specialization info from DB
         $this->Area_of_specialization->user_id = $_SESSION['user_id'];
-        $all_data = $this->Area_of_specialization->read_by_id();
+        $all_data = $this->Area_of_specialization->read_row();
 
         // Store all specialization_id's in an array
         $DB_data = array();
@@ -149,7 +150,7 @@ class Area_of_specialization_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['specialization_id'], $data_IDs)) {
                 $this->Area_of_specialization->id = (int)$DB_data[$count]['specialization_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -165,7 +166,7 @@ class Area_of_specialization_api
                     $this->Area_of_specialization->id = $element['specialization_id'];
                     $this->Area_of_specialization->text = $data[$count]->specialization;
 
-                    $this->update($element['specialization'], $data[$count]->specialization, 'specialization');
+                    $this->update_by_id($element['specialization'], $data[$count]->specialization, 'specialization');
 
                     break;
                 }

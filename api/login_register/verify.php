@@ -6,7 +6,7 @@ require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
 require_once '../../utils/send.php';
 
-class Verify_api
+class Verify_api extends Users
 {
     private $Users;
 

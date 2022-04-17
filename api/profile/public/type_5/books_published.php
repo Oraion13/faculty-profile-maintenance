@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 5 file
-class Books_published_api
+class Books_published_api extends Type_5 implements api
 {
     private $Books_published;
 
@@ -59,7 +60,7 @@ class Books_published_api
     {
         // Get the user info from DB
         $this->Books_published->user_id = $_GET['ID'];
-        $all_data = $this->Books_published->read_by_id();
+        $all_data = $this->Books_published->read_row();
 
         if ($all_data) {
             $data = array();
@@ -76,7 +77,7 @@ class Books_published_api
     // POST a new user's title
     public function post()
     {
-        if (!$this->Books_published->create()) {
+        if (!$this->Books_published->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'title cannot be added');
             die();
@@ -84,11 +85,11 @@ class Books_published_api
     }
 
     // PUT a user's title
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Books_published->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Books_published->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -96,7 +97,7 @@ class Books_published_api
     }
 
     // DELETE a user's title
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Books_published->delete_row()) {
             // If can't delete the data, throw an error message
@@ -119,7 +120,7 @@ class Books_published_api
 
         // Get all the user's title info from DB
         $this->Books_published->user_id = $_SESSION['user_id'];
-        $all_data = $this->Books_published->read_by_id();
+        $all_data = $this->Books_published->read_row();
 
         // Store all book_published_id's in an array
         $DB_data = array();
@@ -153,7 +154,7 @@ class Books_published_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['book_published_id'], $data_IDs)) {
                 $this->Books_published->id = (int)$DB_data[$count]['book_published_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -171,9 +172,9 @@ class Books_published_api
                     $this->Books_published->from_text = $data[$count]->description;
                     $this->Books_published->to_int = $data[$count]->published_at;
 
-                    $this->update($element['title'], $data[$count]->title, 'title');
-                    $this->update($element['description'], $data[$count]->description, 'description');
-                    $this->update($element['published_at'], $data[$count]->published_at, 'published_at');
+                    $this->update_by_id($element['title'], $data[$count]->title, 'title');
+                    $this->update_by_id($element['description'], $data[$count]->description, 'description');
+                    $this->update_by_id($element['published_at'], $data[$count]->published_at, 'published_at');
 
                     break;
                 }

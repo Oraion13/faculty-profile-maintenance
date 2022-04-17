@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_4.php';
 require_once '../../../../utils/send.php';
+require_once '../../../../utils/api.php';
 
 // TYPE 4 file
-class Invited_lectures_api
+class Invited_lectures_api extends Type_4 implements api
 {
     private $Invited_lectures;
 
@@ -58,7 +59,7 @@ class Invited_lectures_api
     {
         // Get the user info from DB
         $this->Invited_lectures->user_id = $_GET['ID'];
-        $all_data = $this->Invited_lectures->read_by_id();
+        $all_data = $this->Invited_lectures->read_row();
 
         if ($all_data) {
             $data = array();
@@ -75,7 +76,7 @@ class Invited_lectures_api
     // POST a new user's invited_lecture
     public function post()
     {
-        if (!$this->Invited_lectures->create()) {
+        if (!$this->Invited_lectures->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'invited_lecture cannot be added');
             die();
@@ -83,11 +84,11 @@ class Invited_lectures_api
     }
 
     // PUT a user's invited_lecture
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Invited_lectures->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Invited_lectures->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -95,7 +96,7 @@ class Invited_lectures_api
     }
 
     // DELETE a user's invited_lecture
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Invited_lectures->delete_row()) {
             // If can't delete the data, throw an error message
@@ -118,7 +119,7 @@ class Invited_lectures_api
 
         // Get all the user's invited_lecture info from DB
         $this->Invited_lectures->user_id = $_SESSION['user_id'];
-        $all_data = $this->Invited_lectures->read_by_id();
+        $all_data = $this->Invited_lectures->read_row();
 
         // Store all invited_lecture_id	's in an array
         $DB_data = array();
@@ -151,7 +152,7 @@ class Invited_lectures_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['invited_lecture_id'], $data_IDs)) {
                 $this->Invited_lectures->id = (int)$DB_data[$count]['invited_lecture_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -168,8 +169,8 @@ class Invited_lectures_api
                     $this->Invited_lectures->text = $data[$count]->invited_lecture;
                     $this->Invited_lectures->from = $data[$count]->invited_lecture_at;
 
-                    $this->update($element['invited_lecture'], $data[$count]->invited_lecture, 'invited_lecture');
-                    $this->update($element['invited_lecture_at'], $data[$count]->invited_lecture_at, 'invited_lecture_at');
+                    $this->update_by_id($element['invited_lecture'], $data[$count]->invited_lecture, 'invited_lecture');
+                    $this->update_by_id($element['invited_lecture_at'], $data[$count]->invited_lecture_at, 'invited_lecture_at');
 
                     break;
                 }
@@ -183,7 +184,6 @@ class Invited_lectures_api
 }
 
 // GET all the user's Invited_lectures
-// GET all the user info
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Invited_lectures_api = new Invited_lectures_api();
     if (isset($_GET['ID'])) {
