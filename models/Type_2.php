@@ -1,6 +1,6 @@
 <?php
 
-require_once './model.php';
+require_once 'model.php';
 
 // Operations for 'faculty_departments, faculty_positions' is handeled here
 class Type_2 implements model

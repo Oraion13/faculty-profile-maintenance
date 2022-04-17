@@ -9,7 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Positions_prev.php';
 require_once '../../../../utils/send.php';
-require_once '../../api.php';
+require_once '../../../api.php';
 
 class Positions_prev_api extends Positions_prev implements api
 {

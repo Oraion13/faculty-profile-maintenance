@@ -9,7 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_4.php';
 require_once '../../../../utils/send.php';
-require_once '../../../../utils/api.php';
+require_once '../../../api.php';
 
 // TYPE 4 file
 class Additional_responsibilities_present_api extends Type_4 implements api

@@ -1,6 +1,6 @@
 <?php
 
-require_once './model.php';
+require_once 'model.php';
 
 // Operations for '
 // faculty_research_guidance

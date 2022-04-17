@@ -1,6 +1,6 @@
 <?php
 
-require_once './model.php';
+require_once 'model.php';
 
 // Operations for 'faculty_memberships, faculty_area_of_specialization' is handeled here
 class Type_3 implements model

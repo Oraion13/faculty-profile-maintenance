@@ -9,7 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_3.php';
 require_once '../../../../utils/send.php';
-require_once '../../../../utils/api.php';
+require_once '../../../api.php';
 
 // TYPE 3 file
 class Area_of_specialization_api extends Type_3 implements api

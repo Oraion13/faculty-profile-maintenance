@@ -1,6 +1,6 @@
 <?php
 
-require_once './model.php';
+require_once 'model.php';
 
 // Operations for 'faculty_user_info' is handeled here
 class User_info implements model

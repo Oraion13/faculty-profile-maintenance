@@ -9,7 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_6.php';
 require_once '../../../../utils/send.php';
-require_once '../../../../utils/api.php';
+require_once '../../../api.php';
 
 // TYPE 6 file
 class Exp_abroad_api extends Type_6 implements api

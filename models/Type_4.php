@@ -1,6 +1,6 @@
 <?php
 
-require_once './model.php';
+require_once 'model.php';
 
 // Operations for 'faculty_additional_responsibilities_present, faculty_honors, faculty_invited_lectures' is handeled here
 class Type_4 implements model
