@@ -12,7 +12,7 @@ require_once '../../../../utils/send.php';
 require_once '../../../api.php';
 
 // TYPE 5 file
-class Programme_organized_api
+class Programme_organized_api extends Type_5 implements api
 {
     private $Programme_organized;
 
