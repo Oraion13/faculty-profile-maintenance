@@ -1,7 +1,9 @@
 <?php
 
+require_once 'model.php';
+
 // Operations for 'faculty_user_info' is handeled here
-class User_info
+class User_info implements model
 {
     private $conn;
     private $table = 'faculty_user_info';
@@ -50,7 +52,7 @@ class User_info
     }
 
     // Read all data of a user  by ID
-    public function read_by_id()
+    public function read_row()
     {
         $columns = $this->table . '.user_info_id, ' . $this->table . '.user_id, ' . $this->table . '.phone, '
             . $this->table . '.address, ' . $this->table . '.position_id, ' . $this->positions . '.position, '
@@ -82,7 +84,7 @@ class User_info
     }
 
     // Insert user info
-    public function create()
+    public function post()
     {
         $query = 'INSERT INTO ' . $this->table . ' SET user_id = :user_id, phone = :phone, address = :address, 
         position_id = :position_id, department_id = :department_id, position_present_where = :position_present_where, 
@@ -141,7 +143,7 @@ class User_info
     }
 
     // Update a field in user_info
-    public function update($to_update)
+    public function update_row($to_update)
     {
         $to_set = $to_update . ' = :' . $to_update;
         $query = 'UPDATE ' . $this->table . ' SET ' . $to_set . ' WHERE user_info_id = :user_info_id';
@@ -159,5 +161,10 @@ class User_info
             return true;
         }
         return false;
+    }
+
+    public function delete_row()
+    {
+        // Later use
     }
 }

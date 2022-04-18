@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
+require_once '../../../api.php';
 
 // TYPE 5 file
-class Degree_api
+class Degree_api extends Type_5 implements api
 {
     private $Degree;
 
@@ -59,7 +60,7 @@ class Degree_api
     {
         // Get the user info from DB
         $this->Degree->user_id = $_GET['ID'];
-        $all_data = $this->Degree->read_by_id();
+        $all_data = $this->Degree->read_row();
 
         if ($all_data) {
             $data = array();
@@ -76,7 +77,7 @@ class Degree_api
     // POST a new user's degree
     public function post()
     {
-        if (!$this->Degree->create()) {
+        if (!$this->Degree->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'degree cannot be added');
             die();
@@ -84,11 +85,11 @@ class Degree_api
     }
 
     // PUT a user's degree
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Degree->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Degree->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -96,7 +97,7 @@ class Degree_api
     }
 
     // DELETE a user's degree
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Degree->delete_row()) {
             // If can't delete the data, throw an error message
@@ -119,7 +120,7 @@ class Degree_api
 
         // Get all the user's degree info from DB
         $this->Degree->user_id = $_SESSION['user_id'];
-        $all_data = $this->Degree->read_by_id();
+        $all_data = $this->Degree->read_row();
 
         // Store all degree_id's in an array
         $DB_data = array();
@@ -153,7 +154,7 @@ class Degree_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['degree_id'], $data_IDs)) {
                 $this->Degree->id = (int)$DB_data[$count]['degree_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -171,9 +172,9 @@ class Degree_api
                     $this->Degree->from_text = $data[$count]->degree_from;
                     $this->Degree->to_int = $data[$count]->degree_to;
 
-                    $this->update($element['degree'], $data[$count]->degree, 'degree');
-                    $this->update($element['degree_from'], $data[$count]->degree_from, 'degree_from');
-                    $this->update($element['degree_to'], $data[$count]->degree_to, 'degree_to');
+                    $this->update_by_id($element['degree'], $data[$count]->degree, 'degree');
+                    $this->update_by_id($element['degree_from'], $data[$count]->degree_from, 'degree_from');
+                    $this->update_by_id($element['degree_to'], $data[$count]->degree_to, 'degree_to');
 
                     break;
                 }

@@ -11,7 +11,7 @@ require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
 require_once '../../utils/send.php';
 
-class Login_api
+class Login_api extends Users
 {
     private $Users;
 

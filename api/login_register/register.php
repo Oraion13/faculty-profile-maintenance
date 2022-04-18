@@ -12,7 +12,7 @@ require_once '../../models/Users.php';
 require_once './verification_mail.php';
 require_once '../../utils/send.php';
 
-class Register_api
+class Register_api extends Users
 {
     private $Users;
 

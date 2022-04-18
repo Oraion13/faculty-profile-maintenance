@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
+require_once '../../../api.php';
 
 // TYPE 5 file
-class Programme_chaired_api
+class Programme_chaired_api extends Type_5 implements api
 {
     private $Programme_chaired;
 
@@ -59,7 +60,7 @@ class Programme_chaired_api
     {
         // Get the user info from DB
         $this->Programme_chaired->user_id = $_GET['ID'];
-        $all_data = $this->Programme_chaired->read_by_id();
+        $all_data = $this->Programme_chaired->read_row();
 
         if ($all_data) {
             $data = array();
@@ -76,7 +77,7 @@ class Programme_chaired_api
     // POST a new user's programme_chaired
     public function post()
     {
-        if (!$this->Programme_chaired->create()) {
+        if (!$this->Programme_chaired->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'programme_chaired cannot be added');
             die();
@@ -84,11 +85,11 @@ class Programme_chaired_api
     }
 
     // PUT a user's programme_chaired
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Programme_chaired->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Programme_chaired->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -96,7 +97,7 @@ class Programme_chaired_api
     }
 
     // DELETE a user's programme_chaired
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Programme_chaired->delete_row()) {
             // If can't delete the data, throw an error message
@@ -119,7 +120,7 @@ class Programme_chaired_api
 
         // Get all the user's programme_chaired info from DB
         $this->Programme_chaired->user_id = $_SESSION['user_id'];
-        $all_data = $this->Programme_chaired->read_by_id();
+        $all_data = $this->Programme_chaired->read_row();
 
         // Store all programme_chaired_id's in an array
         $DB_data = array();
@@ -153,7 +154,7 @@ class Programme_chaired_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['programme_chaired_id'], $data_IDs)) {
                 $this->Programme_chaired->id = (int)$DB_data[$count]['programme_chaired_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -171,9 +172,9 @@ class Programme_chaired_api
                     $this->Programme_chaired->from_text = $data[$count]->programme_chaired_from;
                     $this->Programme_chaired->to_int = $data[$count]->programme_chaired_to;
 
-                    $this->update($element['programme_chaired'], $data[$count]->programme_chaired, 'programme_chaired');
-                    $this->update($element['programme_chaired_from'], $data[$count]->programme_chaired_from, 'programme_chaired_from');
-                    $this->update($element['programme_chaired_to'], $data[$count]->programme_chaired_to, 'programme_chaired_to');
+                    $this->update_by_id($element['programme_chaired'], $data[$count]->programme_chaired, 'programme_chaired');
+                    $this->update_by_id($element['programme_chaired_from'], $data[$count]->programme_chaired_from, 'programme_chaired_from');
+                    $this->update_by_id($element['programme_chaired_to'], $data[$count]->programme_chaired_to, 'programme_chaired_to');
 
                     break;
                 }

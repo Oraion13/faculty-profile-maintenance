@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
+require_once '../../../api.php';
 
 // TYPE 5 file
-class Papers_presented_api
+class Papers_presented_api extends Type_5 implements api
 {
     private $Papers_presented;
 
@@ -59,7 +60,7 @@ class Papers_presented_api
     {
         // Get the user info from DB
         $this->Papers_presented->user_id = $_GET['ID'];
-        $all_data = $this->Papers_presented->read_by_id();
+        $all_data = $this->Papers_presented->read_row();
 
         if ($all_data) {
             $data = array();
@@ -76,7 +77,7 @@ class Papers_presented_api
     // POST a new user's paper_presented
     public function post()
     {
-        if (!$this->Papers_presented->create()) {
+        if (!$this->Papers_presented->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'paper_presented cannot be added');
             die();
@@ -84,11 +85,11 @@ class Papers_presented_api
     }
 
     // PUT a user's paper_presented
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Papers_presented->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Papers_presented->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -96,7 +97,7 @@ class Papers_presented_api
     }
 
     // DELETE a user's paper_presented
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Papers_presented->delete_row()) {
             // If can't delete the data, throw an error message
@@ -119,7 +120,7 @@ class Papers_presented_api
 
         // Get all the user's paper_presented info from DB
         $this->Papers_presented->user_id = $_SESSION['user_id'];
-        $all_data = $this->Papers_presented->read_by_id();
+        $all_data = $this->Papers_presented->read_row();
 
         // Store all paper_presented_id's in an array
         $DB_data = array();
@@ -153,7 +154,7 @@ class Papers_presented_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['paper_presented_id'], $data_IDs)) {
                 $this->Papers_presented->id = (int)$DB_data[$count]['paper_presented_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -171,9 +172,9 @@ class Papers_presented_api
                     $this->Papers_presented->from_text = $data[$count]->paper_presented_at;
                     $this->Papers_presented->to_int = $data[$count]->is_international;
 
-                    $this->update($element['paper_presented'], $data[$count]->paper_presented, 'paper_presented');
-                    $this->update($element['paper_presented_at'], $data[$count]->paper_presented_at, 'paper_presented_at');
-                    $this->update($element['is_international'], $data[$count]->is_international, 'is_international');
+                    $this->update_by_id($element['paper_presented'], $data[$count]->paper_presented, 'paper_presented');
+                    $this->update_by_id($element['paper_presented_at'], $data[$count]->paper_presented_at, 'paper_presented_at');
+                    $this->update_by_id($element['is_international'], $data[$count]->is_international, 'is_international');
 
                     break;
                 }

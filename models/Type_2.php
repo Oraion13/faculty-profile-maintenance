@@ -1,7 +1,9 @@
 <?php
 
+require_once 'model.php';
+
 // Operations for 'faculty_departments, faculty_positions' is handeled here
-class Type_2
+class Type_2 implements model
 {
     private $conn;
 
@@ -36,8 +38,14 @@ class Type_2
         return false;
     }
 
+    // Read by ID
+    public function read_row()
+    {
+        // Later use
+    }
+
     // Insert user data
-    public function create()
+    public function post()
     {
         $query = 'INSERT INTO ' . $this->table . $this->text_name . ' = :' . $this->text_name;
 
@@ -57,7 +65,7 @@ class Type_2
     }
 
     // Update a field
-    public function update($to_update)
+    public function update_row($to_update)
     {
         $to_set = $to_update . ' = :' . $to_update;
         $query = 'UPDATE ' . $this->table . ' SET ' . $to_set . ' WHERE ' . $this->id_name . ' = :' . $this->id_name;

@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_6.php';
 require_once '../../../../utils/send.php';
+require_once '../../../api.php';
 
 // TYPE 6 file
-class Extension_outreach_api
+class Extension_outreach_api extends Type_6 implements api
 {
     private $Extension_outreach;
 
@@ -60,7 +61,7 @@ class Extension_outreach_api
     {
         // Get the user info from DB
         $this->Extension_outreach->user_id = $_GET['ID'];
-        $all_data = $this->Extension_outreach->read_by_id();
+        $all_data = $this->Extension_outreach->read_row();
 
         if ($all_data) {
             $data = array();
@@ -77,7 +78,7 @@ class Extension_outreach_api
     // POST a new user's extension_outreach
     public function post()
     {
-        if (!$this->Extension_outreach->create()) {
+        if (!$this->Extension_outreach->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'extension_outreach cannot be added');
             die();
@@ -85,11 +86,11 @@ class Extension_outreach_api
     }
 
     // PUT a user's extension_outreach
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Extension_outreach->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Extension_outreach->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -97,7 +98,7 @@ class Extension_outreach_api
     }
 
     // DELETE a user's extension_outreach
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Extension_outreach->delete_row()) {
             // If can't delete the data, throw an error message
@@ -120,7 +121,7 @@ class Extension_outreach_api
 
         // Get all the user's extension_outreach info from DB
         $this->Extension_outreach->user_id = $_SESSION['user_id'];
-        $all_data = $this->Extension_outreach->read_by_id();
+        $all_data = $this->Extension_outreach->read_row();
 
         // Store all extension_outreach_id's in an array
         $DB_data = array();
@@ -155,7 +156,7 @@ class Extension_outreach_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['extension_outreach_id'], $data_IDs)) {
                 $this->Extension_outreach->id = (int)$DB_data[$count]['extension_outreach_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -174,10 +175,10 @@ class Extension_outreach_api
                     $this->Extension_outreach->to = $data[$count]->extension_outreach_to;
                     $this->Extension_outreach->text_int = $data[$count]->number_of_participants;
 
-                    $this->update($element['extension_outreach'], $data[$count]->extension_outreach, 'extension_outreach');
-                    $this->update($element['extension_outreach_from'], $data[$count]->extension_outreach_from, 'extension_outreach_from');
-                    $this->update($element['extension_outreach_to'], $data[$count]->extension_outreach_to, 'extension_outreach_to');
-                    $this->update($element['number_of_participants'], $data[$count]->number_of_participants, 'number_of_participants');
+                    $this->update_by_id($element['extension_outreach'], $data[$count]->extension_outreach, 'extension_outreach');
+                    $this->update_by_id($element['extension_outreach_from'], $data[$count]->extension_outreach_from, 'extension_outreach_from');
+                    $this->update_by_id($element['extension_outreach_to'], $data[$count]->extension_outreach_to, 'extension_outreach_to');
+                    $this->update_by_id($element['number_of_participants'], $data[$count]->number_of_participants, 'number_of_participants');
 
                     break;
                 }

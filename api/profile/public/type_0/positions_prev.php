@@ -9,8 +9,9 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Positions_prev.php';
 require_once '../../../../utils/send.php';
+require_once '../../../api.php';
 
-class Positions_prev_api
+class Positions_prev_api extends Positions_prev implements api
 {
     private $Positions_prev;
 
@@ -50,7 +51,7 @@ class Positions_prev_api
     {
         // Get the user info from DB
         $this->Positions_prev->user_id = $_GET['ID'];
-        $all_data = $this->Positions_prev->read_by_id();
+        $all_data = $this->Positions_prev->read_row();
 
         if ($all_data) {
             $data = array();
@@ -68,7 +69,7 @@ class Positions_prev_api
     // POST a new user's previous position
     public function post()
     {
-        if (!$this->Positions_prev->create()) {
+        if (!$this->Positions_prev->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'previous positions cannot be added');
             die();
@@ -76,11 +77,11 @@ class Positions_prev_api
     }
 
     // PUT a user's previous position
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Positions_prev->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Positions_prev->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -88,7 +89,7 @@ class Positions_prev_api
     }
 
     // DELETE a user's previous position
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Positions_prev->delete_row()) {
             // If can't delete the data, throw an error message
@@ -116,7 +117,7 @@ class Positions_prev_api
 
         // Get all the user's previous position info from DB
         $this->Positions_prev->user_id = $_SESSION['user_id'];
-        $all_data = $this->Positions_prev->read_by_id();
+        $all_data = $this->Positions_prev->read_row();
 
         // Store all position_prev_id's in an array
         $DB_data = array();
@@ -152,7 +153,7 @@ class Positions_prev_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['position_prev_id'], $data_IDs)) {
                 $this->Positions_prev->position_prev_id = (int)$DB_data[$count]['position_prev_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -172,11 +173,11 @@ class Positions_prev_api
                     $this->Positions_prev->position_prev_from = $data[$count]->position_prev_from;
                     $this->Positions_prev->position_prev_to = $data[$count]->position_prev_to;
 
-                    $this->update($element['position_id'], $data[$count]->position_id, 'position_id');
-                    $this->update($element['department_id'], $data[$count]->department_id, 'department_id');
-                    $this->update($element['position_prev_where'], $data[$count]->position_prev_where, 'position_prev_where');
-                    $this->update($element['position_prev_from'], $data[$count]->position_prev_from, 'position_prev_from');
-                    $this->update($element['position_prev_to'], $data[$count]->position_prev_to, 'position_prev_to');
+                    $this->update_by_id($element['position_id'], $data[$count]->position_id, 'position_id');
+                    $this->update_by_id($element['department_id'], $data[$count]->department_id, 'department_id');
+                    $this->update_by_id($element['position_prev_where'], $data[$count]->position_prev_where, 'position_prev_where');
+                    $this->update_by_id($element['position_prev_from'], $data[$count]->position_prev_from, 'position_prev_from');
+                    $this->update_by_id($element['position_prev_to'], $data[$count]->position_prev_to, 'position_prev_to');
 
                     break;
                 }
@@ -186,7 +187,7 @@ class Positions_prev_api
             ++$count;
         }
 
-        $this->get();
+        $this->get_by_id();
     }
 }
 

@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_6.php';
 require_once '../../../../utils/send.php';
+require_once '../../../api.php';
 
 // TYPE 6 file
-class Sponsored_projects_completed_api
+class Sponsored_projects_completed_api extends Type_6 implements api
 {
     private $Sponsored_projects_completed;
 
@@ -60,7 +61,7 @@ class Sponsored_projects_completed_api
     {
         // Get the user info from DB
         $this->Sponsored_projects_completed->user_id = $_GET['ID'];
-        $all_data = $this->Sponsored_projects_completed->read_by_id();
+        $all_data = $this->Sponsored_projects_completed->read_row();
 
         if ($all_data) {
             $data = array();
@@ -77,7 +78,7 @@ class Sponsored_projects_completed_api
     // POST a new user's project
     public function post()
     {
-        if (!$this->Sponsored_projects_completed->create()) {
+        if (!$this->Sponsored_projects_completed->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'project cannot be added');
             die();
@@ -85,11 +86,11 @@ class Sponsored_projects_completed_api
     }
 
     // PUT a user's project
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Sponsored_projects_completed->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Sponsored_projects_completed->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -97,7 +98,7 @@ class Sponsored_projects_completed_api
     }
 
     // DELETE a user's project
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Sponsored_projects_completed->delete_row()) {
             // If can't delete the data, throw an error message
@@ -120,7 +121,7 @@ class Sponsored_projects_completed_api
 
         // Get all the user's project info from DB
         $this->Sponsored_projects_completed->user_id = $_SESSION['user_id'];
-        $all_data = $this->Sponsored_projects_completed->read_by_id();
+        $all_data = $this->Sponsored_projects_completed->read_row();
 
         // Store all project_id's in an array
         $DB_data = array();
@@ -155,7 +156,7 @@ class Sponsored_projects_completed_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['project_id'], $data_IDs)) {
                 $this->Sponsored_projects_completed->id = (int)$DB_data[$count]['project_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -174,10 +175,10 @@ class Sponsored_projects_completed_api
                     $this->Sponsored_projects_completed->to = $data[$count]->project_to;
                     $this->Sponsored_projects_completed->text_int = $data[$count]->project_cost;
 
-                    $this->update($element['project'], $data[$count]->project, 'project');
-                    $this->update($element['project_from'], $data[$count]->project_from, 'project_from');
-                    $this->update($element['project_to'], $data[$count]->project_to, 'project_to');
-                    $this->update($element['project_cost'], $data[$count]->project_cost, 'project_cost');
+                    $this->update_by_id($element['project'], $data[$count]->project, 'project');
+                    $this->update_by_id($element['project_from'], $data[$count]->project_from, 'project_from');
+                    $this->update_by_id($element['project_to'], $data[$count]->project_to, 'project_to');
+                    $this->update_by_id($element['project_cost'], $data[$count]->project_cost, 'project_cost');
 
                     break;
                 }

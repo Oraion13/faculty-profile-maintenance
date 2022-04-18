@@ -12,7 +12,7 @@ require_once '../../models/Users.php';
 require_once './verification_mail.php';
 require_once '../../utils/send.php';
 
-class Forget_password_api
+class Forget_password_api extends Users
 {
     private $Users;
 

@@ -9,8 +9,9 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/User_info.php';
 require_once '../../../../utils/send.php';
+require_once '../../../api.php';
 
-class User_info_api
+class User_info_api extends User_info implements api
 {
     private $User_info;
 
@@ -49,7 +50,7 @@ class User_info_api
     {
         // Get the user info from DB
         $this->User_info->user_id = $_GET['ID'];
-        $all_data = $this->User_info->read_by_id();
+        $all_data = $this->User_info->read_row();
 
         if ($all_data) {
             echo json_encode($all_data);
@@ -82,18 +83,29 @@ class User_info_api
         $this->User_info->position_present_from = $data->position_present_from;
 
         // Get the user info from DB
-        $all_data = $this->User_info->read_by_id();
+        $all_data = $this->User_info->read_row();
 
         // If no user info exists
         if (!$all_data) {
             // If no user info exists, insert and get_by_id the data
-            if ($this->User_info->create()) {
+            if ($this->User_info->post()) {
                 $this->get_by_id();
             } else {
                 send(400, 'error', 'user info cannot be created');
             }
         } else {
             send(400, 'error', 'user info already exists');
+        }
+    }
+
+    public function update_by_id($DB_data, $to_update, $update_str)
+    {
+        if (strcmp($DB_data, $to_update) !== 0) {
+            if (!$this->User_info->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
+                send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
+                die();
+            }
         }
     }
 
@@ -119,7 +131,7 @@ class User_info_api
         $this->User_info->position_present_from = $data->position_present_from;
 
         // Get the user info from DB
-        $all_data = $this->User_info->read_by_id();
+        $all_data = $this->User_info->read_row();
 
         $error = false;
         $message = '';
@@ -127,58 +139,23 @@ class User_info_api
         if ($all_data) {
             $this->User_info->user_info_id = $all_data['user_info_id'];
 
-            if (strcmp($all_data['phone'], $data->phone) !== 0) {
-                if (!$this->User_info->update('phone')) {
-                    $error = true;
-                    $message .= ',phone number,';
-                }
-            }
-            if (strcmp($all_data['address'], $data->address) !== 0) {
-                if (!$this->User_info->update('address')) {
-                    $error = true;
-                    $message .= ',address,';
-                }
-            }
-            if (strcmp($all_data['position_id'], $data->position_id) !== 0) {
-                if (!$this->User_info->update('position_id')) {
-                    $error = true;
-                    $message .= ',faculty position,';
-                }
-            }
-            if (strcmp($all_data['department_id'], $data->department_id) !== 0) {
-                if (!$this->User_info->update('department_id')) {
-                    $error = true;
-                    $message .= ',department,';
-                }
-            }
-            if (strcmp($all_data['position_present_where'], $data->position_present_where) !== 0) {
-                if (!$this->User_info->update('position_present_where')) {
-                    $error = true;
-                    $message .= ',position present where,';
-                }
-            }
-            if (strcmp($all_data['position_present_from'], $data->position_present_from) !== 0) {
-                if (!$this->User_info->update('position_present_from')) {
-                    $error = true;
-                    $message .= ',position present from,';
-                }
-            }
-            if (strcmp($all_data['department_id'], $data->department_id) !== 0) {
-                if (!$this->User_info->update('department_id')) {
-                    $error = true;
-                    $message .= ',department,';
-                }
-            }
+            $this->update_by_id($all_data['phone'], $data->phone, 'phone');
+            $this->update_by_id($all_data['address'], $data->address, 'address');
+            $this->update_by_id($all_data['position_id'], $data->position_id, 'position_id');
+            $this->update_by_id($all_data['department_id'], $data->department_id, 'department_id');
+            $this->update_by_id($all_data['position_present_where'], $data->position_present_where, 'position_present_where');
+            $this->update_by_id($all_data['position_present_from'], $data->position_present_from, 'position_present_from');
 
             // If updated successfully, get_by_id the data, else throw an error message 
-            if ($error) {
-                send(400, 'error', substr($message, 1, -1) . ' cannot be updated');
-            } else {
-                $this->get_by_id();
-            }
+            $this->get_by_id();
         } else {
             send(400, 'error', 'no user info found');
         }
+    }
+
+    public function delete_by_id()
+    {
+        // Later use
     }
 }
 

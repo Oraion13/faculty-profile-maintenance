@@ -9,7 +9,7 @@ require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
 require_once '../../utils/send.php';
 
-class Reset_password_api
+class Reset_password_api extends Users
 {
     private $Users;
 

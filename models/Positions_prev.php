@@ -1,7 +1,9 @@
 <?php
 
+require_once 'model.php';
+
 // Operations for 'faculty_positions_prev' is handeled here
-class Positions_prev
+class Positions_prev implements model
 {
     private $conn;
     private $table = 'faculty_positions_prev';
@@ -45,7 +47,7 @@ class Positions_prev
     }
 
     // Read all data (previous positions) of a user by ID
-    public function read_by_id()
+    public function read_row()
     {
         $columns = $this->table . '.position_prev_id, ' . $this->table . '.user_id, '
             . $this->table . '.position_id, ' . $this->positions . '.position, ' . $this->table . '.department_id, '
@@ -71,7 +73,7 @@ class Positions_prev
     }
 
     // Insert a user's previous position
-    public function create()
+    public function post()
     {
         $query = 'INSERT INTO ' . $this->table
             . ' SET user_id = :user_id, position_id = :position_id, 
@@ -104,7 +106,7 @@ class Positions_prev
     }
 
     // Update a field in positions_prev
-    public function update($to_update)
+    public function update_row($to_update)
     {
         $to_set = $to_update . ' = :' . $to_update;
         $query = 'UPDATE ' . $this->table . ' SET ' . $to_set . ' WHERE position_prev_id = :position_prev_id';

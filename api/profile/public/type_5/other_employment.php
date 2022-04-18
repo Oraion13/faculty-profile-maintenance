@@ -9,9 +9,10 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
+require_once '../../../api.php';
 
 // TYPE 5 file
-class Other_employment_api
+class Other_employment_api extends Type_5 implements api
 {
     private $Other_employment;
 
@@ -59,7 +60,7 @@ class Other_employment_api
     {
         // Get the user info from DB
         $this->Other_employment->user_id = $_GET['ID'];
-        $all_data = $this->Other_employment->read_by_id();
+        $all_data = $this->Other_employment->read_row();
 
         if ($all_data) {
             $data = array();
@@ -76,7 +77,7 @@ class Other_employment_api
     // POST a new user's other_employment
     public function post()
     {
-        if (!$this->Other_employment->create()) {
+        if (!$this->Other_employment->post()) {
             // If can't post the data, throw an error message
             send(400, 'error', 'other_employment cannot be added');
             die();
@@ -84,11 +85,11 @@ class Other_employment_api
     }
 
     // PUT a user's other_employment
-    public function update($DB_data, $to_update, $update_str)
+    public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (strcmp($DB_data, $to_update) !== 0) {
-            if (!$this->Other_employment->update($update_str)) {
-                // If can't update the data, throw an error message
+            if (!$this->Other_employment->update_row($update_str)) {
+                // If can't update_by_id the data, throw an error message
                 send(400, 'error', $update_str . ' for ' . $_SESSION['username'] . ' cannot be updated');
                 die();
             }
@@ -96,7 +97,7 @@ class Other_employment_api
     }
 
     // DELETE a user's other_employment
-    public function delete_data()
+    public function delete_by_id()
     {
         if (!$this->Other_employment->delete_row()) {
             // If can't delete the data, throw an error message
@@ -119,7 +120,7 @@ class Other_employment_api
 
         // Get all the user's other_employment info from DB
         $this->Other_employment->user_id = $_SESSION['user_id'];
-        $all_data = $this->Other_employment->read_by_id();
+        $all_data = $this->Other_employment->read_row();
 
         // Store all other_employment_id's in an array
         $DB_data = array();
@@ -153,7 +154,7 @@ class Other_employment_api
         while ($count < count($DB_data)) {
             if (!in_array($DB_data[$count]['other_employment_id'], $data_IDs)) {
                 $this->Other_employment->id = (int)$DB_data[$count]['other_employment_id'];
-                $this->delete_data();
+                $this->delete_by_id();
             }
 
             ++$count;
@@ -171,9 +172,9 @@ class Other_employment_api
                     $this->Other_employment->from_text = $data[$count]->other_employment_from;
                     $this->Other_employment->to_int = $data[$count]->other_employment_to;
 
-                    $this->update($element['other_employment'], $data[$count]->other_employment, 'other_employment');
-                    $this->update($element['other_employment_from'], $data[$count]->other_employment_from, 'other_employment_from');
-                    $this->update($element['other_employment_to'], $data[$count]->other_employment_to, 'other_employment_to');
+                    $this->update_by_id($element['other_employment'], $data[$count]->other_employment, 'other_employment');
+                    $this->update_by_id($element['other_employment_from'], $data[$count]->other_employment_from, 'other_employment_from');
+                    $this->update_by_id($element['other_employment_to'], $data[$count]->other_employment_to, 'other_employment_to');
 
                     break;
                 }
