@@ -15,6 +15,7 @@ require_once 'model.php';
 // faculty_papers_published,
 // faculty_patents,
 //
+// faculty_photo
 // faculty_books_published'
 // is handeled here
 class Type_5 implements model
@@ -92,7 +93,7 @@ class Type_5 implements model
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->text_title = htmlspecialchars(strip_tags($this->text_title));
         $this->from_text = htmlspecialchars(strip_tags($this->from_text));
-        $this->to_int = htmlspecialchars(strip_tags($this->to_int));
+        // $this->to_int = htmlspecialchars(strip_tags($this->to_int));
 
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':' . $this->text_name, $this->text_title);
@@ -129,7 +130,7 @@ class Type_5 implements model
                 break;
         }
 
-        $this->$temp = htmlspecialchars(strip_tags($this->$temp));
+        // $this->$temp = htmlspecialchars(strip_tags($this->$temp));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
         $stmt->bindParam(':' . $to_update, $this->$temp);
@@ -152,6 +153,24 @@ class Type_5 implements model
         $this->id = htmlspecialchars(strip_tags($this->id));
 
         $stmt->bindParam(':' . $this->id_name, $this->id);
+
+        // If data updated successfully, return True
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Delete by User id
+    public function delete_by_uid()
+    {
+        $query = 'DELETE FROM ' . $this->table . ' WHERE user_id = :user_id';
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->id = htmlspecialchars(strip_tags($this->user_id));
+
+        $stmt->bindParam(':user_id', $this->user_id);
 
         // If data updated successfully, return True
         if ($stmt->execute()) {
