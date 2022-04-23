@@ -424,3 +424,11 @@ const research_guidance = [
         "ms_guiding": "" // can be 0
     }
 ]
+
+/* -------------------------------------- Research Guidance ------------------------------------*/
+
+const photo = {
+    "photo_name": "name",
+    "photo_type": "image/png",
+    "photo": "tmp_name..."
+}
