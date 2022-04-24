@@ -107,11 +107,11 @@ class Memberships_api extends Type_3 implements api
     // POST/UPDATE (PUT)/DELETE a user's memberships
     public function put()
     {
-        // Authorization
-        if ($_SESSION['user_id'] != $_GET['ID']) {
-            send(401, 'error', 'unauthorized');
-            die();
-        }
+        // // Authorization
+        // if ($_SESSION['user_id'] != $_GET['ID']) {
+        //     send(401, 'error', 'unauthorized');
+        //     die();
+        // }
 
         // Get input data as json
         $data = json_decode(file_get_contents("php://input"));

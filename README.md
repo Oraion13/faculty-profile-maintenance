@@ -1,1 +1,84 @@
-# faculty-profile-maintenance
+# Faculty Profile Maintenance
+
+## Folder Structure
+
+   - 📄 [README.md](README.md)
+   - 📂 __api__
+     - 📄 [api.php](api/api.php)
+     - 📂 __login\_register__
+       - 📄 [forget\_password.php](api/login_register/forget_password.php)
+       - 📄 [login.php](api/login_register/login.php)
+       - 📄 [logout.php](api/login_register/logout.php)
+       - 📄 [register.php](api/login_register/register.php)
+       - 📄 [reset\_password.php](api/login_register/reset_password.php)
+       - 📄 [verification\_mail.php](api/login_register/verification_mail.php)
+       - 📄 [verify.php](api/login_register/verify.php)
+     - 📂 __profile__
+       - 📂 __public__
+         - 📂 __type\_0__
+           - 📄 [positions\_prev.php](api/profile/public/type_0/positions_prev.php)
+           - 📄 [user\_info.php](api/profile/public/type_0/user_info.php)
+           - 📄 [users.php](api/profile/public/type_0/users.php)
+         - 📂 __type\_2__
+           - 📄 [departments.php](api/profile/public/type_2/departments.php)
+           - 📄 [positions.php](api/profile/public/type_2/positions.php)
+         - 📂 __type\_3__
+           - 📄 [area\_of\_specialization.php](api/profile/public/type_3/area_of_specialization.php)
+           - 📄 [memberships.php](api/profile/public/type_3/memberships.php)
+         - 📂 __type\_4__
+           - 📄 [additional\_responsibilities\_present.php](api/profile/public/type_4/additional_responsibilities_present.php)
+           - 📄 [honors.php](api/profile/public/type_4/honors.php)
+           - 📄 [invited\_lectures.php](api/profile/public/type_4/invited_lectures.php)
+         - 📂 __type\_5__
+           - 📄 [additional\_responsibilities\_prev.php](api/profile/public/type_5/additional_responsibilities_prev.php)
+           - 📄 [books\_published.php](api/profile/public/type_5/books_published.php)
+           - 📄 [degree.php](api/profile/public/type_5/degree.php)
+           - 📄 [other\_employment.php](api/profile/public/type_5/other_employment.php)
+           - 📄 [papers\_presented.php](api/profile/public/type_5/papers_presented.php)
+           - 📄 [papers\_published.php](api/profile/public/type_5/papers_published.php)
+           - 📄 [patents.php](api/profile/public/type_5/patents.php)
+           - 📄 [photo.php](api/profile/public/type_5/photo.php)
+           - 📄 [programme\_attended.php](api/profile/public/type_5/programme_attended.php)
+           - 📄 [programme\_chaired.php](api/profile/public/type_5/programme_chaired.php)
+           - 📄 [programme\_organized.php](api/profile/public/type_5/programme_organized.php)
+           - 📄 [special\_representations.php](api/profile/public/type_5/special_representations.php)
+         - 📂 __type\_6__
+           - 📄 [exp\_abroad.php](api/profile/public/type_6/exp_abroad.php)
+           - 📄 [extension\_outreach.php](api/profile/public/type_6/extension_outreach.php)
+           - 📄 [research\_degree.php](api/profile/public/type_6/research_degree.php)
+           - 📄 [sponsored\_projects\_completed.php](api/profile/public/type_6/sponsored_projects_completed.php)
+         - 📂 __type\_8__
+           - 📄 [research\_guidance.php](api/profile/public/type_8/research_guidance.php)
+   - 📂 __config__
+     - 📄 [DbConnection.php](config/DbConnection.php)
+   - 📂 __data__
+     - 📄 [data.jsx](data/data.jsx)
+     - 📄 [faculty\_profile\_maintenance.sql.gz](data/faculty_profile_maintenance.sql.gz)
+   - 📂 __docs__
+     - 📂 __diagrams__
+       - 📂 __DFD__
+         - 📄 [level\-0.drawio.png](docs/diagrams/DFD/level-0.drawio.png)
+         - 📄 [level\-1.drawio.png](docs/diagrams/DFD/level-1.drawio.png)
+         - 📄 [level\-2\-1.drawio.png](docs/diagrams/DFD/level-2-1.drawio.png)
+         - 📄 [level\-2\-2.drawio.png](docs/diagrams/DFD/level-2-2.drawio.png)
+         - 📄 [level\-2\-3.drawio.png](docs/diagrams/DFD/level-2-3.drawio.png)
+         - 📄 [level\-2\-4.drawio.png](docs/diagrams/DFD/level-2-4.drawio.png)
+       - 📂 __UML__
+         - 📄 [ER diagram light.png](docs/diagrams/UML/ER%20diagram%20light.png)
+         - 📄 [Use case Diagram.drawio.png](docs/diagrams/UML/Use%20case%20Diagram.drawio.png)
+         - 📄 [class diagram light.png](docs/diagrams/UML/class%20diagram%20light.png)
+         - 📄 [sequence diagram.drawio.png](docs/diagrams/UML/sequence%20diagram.drawio.png)
+   - 📂 __models__
+     - 📄 [Positions\_prev.php](models/Positions_prev.php)
+     - 📄 [Type\_2.php](models/Type_2.php)
+     - 📄 [Type\_3.php](models/Type_3.php)
+     - 📄 [Type\_4.php](models/Type_4.php)
+     - 📄 [Type\_5.php](models/Type_5.php)
+     - 📄 [Type\_6.php](models/Type_6.php)
+     - 📄 [Type\_8.php](models/Type_8.php)
+     - 📄 [User\_info.php](models/User_info.php)
+     - 📄 [Users.php](models/Users.php)
+     - 📄 [model.php](models/model.php)
+   - 📂 __utils__
+     - 📄 [send.php](utils/send.php)
+
