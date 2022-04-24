@@ -47,7 +47,7 @@ class Type_2 implements model
     // Insert user data
     public function post()
     {
-        $query = 'INSERT INTO ' . $this->table . $this->text_name . ' = :' . $this->text_name;
+        $query = 'INSERT INTO ' . $this->table . ' SET ' . $this->text_name . ' = :' . $this->text_name;
 
         $stmt = $this->conn->prepare($query);
 
