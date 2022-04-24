@@ -70,11 +70,11 @@ class Users_api extends Users implements api
     // Delete a user
     public function delete_by_id()
     {
-        // Authorization
-        if ($_SESSION['user_id'] != $_GET['ID']) {
-            send(401, 'error', 'unauthorized');
-            die();
-        }
+        // // Authorization
+        // if ($_SESSION['user_id'] != $_GET['ID']) {
+        //     send(401, 'error', 'unauthorized');
+        //     die();
+        // }
 
         $this->Users->user_id = $_SESSION['user_id'];
         if ($this->Users->delete_row()) {
@@ -89,11 +89,11 @@ class Users_api extends Users implements api
     // Update user's info
     public function put()
     {
-        // Authorization
-        if ($_SESSION['user_id'] != $_GET['ID']) {
-            send(401, 'error', 'unauthorized');
-            die();
-        }
+        // // Authorization
+        // if ($_SESSION['user_id'] != $_GET['ID']) {
+        //     send(401, 'error', 'unauthorized');
+        //     die();
+        // }
 
         // Get input data as json
         $data = json_decode(file_get_contents("php://input"));
