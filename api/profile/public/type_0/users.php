@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Users.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 class Users_api extends Users implements api
 {
@@ -46,10 +47,10 @@ class Users_api extends Users implements api
     }
 
     // Get all the data of a user by ID
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Users->user_id = $_GET['ID'];
+        $this->Users->user_id = $id;
         $all_data = $this->Users->read_by_id();
 
         if ($all_data) {
@@ -187,7 +188,7 @@ class Users_api extends Users implements api
             // }
 
             // If updated successfully, get the data, else throw an error message 
-            $this->get_by_id();
+            $this->get_by_id($_SESSION['user_id']);
         } else {
             send(400, 'error', 'no user found');
         }
@@ -203,17 +204,14 @@ class Users_api extends Users implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Users_api = new Users_api();
     if (isset($_GET['ID'])) {
-        $Users_api->get_by_id();
+        $Users_api->get_by_id($_GET['ID']);
     } else {
         $Users_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 

@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 // TYPE 5 file
 class Photo_api extends Type_5 implements api
@@ -63,10 +64,10 @@ class Photo_api extends Type_5 implements api
     }
 
     // Get all data of a user info by ID
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Photo->user_id = $_GET['ID'];
+        $this->Photo->user_id = $id;
         $all_data = $this->Photo->read_row();
         $data = $all_data->fetch(PDO::FETCH_ASSOC);
 
@@ -128,11 +129,11 @@ class Photo_api extends Type_5 implements api
             $this->update_by_id($data['photo'], file_get_contents($_FILES['photo']['tmp_name']), 'photo');
 
             // If updated successfully, get_by_id the data, else throw an error message 
-            $this->get_by_id();
+            $this->get_by_id($_SESSION['user_id']);
         } else {
             // If not user pic found, upload new one
             if ($this->Photo->post()) {
-                $this->get_by_id();
+                $this->get_by_id($_SESSION['user_id']);
             } else {
                 send(400, 'error', 'photo cannot be uploaded or created');
             }
@@ -156,17 +157,14 @@ class Photo_api extends Type_5 implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Photo_api = new Photo_api();
     if (isset($_GET['ID'])) {
-        $Photo_api->get_by_id();
+        $Photo_api->get_by_id($_GET['ID']);
     } else {
         $Photo_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 

@@ -9,7 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
-require_once './verification_mail.php';
+require_once '../../utils/verification_mail.php';
 require_once '../../utils/send.php';
 
 class Forget_password_api extends Users
@@ -70,7 +70,7 @@ class Forget_password_api extends Users
             $password_reset_token,
             'Password reset link from AUTTVL!',
             'Click the link below to reset your password,<br>',
-            'Reset_password_api'
+            'reset_password'
         )) {
             send(200, 'message', 'password reset link sent to mail');
         } else {

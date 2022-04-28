@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_3.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 // TYPE 3 file
 class Memberships_api extends Type_3 implements api
@@ -54,10 +55,10 @@ class Memberships_api extends Type_3 implements api
     }
 
     // Get all the data of a user's membership by ID
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Memberships->user_id = $_GET['ID'];
+        $this->Memberships->user_id = $id;
         $all_data = $this->Memberships->read_row();
 
         if ($all_data) {
@@ -175,7 +176,7 @@ class Memberships_api extends Type_3 implements api
             ++$count;
         }
 
-        $this->get_by_id();
+        $this->get_by_id($_SESSION['user_id']);
     }
 }
 
@@ -183,17 +184,14 @@ class Memberships_api extends Type_3 implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Memberships_api = new Memberships_api();
     if (isset($_GET['ID'])) {
-        $Memberships_api->get_by_id();
+        $Memberships_api->get_by_id($_GET['ID']);
     } else {
         $Memberships_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 

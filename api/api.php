@@ -5,7 +5,7 @@ interface api
     // GET all data
     public function get();
     // GET the data for ID which is provided in the URL
-    public function get_by_id();
+    public function get_by_id($id);
 
     // Only authenticated users
 

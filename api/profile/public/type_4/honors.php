@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_4.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 // TYPE 4 file
 class Honors_api extends Type_4 implements api
@@ -55,10 +56,10 @@ class Honors_api extends Type_4 implements api
     }
 
     // Get all the data of a user's honor by ID
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Honors->user_id = $_GET['ID'];
+        $this->Honors->user_id = $id;
         $all_data = $this->Honors->read_row();
 
         if ($all_data) {
@@ -179,7 +180,7 @@ class Honors_api extends Type_4 implements api
             ++$count;
         }
 
-        $this->get_by_id();
+        $this->get_by_id($_SESSION['user_id']);
     }
 }
 
@@ -187,17 +188,14 @@ class Honors_api extends Type_4 implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Honors_api = new Honors_api();
     if (isset($_GET['ID'])) {
-        $Honors_api->get_by_id();
+        $Honors_api->get_by_id($_GET['ID']);
     } else {
         $Honors_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 
