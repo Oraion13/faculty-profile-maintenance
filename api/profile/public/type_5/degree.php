@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 // TYPE 5 file
 class Degree_api extends Type_5 implements api
@@ -56,10 +57,10 @@ class Degree_api extends Type_5 implements api
     }
 
     // Get all the data of a user's degree
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Degree->user_id = $_GET['ID'];
+        $this->Degree->user_id = $id;
         $all_data = $this->Degree->read_row();
 
         if ($all_data) {
@@ -183,7 +184,7 @@ class Degree_api extends Type_5 implements api
             ++$count;
         }
 
-        $this->get_by_id();
+        $this->get_by_id($_SESSION['user_id']);
     }
 }
 
@@ -191,17 +192,14 @@ class Degree_api extends Type_5 implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Degree_api = new Degree_api();
     if (isset($_GET['ID'])) {
-        $Degree_api->get_by_id();
+        $Degree_api->get_by_id($_GET['ID']);
     } else {
         $Degree_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 

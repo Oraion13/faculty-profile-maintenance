@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 // TYPE 5 file
 class Other_employment_api extends Type_5 implements api
@@ -56,10 +57,10 @@ class Other_employment_api extends Type_5 implements api
     }
 
     // Get all the data of a user's other_employment
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Other_employment->user_id = $_GET['ID'];
+        $this->Other_employment->user_id = $id;
         $all_data = $this->Other_employment->read_row();
 
         if ($all_data) {
@@ -183,7 +184,7 @@ class Other_employment_api extends Type_5 implements api
             ++$count;
         }
 
-        $this->get_by_id();
+        $this->get_by_id($_SESSION['user_id']);
     }
 }
 
@@ -192,17 +193,14 @@ class Other_employment_api extends Type_5 implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Other_employment_api = new Other_employment_api();
     if (isset($_GET['ID'])) {
-        $Other_employment_api->get_by_id();
+        $Other_employment_api->get_by_id($_GET['ID']);
     } else {
         $Other_employment_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 

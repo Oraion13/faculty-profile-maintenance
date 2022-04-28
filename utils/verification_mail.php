@@ -8,7 +8,7 @@ require_once "../../modules/PHPMailer/src/Exception.php";
 require_once "../../modules/PHPMailer/src/PHPMailer.php";
 require_once "../../modules/PHPMailer/src/SMTP.php";
 
-function verification_mail($email, $username, $verification_code,$title, $message, $redirect)
+function verification_mail($email, $username, $verification_code, $title, $message, $redirect)
 {
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
@@ -38,9 +38,11 @@ function verification_mail($email, $username, $verification_code,$title, $messag
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/faculty-profile-maintenance/api/login_register/$redirect.php?email=$email&verification_code=$verification_code";
+
         $mail->Subject = $title;
         $mail->Body    = "$message
-                            <a href='http://localhost/faculty-profile-maintenance/api/login_register/$redirect.php?email=$email&verification_code=$verification_code'>verify</a>";
+                            <a href='$actual_link'>verify</a>";
         // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         $mail->send();

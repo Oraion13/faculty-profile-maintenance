@@ -99,6 +99,25 @@ class Users
         return false;
     }
 
+    // Update verification code
+    public function update_verification_code_email(){
+        $query = "UPDATE " . $this->table . " SET verification_code = :verification_code, is_verified = :is_verified WHERE username = :username";
+
+        $stmt = $this->conn->prepare($query);
+
+        $this->username = htmlspecialchars(strip_tags($this->username));
+
+        $stmt->bindParam(':username', $this->username);
+        $stmt->bindParam(':verification_code', $this->verification_code);
+        $stmt->bindParam(':is_verified', $this->is_verified);
+
+        // If data updated successfully, return True
+        if ($stmt->execute()) {
+            return true;
+        }
+        return false;
+    }
+
     // For email verification purpose
     public function verify_user()
     {

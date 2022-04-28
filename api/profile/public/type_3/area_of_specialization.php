@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_3.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 // TYPE 3 file
 class Area_of_specialization_api extends Type_3 implements api
@@ -54,10 +55,10 @@ class Area_of_specialization_api extends Type_3 implements api
     }
 
     // Get all the data of a user's specialization by ID
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Area_of_specialization->user_id = $_GET['ID'];
+        $this->Area_of_specialization->user_id = $id;
         $all_data = $this->Area_of_specialization->read_row();
 
         if ($all_data) {
@@ -175,7 +176,7 @@ class Area_of_specialization_api extends Type_3 implements api
             ++$count;
         }
 
-        $this->get_by_id();
+        $this->get_by_id($_SESSION['user_id']);
     }
 }
 
@@ -183,17 +184,14 @@ class Area_of_specialization_api extends Type_3 implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Area_of_specialization_api = new Area_of_specialization_api();
     if (isset($_GET['ID'])) {
-        $Area_of_specialization_api->get_by_id();
+        $Area_of_specialization_api->get_by_id($_GET['ID']);
     } else {
         $Area_of_specialization_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 

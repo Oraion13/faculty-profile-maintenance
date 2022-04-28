@@ -9,7 +9,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type,
 
 require_once '../../config/DbConnection.php';
 require_once '../../models/Users.php';
-require_once './verification_mail.php';
+require_once '../../utils/verification_mail.php';
 require_once '../../utils/send.php';
 
 class Register_api extends Users
@@ -75,9 +75,9 @@ class Register_api extends Users
             'Email verification from AUTTVL',
             'Thanks for registration!<br>
     Click the link below to verify the account,<br>',
-            'Verify_api'
+            'verify'
         )) {
-            send(201, 'message', 'user created');
+            send(201, 'message', 'check email to verify account');
         } else {
             send(400, 'error', 'unable to create user');
         }

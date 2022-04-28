@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_8.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 // TYPE 8 file
 class Research_guidance_api extends Type_8 implements api
@@ -59,10 +60,10 @@ class Research_guidance_api extends Type_8 implements api
     }
 
     // Get all the data of a user's research_guidance
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Research_guidance->user_id = $_GET['ID'];
+        $this->Research_guidance->user_id = $id;
         $all_data = $this->Research_guidance->read_row();
 
         if ($all_data) {
@@ -195,7 +196,7 @@ class Research_guidance_api extends Type_8 implements api
             ++$count;
         }
 
-        $this->get_by_id();
+        $this->get_by_id($_SESSION['user_id']);
     }
 }
 
@@ -203,17 +204,14 @@ class Research_guidance_api extends Type_8 implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Research_guidance_api = new Research_guidance_api();
     if (isset($_GET['ID'])) {
-        $Research_guidance_api->get_by_id();
+        $Research_guidance_api->get_by_id($_GET['ID']);
     } else {
         $Research_guidance_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 

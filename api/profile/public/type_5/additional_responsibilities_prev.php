@@ -10,6 +10,7 @@ require_once '../../../../config/DbConnection.php';
 require_once '../../../../models/Type_5.php';
 require_once '../../../../utils/send.php';
 require_once '../../../api.php';
+require_once '../../../../utils/loggedin_verified.php';
 
 // TYPE 5 file
 class Additional_responsibilities_prev_api extends Type_5 implements api
@@ -56,10 +57,10 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
     }
 
     // Get all the data of a user's additional_responsibility_prev
-    public function get_by_id()
+    public function get_by_id($id)
     {
         // Get the user info from DB
-        $this->Additional_responsibilities_prev->user_id = $_GET['ID'];
+        $this->Additional_responsibilities_prev->user_id = $id;
         $all_data = $this->Additional_responsibilities_prev->read_row();
 
         if ($all_data) {
@@ -183,7 +184,7 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
             ++$count;
         }
 
-        $this->get_by_id();
+        $this->get_by_id($_SESSION['user_id']);
     }
 }
 
@@ -191,17 +192,14 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Additional_responsibilities_prev_api = new Additional_responsibilities_prev_api();
     if (isset($_GET['ID'])) {
-        $Additional_responsibilities_prev_api->get_by_id();
+        $Additional_responsibilities_prev_api->get_by_id($_GET['ID']);
     } else {
         $Additional_responsibilities_prev_api->get();
     }
 }
 
-// To check if an user is logged in
-if (!isset($_SESSION['user_id'])) {
-    send(400, 'error', 'no user logged in');
-    die();
-}
+// To check if an user is logged in and verified
+loggedin_verified();
 
 // If a user logged in ...
 

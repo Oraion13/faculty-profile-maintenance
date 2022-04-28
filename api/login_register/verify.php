@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 header('Access-Control-Allow-Origin: *');
 
 require_once '../../config/DbConnection.php';
@@ -36,6 +38,7 @@ class Verify_api extends Users
         if ($validate) {
             if ($validate['is_verified'] === 0) {
                 if ($this->Users->update_verification()) {
+                    $_SESSION['is_verified'] = 1;
                     send(200, 'message', 'email verified successfully');
                 } else {
                     send(400, 'error', 'unable to verify user');
