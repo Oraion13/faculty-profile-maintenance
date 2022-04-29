@@ -1,6 +1,6 @@
 # Faculty Profile Maintenance
 
-## Folder Structure
+## File Structure
 
 - 📄 [README.md](README.md)
 - 📂 **api**
