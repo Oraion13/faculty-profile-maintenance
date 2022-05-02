@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,400;1,700&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    line-height: 1.8;
+    color: #898fa1;
+    font-size: 15px;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #11245a;
+}
+
+a{
+    font-weight: 700;
+    transition: all 0.4s ease;
+}
+
+img{
+    width: 100%;
+}
+
+small{
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+section{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.navbar{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navlink{
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+
+.navbar-light .navbar-nav .nav-link.active{
+    color: #E93B81;
+}
+
+#home { 
+    background: linear-gradient(rgba(255, 255, 255, 0.5),rgba(49, 160, 245, 0.489)), url(/Front-end/src/static/images/15.png);
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+p{
+    font-size: 17px;
+    color:rgb(33, 33, 33);
+}
