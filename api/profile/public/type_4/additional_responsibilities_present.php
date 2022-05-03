@@ -50,7 +50,7 @@ class Additional_responsibilities_present_api extends Type_4 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Additional responsibilities present found');
+            send(400, 'error', 'no info about Additional responsibilities - present found');
             die();
         }
     }
@@ -70,7 +70,7 @@ class Additional_responsibilities_present_api extends Type_4 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Additional_responsibilities_present found');
+            send(400, 'error', 'no user info about Additional responsibilities - present found');
             die();
         }
     }
@@ -79,7 +79,7 @@ class Additional_responsibilities_present_api extends Type_4 implements api
     {
         if (!$this->Additional_responsibilities_present->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'additional_responsibility_present cannot be added');
+            send(400, 'error', 'additional responsibility cannot be added');
             die();
         }
     }
@@ -134,7 +134,8 @@ class Additional_responsibilities_present_api extends Type_4 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Additional_responsibilities_present->text = $data[$count]->additional_responsibility_present;
-            $this->Additional_responsibilities_present->from = $data[$count]->additional_responsibility_present_from;
+            $from = date('Y-m-01', strtotime($data[$count]->additional_responsibility_present_from));
+            $this->Additional_responsibilities_present->from = $from;
 
             if ($data[$count]->additional_responsibility_present_id === 0) {
                 $this->post();
@@ -168,10 +169,11 @@ class Additional_responsibilities_present_api extends Type_4 implements api
                 if ($element['additional_responsibility_present_id'] == $data[$count]->additional_responsibility_present_id) {
                     $this->Additional_responsibilities_present->id = $element['additional_responsibility_present_id'];
                     $this->Additional_responsibilities_present->text = $data[$count]->additional_responsibility_present;
-                    $this->Additional_responsibilities_present->from = $data[$count]->additional_responsibility_present_from;
+                    $from = date('Y-m-01', strtotime($data[$count]->additional_responsibility_present_from));
+                    $this->Additional_responsibilities_present->from = $from;
 
                     $this->update_by_id($element['additional_responsibility_present'], $data[$count]->additional_responsibility_present, 'additional_responsibility_present');
-                    $this->update_by_id($element['additional_responsibility_present_from'], $data[$count]->additional_responsibility_present_from, 'additional_responsibility_present_from');
+                    $this->update_by_id($element['additional_responsibility_present_from'], $from, 'additional_responsibility_present_from');
 
                     break;
                 }

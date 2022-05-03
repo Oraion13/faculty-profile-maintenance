@@ -51,7 +51,7 @@ class Patents_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about patents found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Patents_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Patents found');
+            send(400, 'error', 'no info about patents found');
             die();
         }
     }
@@ -136,7 +136,8 @@ class Patents_api extends Type_5 implements api
             // Clean the data
             $this->Patents->text_title = $data[$count]->patent;
             $this->Patents->from_text = $data[$count]->file_number;
-            $this->Patents->to_int = $data[$count]->patent_at;
+            $at = date('Y-m-01', strtotime($data[$count]->patent_at));
+            $this->Patents->to_int = $at;
 
             if ($data[$count]->patent_id === 0) {
                 $this->post();
@@ -171,11 +172,12 @@ class Patents_api extends Type_5 implements api
                     $this->Patents->id = $element['patent_id'];
                     $this->Patents->text_title = $data[$count]->patent;
                     $this->Patents->from_text = $data[$count]->file_number;
-                    $this->Patents->to_int = $data[$count]->patent_at;
+                    $at = date('Y-m-01', strtotime($data[$count]->patent_at));
+                    $this->Patents->to_int = $at;
 
                     $this->update_by_id($element['patent'], $data[$count]->patent, 'patent');
                     $this->update_by_id($element['file_number'], $data[$count]->file_number, 'file_number');
-                    $this->update_by_id($element['patent_at'], $data[$count]->patent_at, 'patent_at');
+                    $this->update_by_id($element['patent_at'], $at, 'patent_at');
 
                     break;
                 }

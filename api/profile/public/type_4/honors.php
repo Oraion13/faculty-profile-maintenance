@@ -50,7 +50,7 @@ class Honors_api extends Type_4 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about honors found');
             die();
         }
     }
@@ -70,7 +70,7 @@ class Honors_api extends Type_4 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Honors found');
+            send(400, 'error', 'no info about honors found');
             die();
         }
     }
@@ -134,7 +134,8 @@ class Honors_api extends Type_4 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Honors->text = $data[$count]->honor;
-            $this->Honors->from = $data[$count]->honored_at;
+            $at = date('Y-m-01', strtotime($data[$count]->honored_at));
+            $this->Honors->from = $at;
 
             if ($data[$count]->honor_id     === 0) {
                 $this->post();
@@ -168,10 +169,11 @@ class Honors_api extends Type_4 implements api
                 if ($element['honor_id'] == $data[$count]->honor_id) {
                     $this->Honors->id = $element['honor_id'];
                     $this->Honors->text = $data[$count]->honor;
-                    $this->Honors->from = $data[$count]->honored_at;
+                    $at = date('Y-m-01', strtotime($data[$count]->honored_at));
+                    $this->Honors->from = $at;
 
                     $this->update_by_id($element['honor'], $data[$count]->honor, 'honor');
-                    $this->update_by_id($element['honored_at'], $data[$count]->honored_at, 'honored_at');
+                    $this->update_by_id($element['honored_at'], $at, 'honored_at');
 
                     break;
                 }

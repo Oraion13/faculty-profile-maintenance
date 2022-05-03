@@ -52,7 +52,7 @@ class Research_degree_api extends Type_6 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about research degree found');
             die();
         }
     }
@@ -72,7 +72,7 @@ class Research_degree_api extends Type_6 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Research_degree found');
+            send(400, 'error', 'no info about research degree found');
             die();
         }
     }
@@ -81,7 +81,7 @@ class Research_degree_api extends Type_6 implements api
     {
         if (!$this->Research_degree->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'research_degree cannot be added');
+            send(400, 'error', 'research degree cannot be added');
             die();
         }
     }
@@ -136,8 +136,12 @@ class Research_degree_api extends Type_6 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Research_degree->text = $data[$count]->research_degree;
-            $this->Research_degree->from = $data[$count]->research_degree_from;
-            $this->Research_degree->to = $data[$count]->research_degree_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->research_degree_from));
+            $this->Research_degree->from = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->research_degree_to));
+            $this->Research_degree->to = $to;
+
             $this->Research_degree->text_int = $data[$count]->title;
 
             if ($data[$count]->research_degree_id === 0) {
@@ -172,13 +176,17 @@ class Research_degree_api extends Type_6 implements api
                 if ($element['research_degree_id'] == $data[$count]->research_degree_id) {
                     $this->Research_degree->id = $element['research_degree_id'];
                     $this->Research_degree->text = $data[$count]->research_degree;
-                    $this->Research_degree->from = $data[$count]->research_degree_from;
-                    $this->Research_degree->to = $data[$count]->research_degree_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->research_degree_from));
+                    $this->Research_degree->from = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->research_degree_to));
+                    $this->Research_degree->to = $to;
+
                     $this->Research_degree->text_int = $data[$count]->title;
 
                     $this->update_by_id($element['research_degree'], $data[$count]->research_degree, 'research_degree');
-                    $this->update_by_id($element['research_degree_from'], $data[$count]->research_degree_from, 'research_degree_from');
-                    $this->update_by_id($element['research_degree_to'], $data[$count]->research_degree_to, 'research_degree_to');
+                    $this->update_by_id($element['research_degree_from'], $from, 'research_degree_from');
+                    $this->update_by_id($element['research_degree_to'], $to, 'research_degree_to');
                     $this->update_by_id($element['title'], $data[$count]->title, 'title');
 
                     break;

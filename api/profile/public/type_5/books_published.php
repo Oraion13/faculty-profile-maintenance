@@ -51,7 +51,7 @@ class Books_published_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about books published found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Books_published_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Books_published found');
+            send(400, 'error', 'no info about books published found');
             die();
         }
     }
@@ -136,7 +136,8 @@ class Books_published_api extends Type_5 implements api
             // Clean the data
             $this->Books_published->text_title = $data[$count]->title;
             $this->Books_published->from_text = $data[$count]->description;
-            $this->Books_published->to_int = $data[$count]->published_at;
+            $at = date('Y-m-01', strtotime($data[$count]->published_at));
+            $this->Books_published->to_int = $at;
 
             if ($data[$count]->book_published_id === 0) {
                 $this->post();
@@ -171,11 +172,12 @@ class Books_published_api extends Type_5 implements api
                     $this->Books_published->id = $element['book_published_id'];
                     $this->Books_published->text_title = $data[$count]->title;
                     $this->Books_published->from_text = $data[$count]->description;
-                    $this->Books_published->to_int = $data[$count]->published_at;
+                    $at = date('Y-m-01', strtotime($data[$count]->published_at));
+                    $this->Books_published->to_int = $at;
 
                     $this->update_by_id($element['title'], $data[$count]->title, 'title');
                     $this->update_by_id($element['description'], $data[$count]->description, 'description');
-                    $this->update_by_id($element['published_at'], $data[$count]->published_at, 'published_at');
+                    $this->update_by_id($element['published_at'], $at, 'published_at');
 
                     break;
                 }

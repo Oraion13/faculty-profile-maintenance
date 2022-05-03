@@ -51,7 +51,7 @@ class Programme_chaired_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about programme chaired found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Programme_chaired_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Programme_chaired found');
+            send(400, 'error', 'no info about programme chaired found');
             die();
         }
     }
@@ -80,7 +80,7 @@ class Programme_chaired_api extends Type_5 implements api
     {
         if (!$this->Programme_chaired->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'programme_chaired cannot be added');
+            send(400, 'error', 'programme cannot be added');
             die();
         }
     }
@@ -135,8 +135,11 @@ class Programme_chaired_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Programme_chaired->text_title = $data[$count]->programme_chaired;
-            $this->Programme_chaired->from_text = $data[$count]->programme_chaired_from;
-            $this->Programme_chaired->to_int = $data[$count]->programme_chaired_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->programme_chaired_from));
+            $this->Programme_chaired->from_text = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->programme_chaired_to));
+            $this->Programme_chaired->to_int = $to;
 
             if ($data[$count]->programme_chaired_id === 0) {
                 $this->post();
@@ -170,12 +173,15 @@ class Programme_chaired_api extends Type_5 implements api
                 if ($element['programme_chaired_id'] == $data[$count]->programme_chaired_id) {
                     $this->Programme_chaired->id = $element['programme_chaired_id'];
                     $this->Programme_chaired->text_title = $data[$count]->programme_chaired;
-                    $this->Programme_chaired->from_text = $data[$count]->programme_chaired_from;
-                    $this->Programme_chaired->to_int = $data[$count]->programme_chaired_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->programme_chaired_from));
+                    $this->Programme_chaired->from_text = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->programme_chaired_to));
+                    $this->Programme_chaired->to_int = $to;
 
                     $this->update_by_id($element['programme_chaired'], $data[$count]->programme_chaired, 'programme_chaired');
-                    $this->update_by_id($element['programme_chaired_from'], $data[$count]->programme_chaired_from, 'programme_chaired_from');
-                    $this->update_by_id($element['programme_chaired_to'], $data[$count]->programme_chaired_to, 'programme_chaired_to');
+                    $this->update_by_id($element['programme_chaired_from'], $from, 'programme_chaired_from');
+                    $this->update_by_id($element['programme_chaired_to'], $to, 'programme_chaired_to');
 
                     break;
                 }

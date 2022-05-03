@@ -51,7 +51,7 @@ class Degree_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about degree found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Degree_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Degree found');
+            send(400, 'error', 'no info about degree found');
             die();
         }
     }
@@ -135,8 +135,11 @@ class Degree_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Degree->text_title = $data[$count]->degree;
-            $this->Degree->from_text = $data[$count]->degree_from;
-            $this->Degree->to_int = $data[$count]->degree_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->degree_from));
+            $this->Degree->from_text = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->degree_to));
+            $this->Degree->to_int = $to;
 
             if ($data[$count]->degree_id === 0) {
                 $this->post();
@@ -170,12 +173,15 @@ class Degree_api extends Type_5 implements api
                 if ($element['degree_id'] == $data[$count]->degree_id) {
                     $this->Degree->id = $element['degree_id'];
                     $this->Degree->text_title = $data[$count]->degree;
-                    $this->Degree->from_text = $data[$count]->degree_from;
-                    $this->Degree->to_int = $data[$count]->degree_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->degree_from));
+                    $this->Degree->from_text = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->degree_to));
+                    $this->Degree->to_int = $to;
 
                     $this->update_by_id($element['degree'], $data[$count]->degree, 'degree');
-                    $this->update_by_id($element['degree_from'], $data[$count]->degree_from, 'degree_from');
-                    $this->update_by_id($element['degree_to'], $data[$count]->degree_to, 'degree_to');
+                    $this->update_by_id($element['degree_from'], $from, 'degree_from');
+                    $this->update_by_id($element['degree_to'], $to, 'degree_to');
 
                     break;
                 }

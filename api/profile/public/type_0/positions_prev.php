@@ -134,8 +134,12 @@ class Positions_prev_api extends Positions_prev implements api
             $this->Positions_prev->position_id = $data[$count]->position_id;
             $this->Positions_prev->department_id = $data[$count]->department_id;
             $this->Positions_prev->position_prev_where = $data[$count]->position_prev_where;
-            $this->Positions_prev->position_prev_from = $data[$count]->position_prev_from;
-            $this->Positions_prev->position_prev_to = $data[$count]->position_prev_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->position_prev_from));
+            $this->Positions_prev->position_prev_from = $from;
+
+            $to = date('Y-m-01', strtotime($data[$count]->position_prev_to));
+            $this->Positions_prev->position_prev_to = $to;
 
             if ($data[$count]->position_prev_id === 0) {
                 $this->post();
@@ -171,14 +175,18 @@ class Positions_prev_api extends Positions_prev implements api
                     $this->Positions_prev->position_id = $data[$count]->position_id;
                     $this->Positions_prev->department_id = $data[$count]->department_id;
                     $this->Positions_prev->position_prev_where = $data[$count]->position_prev_where;
-                    $this->Positions_prev->position_prev_from = $data[$count]->position_prev_from;
-                    $this->Positions_prev->position_prev_to = $data[$count]->position_prev_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->position_prev_from));
+                    $this->Positions_prev->position_prev_from = $from;
+
+                    $to = date('Y-m-01', strtotime($data[$count]->position_prev_to));
+                    $this->Positions_prev->position_prev_to = $to;
 
                     $this->update_by_id($element['position_id'], $data[$count]->position_id, 'position_id');
                     $this->update_by_id($element['department_id'], $data[$count]->department_id, 'department_id');
                     $this->update_by_id($element['position_prev_where'], $data[$count]->position_prev_where, 'position_prev_where');
-                    $this->update_by_id($element['position_prev_from'], $data[$count]->position_prev_from, 'position_prev_from');
-                    $this->update_by_id($element['position_prev_to'], $data[$count]->position_prev_to, 'position_prev_to');
+                    $this->update_by_id($element['position_prev_from'], $from, 'position_prev_from');
+                    $this->update_by_id($element['position_prev_to'], $to, 'position_prev_to');
 
                     break;
                 }

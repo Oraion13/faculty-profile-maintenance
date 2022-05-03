@@ -51,7 +51,7 @@ class Special_respresentations_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about special representations found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Special_respresentations_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Special_representations found');
+            send(400, 'error', 'no info about special representations found');
             die();
         }
     }
@@ -80,7 +80,7 @@ class Special_respresentations_api extends Type_5 implements api
     {
         if (!$this->Special_representations->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'special_representation cannot be added');
+            send(400, 'error', 'special representation cannot be added');
             die();
         }
     }
@@ -135,8 +135,11 @@ class Special_respresentations_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Special_representations->text_title = $data[$count]->special_representation;
-            $this->Special_representations->from_text = $data[$count]->special_representation_from;
-            $this->Special_representations->to_int = $data[$count]->special_representation_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->special_representation_from));
+            $this->Special_representations->from_text = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->special_representation_to));
+            $this->Special_representations->to_int = $to;
 
             if ($data[$count]->special_representation_id === 0) {
                 $this->post();
@@ -170,12 +173,15 @@ class Special_respresentations_api extends Type_5 implements api
                 if ($element['special_representation_id'] == $data[$count]->special_representation_id) {
                     $this->Special_representations->id = $element['special_representation_id'];
                     $this->Special_representations->text_title = $data[$count]->special_representation;
-                    $this->Special_representations->from_text = $data[$count]->special_representation_from;
-                    $this->Special_representations->to_int = $data[$count]->special_representation_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->special_representation_from));
+                    $this->Special_representations->from_text = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->special_representation_to));
+                    $this->Special_representations->to_int = $to;
 
                     $this->update_by_id($element['special_representation'], $data[$count]->special_representation, 'special_representation');
-                    $this->update_by_id($element['special_representation_from'], $data[$count]->special_representation_from, 'special_representation_from');
-                    $this->update_by_id($element['special_representation_to'], $data[$count]->special_representation_to, 'special_representation_to');
+                    $this->update_by_id($element['special_representation_from'], $from, 'special_representation_from');
+                    $this->update_by_id($element['special_representation_to'], $to, 'special_representation_to');
 
                     break;
                 }

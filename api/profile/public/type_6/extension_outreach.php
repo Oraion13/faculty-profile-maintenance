@@ -52,7 +52,7 @@ class Extension_outreach_api extends Type_6 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about extension outreach found');
             die();
         }
     }
@@ -72,7 +72,7 @@ class Extension_outreach_api extends Type_6 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Extension_outreach found');
+            send(400, 'error', 'no info about extension outreach found');
             die();
         }
     }
@@ -81,7 +81,7 @@ class Extension_outreach_api extends Type_6 implements api
     {
         if (!$this->Extension_outreach->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'extension_outreach cannot be added');
+            send(400, 'error', 'extension outreach cannot be added');
             die();
         }
     }
@@ -136,8 +136,12 @@ class Extension_outreach_api extends Type_6 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Extension_outreach->text = $data[$count]->extension_outreach;
-            $this->Extension_outreach->from = $data[$count]->extension_outreach_from;
-            $this->Extension_outreach->to = $data[$count]->extension_outreach_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->extension_outreach_from));
+            $this->Extension_outreach->from = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->extension_outreach_to));
+            $this->Extension_outreach->to = $to;
+
             $this->Extension_outreach->text_int = $data[$count]->number_of_participants;
 
             if ($data[$count]->extension_outreach_id === 0) {
@@ -172,13 +176,17 @@ class Extension_outreach_api extends Type_6 implements api
                 if ($element['extension_outreach_id'] == $data[$count]->extension_outreach_id) {
                     $this->Extension_outreach->id = $element['extension_outreach_id'];
                     $this->Extension_outreach->text = $data[$count]->extension_outreach;
-                    $this->Extension_outreach->from = $data[$count]->extension_outreach_from;
-                    $this->Extension_outreach->to = $data[$count]->extension_outreach_to;
+                    
+                    $from = date('Y-m-01', strtotime($data[$count]->extension_outreach_from));
+                    $this->Extension_outreach->from = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->extension_outreach_to));
+                    $this->Extension_outreach->to = $to;
+
                     $this->Extension_outreach->text_int = $data[$count]->number_of_participants;
 
                     $this->update_by_id($element['extension_outreach'], $data[$count]->extension_outreach, 'extension_outreach');
-                    $this->update_by_id($element['extension_outreach_from'], $data[$count]->extension_outreach_from, 'extension_outreach_from');
-                    $this->update_by_id($element['extension_outreach_to'], $data[$count]->extension_outreach_to, 'extension_outreach_to');
+                    $this->update_by_id($element['extension_outreach_from'], $from, 'extension_outreach_from');
+                    $this->update_by_id($element['extension_outreach_to'], $to, 'extension_outreach_to');
                     $this->update_by_id($element['number_of_participants'], $data[$count]->number_of_participants, 'number_of_participants');
 
                     break;

@@ -50,7 +50,7 @@ class Invited_lectures_api extends Type_4 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about invited lectures found');
             die();
         }
     }
@@ -70,7 +70,7 @@ class Invited_lectures_api extends Type_4 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Invited_lectures found');
+            send(400, 'error', 'no info about invited lectures found');
             die();
         }
     }
@@ -134,7 +134,8 @@ class Invited_lectures_api extends Type_4 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Invited_lectures->text = $data[$count]->invited_lecture;
-            $this->Invited_lectures->from = $data[$count]->invited_lecture_at;
+            $at = date('Y-m-01', strtotime($data[$count]->invited_lecture_at));
+            $this->Invited_lectures->from = $at;
 
             if ($data[$count]->invited_lecture_id     === 0) {
                 $this->post();
@@ -168,10 +169,11 @@ class Invited_lectures_api extends Type_4 implements api
                 if ($element['invited_lecture_id'] == $data[$count]->invited_lecture_id) {
                     $this->Invited_lectures->id = $element['invited_lecture_id'];
                     $this->Invited_lectures->text = $data[$count]->invited_lecture;
-                    $this->Invited_lectures->from = $data[$count]->invited_lecture_at;
+                    $at = date('Y-m-01', strtotime($data[$count]->invited_lecture_at));
+                    $this->Invited_lectures->from = $at;
 
                     $this->update_by_id($element['invited_lecture'], $data[$count]->invited_lecture, 'invited_lecture');
-                    $this->update_by_id($element['invited_lecture_at'], $data[$count]->invited_lecture_at, 'invited_lecture_at');
+                    $this->update_by_id($element['invited_lecture_at'], $at, 'invited_lecture_at');
 
                     break;
                 }

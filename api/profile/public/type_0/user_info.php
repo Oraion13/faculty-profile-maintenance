@@ -81,7 +81,10 @@ class User_info_api extends User_info implements api
         $this->User_info->position_id = $data->position_id;
         $this->User_info->department_id = $data->department_id;
         $this->User_info->position_present_where = $data->position_present_where;
-        $this->User_info->position_present_from = $data->position_present_from;
+
+        $from = date('Y-m-01', strtotime($data->position_present_from));
+        $this->User_info->position_present_from = $from;
+
 
         // Get the user info from DB
         $all_data = $this->User_info->read_row();
@@ -129,7 +132,9 @@ class User_info_api extends User_info implements api
         $this->User_info->position_id = $data->position_id;
         $this->User_info->department_id = $data->department_id;
         $this->User_info->position_present_where = $data->position_present_where;
-        $this->User_info->position_present_from = $data->position_present_from;
+
+        $from = date('Y-m-01', strtotime($data->position_present_from));
+        $this->User_info->position_present_from = $from;
 
         // Get the user info from DB
         $all_data = $this->User_info->read_row();
@@ -145,7 +150,7 @@ class User_info_api extends User_info implements api
             $this->update_by_id($all_data['position_id'], $data->position_id, 'position_id');
             $this->update_by_id($all_data['department_id'], $data->department_id, 'department_id');
             $this->update_by_id($all_data['position_present_where'], $data->position_present_where, 'position_present_where');
-            $this->update_by_id($all_data['position_present_from'], $data->position_present_from, 'position_present_from');
+            $this->update_by_id($all_data['position_present_from'], $from, 'position_present_from');
 
             // If updated successfully, get_by_id the data, else throw an error message 
             $this->get_by_id($_SESSION['user_id']);

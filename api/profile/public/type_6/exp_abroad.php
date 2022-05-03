@@ -52,7 +52,7 @@ class Exp_abroad_api extends Type_6 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about experience abroad found');
             die();
         }
     }
@@ -72,7 +72,7 @@ class Exp_abroad_api extends Type_6 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Exp_abroad found');
+            send(400, 'error', 'no info about experience abroad found');
             die();
         }
     }
@@ -81,7 +81,7 @@ class Exp_abroad_api extends Type_6 implements api
     {
         if (!$this->Exp_abroad->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'exp_abroad cannot be added');
+            send(400, 'error', 'experience abroad cannot be added');
             die();
         }
     }
@@ -136,8 +136,12 @@ class Exp_abroad_api extends Type_6 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Exp_abroad->text = $data[$count]->exp_abroad;
-            $this->Exp_abroad->from = $data[$count]->exp_abroad_from;
-            $this->Exp_abroad->to = $data[$count]->exp_abroad_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->exp_abroad_from));
+            $this->Exp_abroad->from = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->exp_abroad_to));
+            $this->Exp_abroad->to = $to;
+
             $this->Exp_abroad->text_int = $data[$count]->purpose_of_visit;
 
             if ($data[$count]->exp_abroad_id === 0) {
@@ -172,13 +176,17 @@ class Exp_abroad_api extends Type_6 implements api
                 if ($element['exp_abroad_id'] == $data[$count]->exp_abroad_id) {
                     $this->Exp_abroad->id = $element['exp_abroad_id'];
                     $this->Exp_abroad->text = $data[$count]->exp_abroad;
-                    $this->Exp_abroad->from = $data[$count]->exp_abroad_from;
-                    $this->Exp_abroad->to = $data[$count]->exp_abroad_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->exp_abroad_from));
+                    $this->Exp_abroad->from = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->exp_abroad_to));
+                    $this->Exp_abroad->to = $to;
+        
                     $this->Exp_abroad->text_int = $data[$count]->purpose_of_visit;
 
                     $this->update_by_id($element['exp_abroad'], $data[$count]->exp_abroad, 'exp_abroad');
-                    $this->update_by_id($element['exp_abroad_from'], $data[$count]->exp_abroad_from, 'exp_abroad_from');
-                    $this->update_by_id($element['exp_abroad_to'], $data[$count]->exp_abroad_to, 'exp_abroad_to');
+                    $this->update_by_id($element['exp_abroad_from'], $from, 'exp_abroad_from');
+                    $this->update_by_id($element['exp_abroad_to'], $to, 'exp_abroad_to');
                     $this->update_by_id($element['purpose_of_visit'], $data[$count]->purpose_of_visit, 'purpose_of_visit');
 
                     break;

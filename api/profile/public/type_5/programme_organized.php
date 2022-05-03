@@ -51,7 +51,7 @@ class Programme_organized_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about programme organized found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Programme_organized_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Programme_organized found');
+            send(400, 'error', 'no info about programme organized found');
             die();
         }
     }
@@ -80,7 +80,7 @@ class Programme_organized_api extends Type_5 implements api
     {
         if (!$this->Programme_organized->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'programme_organized cannot be added');
+            send(400, 'error', 'programme cannot be added');
             die();
         }
     }
@@ -135,8 +135,11 @@ class Programme_organized_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Programme_organized->text_title = $data[$count]->programme_organized;
-            $this->Programme_organized->from_text = $data[$count]->programme_organized_from;
-            $this->Programme_organized->to_int = $data[$count]->programme_organized_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->programme_organized_from));
+            $this->Programme_organized->from_text = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->programme_organized_to));
+            $this->Programme_organized->to_int = $to;
 
             if ($data[$count]->programme_organized_id === 0) {
                 $this->post();
@@ -170,12 +173,15 @@ class Programme_organized_api extends Type_5 implements api
                 if ($element['programme_organized_id'] == $data[$count]->programme_organized_id) {
                     $this->Programme_organized->id = $element['programme_organized_id'];
                     $this->Programme_organized->text_title = $data[$count]->programme_organized;
-                    $this->Programme_organized->from_text = $data[$count]->programme_organized_from;
-                    $this->Programme_organized->to_int = $data[$count]->programme_organized_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->programme_organized_from));
+                    $this->Programme_organized->from_text = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->programme_organized_to));
+                    $this->Programme_organized->to_int = $to;
 
                     $this->update_by_id($element['programme_organized'], $data[$count]->programme_organized, 'programme_organized');
-                    $this->update_by_id($element['programme_organized_from'], $data[$count]->programme_organized_from, 'programme_organized_from');
-                    $this->update_by_id($element['programme_organized_to'], $data[$count]->programme_organized_to, 'programme_organized_to');
+                    $this->update_by_id($element['programme_organized_from'], $from, 'programme_organized_from');
+                    $this->update_by_id($element['programme_organized_to'], $to, 'programme_organized_to');
 
                     break;
                 }

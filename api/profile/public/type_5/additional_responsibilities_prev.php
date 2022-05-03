@@ -51,7 +51,7 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about additional responsibilities - previous found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Additional_responsibilities_prev found');
+            send(400, 'error', 'no info about additional responsibilities - previous found');
             die();
         }
     }
@@ -80,7 +80,7 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
     {
         if (!$this->Additional_responsibilities_prev->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'additional_responsibility_prev cannot be added');
+            send(400, 'error', 'previous additional responsibility cannot be added');
             die();
         }
     }
@@ -135,8 +135,11 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Additional_responsibilities_prev->text_title = $data[$count]->additional_responsibility_prev;
-            $this->Additional_responsibilities_prev->from_text = $data[$count]->additional_responsibility_prev_from;
-            $this->Additional_responsibilities_prev->to_int = $data[$count]->additional_responsibility_prev_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->additional_responsibility_prev_from));
+            $this->Additional_responsibilities_prev->from_text = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->additional_responsibility_prev_to));
+            $this->Additional_responsibilities_prev->to_int = $to;
 
             if ($data[$count]->additional_responsibility_prev_id === 0) {
                 $this->post();
@@ -170,12 +173,15 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
                 if ($element['additional_responsibility_prev_id'] == $data[$count]->additional_responsibility_prev_id) {
                     $this->Additional_responsibilities_prev->id = $element['additional_responsibility_prev_id'];
                     $this->Additional_responsibilities_prev->text_title = $data[$count]->additional_responsibility_prev;
-                    $this->Additional_responsibilities_prev->from_text = $data[$count]->additional_responsibility_prev_from;
-                    $this->Additional_responsibilities_prev->to_int = $data[$count]->additional_responsibility_prev_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->additional_responsibility_prev_from));
+                    $this->Additional_responsibilities_prev->from_text = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->additional_responsibility_prev_to));
+                    $this->Additional_responsibilities_prev->to_int = $to;
 
                     $this->update_by_id($element['additional_responsibility_prev'], $data[$count]->additional_responsibility_prev, 'additional_responsibility_prev');
-                    $this->update_by_id($element['additional_responsibility_prev_from'], $data[$count]->additional_responsibility_prev_from, 'additional_responsibility_prev_from');
-                    $this->update_by_id($element['additional_responsibility_prev_to'], $data[$count]->additional_responsibility_prev_to, 'additional_responsibility_prev_to');
+                    $this->update_by_id($element['additional_responsibility_prev_from'], $from, 'additional_responsibility_prev_from');
+                    $this->update_by_id($element['additional_responsibility_prev_to'], $to, 'additional_responsibility_prev_to');
 
                     break;
                 }

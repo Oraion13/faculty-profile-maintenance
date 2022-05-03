@@ -52,7 +52,7 @@ class Sponsored_projects_completed_api extends Type_6 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about sponsored projects completed found');
             die();
         }
     }
@@ -72,7 +72,7 @@ class Sponsored_projects_completed_api extends Type_6 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Sponsored_projects_completed found');
+            send(400, 'error', 'no info about sponsored projects completed found');
             die();
         }
     }
@@ -136,8 +136,12 @@ class Sponsored_projects_completed_api extends Type_6 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Sponsored_projects_completed->text = $data[$count]->project;
-            $this->Sponsored_projects_completed->from = $data[$count]->project_from;
-            $this->Sponsored_projects_completed->to = $data[$count]->project_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->project_from));
+            $this->Sponsored_projects_completed->from = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->project_to));
+            $this->Sponsored_projects_completed->to = $to;
+
             $this->Sponsored_projects_completed->text_int = $data[$count]->project_cost;
 
             if ($data[$count]->project_id === 0) {
@@ -172,13 +176,17 @@ class Sponsored_projects_completed_api extends Type_6 implements api
                 if ($element['project_id'] == $data[$count]->project_id) {
                     $this->Sponsored_projects_completed->id = $element['project_id'];
                     $this->Sponsored_projects_completed->text = $data[$count]->project;
-                    $this->Sponsored_projects_completed->from = $data[$count]->project_from;
-                    $this->Sponsored_projects_completed->to = $data[$count]->project_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->project_from));
+                    $this->Sponsored_projects_completed->from = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->project_to));
+                    $this->Sponsored_projects_completed->to = $to;
+        
                     $this->Sponsored_projects_completed->text_int = $data[$count]->project_cost;
 
                     $this->update_by_id($element['project'], $data[$count]->project, 'project');
-                    $this->update_by_id($element['project_from'], $data[$count]->project_from, 'project_from');
-                    $this->update_by_id($element['project_to'], $data[$count]->project_to, 'project_to');
+                    $this->update_by_id($element['project_from'], $from, 'project_from');
+                    $this->update_by_id($element['project_to'], $to, 'project_to');
                     $this->update_by_id($element['project_cost'], $data[$count]->project_cost, 'project_cost');
 
                     break;

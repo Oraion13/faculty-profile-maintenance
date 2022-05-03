@@ -51,7 +51,7 @@ class Other_employment_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about other employment found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Other_employment_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Other_employment found');
+            send(400, 'error', 'no info about other employment found');
             die();
         }
     }
@@ -80,7 +80,7 @@ class Other_employment_api extends Type_5 implements api
     {
         if (!$this->Other_employment->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'other_employment cannot be added');
+            send(400, 'error', 'employment cannot be added');
             die();
         }
     }
@@ -135,8 +135,11 @@ class Other_employment_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Other_employment->text_title = $data[$count]->other_employment;
-            $this->Other_employment->from_text = $data[$count]->other_employment_from;
-            $this->Other_employment->to_int = $data[$count]->other_employment_to;
+
+            $from = date('Y-m-01', strtotime($data[$count]->other_employment_from));
+            $this->Other_employment->from_text = $from;
+            $to = date('Y-m-01', strtotime($data[$count]->other_employment_to));
+            $this->Other_employment->to_int = $to;
 
             if ($data[$count]->other_employment_id === 0) {
                 $this->post();
@@ -170,12 +173,15 @@ class Other_employment_api extends Type_5 implements api
                 if ($element['other_employment_id'] == $data[$count]->other_employment_id) {
                     $this->Other_employment->id = $element['other_employment_id'];
                     $this->Other_employment->text_title = $data[$count]->other_employment;
-                    $this->Other_employment->from_text = $data[$count]->other_employment_from;
-                    $this->Other_employment->to_int = $data[$count]->other_employment_to;
+
+                    $from = date('Y-m-01', strtotime($data[$count]->other_employment_from));
+                    $this->Other_employment->from_text = $from;
+                    $to = date('Y-m-01', strtotime($data[$count]->other_employment_to));
+                    $this->Other_employment->to_int = $to;
 
                     $this->update_by_id($element['other_employment'], $data[$count]->other_employment, 'other_employment');
-                    $this->update_by_id($element['other_employment_from'], $data[$count]->other_employment_from, 'other_employment_from');
-                    $this->update_by_id($element['other_employment_to'], $data[$count]->other_employment_to, 'other_employment_to');
+                    $this->update_by_id($element['other_employment_from'], $from, 'other_employment_from');
+                    $this->update_by_id($element['other_employment_to'], $to, 'other_employment_to');
 
                     break;
                 }

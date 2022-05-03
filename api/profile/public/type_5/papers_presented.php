@@ -51,7 +51,7 @@ class Papers_presented_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no info about Area of specialization found');
+            send(400, 'error', 'no info about papers presented found');
             die();
         }
     }
@@ -71,7 +71,7 @@ class Papers_presented_api extends Type_5 implements api
             echo json_encode($data);
             die();
         } else {
-            send(400, 'error', 'no user info about Papers_presented found');
+            send(400, 'error', 'no info about papers presented found');
             die();
         }
     }
@@ -80,7 +80,7 @@ class Papers_presented_api extends Type_5 implements api
     {
         if (!$this->Papers_presented->post()) {
             // If can't post the data, throw an error message
-            send(400, 'error', 'paper_presented cannot be added');
+            send(400, 'error', 'paper cannot be added');
             die();
         }
     }
@@ -135,7 +135,9 @@ class Papers_presented_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Papers_presented->text_title = $data[$count]->paper_presented;
-            $this->Papers_presented->from_text = $data[$count]->paper_presented_at;
+
+            $at = date('Y-m-01', strtotime($data[$count]->paper_presented_at));
+            $this->Papers_presented->from_text = $at;
             $this->Papers_presented->to_int = $data[$count]->is_international;
 
             if ($data[$count]->paper_presented_id === 0) {
@@ -170,11 +172,12 @@ class Papers_presented_api extends Type_5 implements api
                 if ($element['paper_presented_id'] == $data[$count]->paper_presented_id) {
                     $this->Papers_presented->id = $element['paper_presented_id'];
                     $this->Papers_presented->text_title = $data[$count]->paper_presented;
-                    $this->Papers_presented->from_text = $data[$count]->paper_presented_at;
+                    $at = date('Y-m-01', strtotime($data[$count]->paper_presented_at));
+                    $this->Papers_presented->from_text = $at;
                     $this->Papers_presented->to_int = $data[$count]->is_international;
 
                     $this->update_by_id($element['paper_presented'], $data[$count]->paper_presented, 'paper_presented');
-                    $this->update_by_id($element['paper_presented_at'], $data[$count]->paper_presented_at, 'paper_presented_at');
+                    $this->update_by_id($element['paper_presented_at'], $at, 'paper_presented_at');
                     $this->update_by_id($element['is_international'], $data[$count]->is_international, 'is_international');
 
                     break;

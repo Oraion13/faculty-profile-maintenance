@@ -158,35 +158,6 @@ class Users_api extends Users implements api
                 }
             }
 
-            // if (strcmp($data->email, $all_data['email']) !== 0) {
-            //     // Get the user
-            //     $validate = $this->Users->read_single();
-
-            //     // Checks if email id and username are unique
-            //     if (strcmp($validate['email'], $data->email) === 0) {
-            //         send(409, 'error', 'email already taken');
-            //         die();
-            //     }
-
-            //     // Email verification code
-            //     $verification_code = bin2hex(random_bytes(32));
-            //     $this->Users->verification_code = $verification_code;
-            //     $this->Users->is_verified = 0;
-
-            //     if (!$this->Users->update_email() && verification_mail(
-            //         $data->email,
-            //         $data->username,
-            //         $verification_code,
-            //         'Email verification from AUTTVL',
-            //         'Thanks for registration!<br>
-            //         Click the link below to verify the account,<br>',
-            //         'Verify_api'
-            //     )) {
-            //         $error = true;
-            //         $message .= ',email,';
-            //     }
-            // }
-
             // If updated successfully, get the data, else throw an error message 
             $this->get_by_id($_SESSION['user_id']);
         } else {
