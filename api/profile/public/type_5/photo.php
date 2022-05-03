@@ -135,7 +135,7 @@ class Photo_api extends Type_5 implements api
             if ($this->Photo->post()) {
                 $this->get_by_id($_SESSION['user_id']);
             } else {
-                send(400, 'error', 'photo cannot be uploaded or created');
+                send(400, 'error', 'photo cannot be uploaded');
             }
         }
     }

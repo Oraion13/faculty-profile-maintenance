@@ -6,7 +6,8 @@ require_once 'model.php';
 // faculty_exp_abroad,
 // faculty_research_degree,
 // faculty_extension_outreach,
-// faculty_sponsered_projects_completed
+// faculty_sponsered_projects_completed,
+// faculty_incharge_duty_files
 // is handeled here
 class Type_6 implements model
 {
@@ -86,7 +87,7 @@ class Type_6 implements model
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
         $this->text = htmlspecialchars(strip_tags($this->text));
         $this->from = htmlspecialchars(strip_tags($this->from));
-        $this->to = htmlspecialchars(strip_tags($this->to));
+        $this->to = $this->to;
         $this->text_int = htmlspecialchars(strip_tags($this->text_int));
 
         $stmt->bindParam(':user_id', $this->user_id);
