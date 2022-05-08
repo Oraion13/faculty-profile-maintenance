@@ -98,7 +98,7 @@ class Incharge_duty_files_api extends Type_6 implements api
 
         // Clean the data
         $this->Incharge_duty_file->user_id = $_SESSION['user_id'];
-        $this->Incharge_duty_file->text = $_FILES['incharge_duty_file']['name'];
+        $this->Incharge_duty_file->text = $_POST['name'];
         $this->Incharge_duty_file->from = $_FILES['incharge_duty_file']['type'];
         $this->Incharge_duty_file->to = file_get_contents($_FILES['incharge_duty_file']['tmp_name']);
 
