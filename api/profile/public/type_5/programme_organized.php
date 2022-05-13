@@ -75,6 +75,28 @@ class Programme_organized_api extends Type_5 implements api
             die();
         }
     }
+            
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Programme_organized->start = $start;
+        $this->Programme_organized->end = $end;
+        $all_data = $this->Programme_organized->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about programme organized found');
+            die();
+        }
+    }
+
     // POST a new user's programme_organized
     public function post()
     {
@@ -200,6 +222,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Programme_organized_api = new Programme_organized_api();
     if (isset($_GET['ID'])) {
         $Programme_organized_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Programme_organized_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Programme_organized_api->get();
     }

@@ -75,6 +75,28 @@ class Degree_api extends Type_5 implements api
             die();
         }
     }
+        
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Degree->start = $start;
+        $this->Degree->end = $end;
+        $all_data = $this->Degree->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about Degree found');
+            die();
+        }
+    }
+
     // POST a new user's degree
     public function post()
     {
@@ -199,6 +221,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Degree_api = new Degree_api();
     if (isset($_GET['ID'])) {
         $Degree_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Degree_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Degree_api->get();
     }

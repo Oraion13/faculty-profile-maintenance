@@ -33,8 +33,8 @@ class Books_published_api extends Type_5 implements api
         // Set column names
         $this->Books_published->id_name = 'book_published_id';
         $this->Books_published->text_name = 'title';
-        $this->Books_published->from_name = 'description';
-        $this->Books_published->to_name = 'published_at';
+        $this->Books_published->from_name = 'published_at';
+        $this->Books_published->to_name = 'description';
     }
 
     // Get all data
@@ -75,6 +75,28 @@ class Books_published_api extends Type_5 implements api
             die();
         }
     }
+        
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Books_published->start = $start;
+        $this->Books_published->end = $end;
+        $all_data = $this->Books_published->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about books published found');
+            die();
+        }
+    }
+
     // POST a new user's title
     public function post()
     {
@@ -135,9 +157,9 @@ class Books_published_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Books_published->text_title = $data[$count]->title;
-            $this->Books_published->from_text = $data[$count]->description;
+            $this->Books_published->to_int = $data[$count]->description;
             $at = date('Y-m-01', strtotime($data[$count]->published_at));
-            $this->Books_published->to_int = $at;
+            $this->Books_published->from_text = $at;
 
             if ($data[$count]->book_published_id === 0) {
                 $this->post();
@@ -171,9 +193,9 @@ class Books_published_api extends Type_5 implements api
                 if ($element['book_published_id'] == $data[$count]->book_published_id) {
                     $this->Books_published->id = $element['book_published_id'];
                     $this->Books_published->text_title = $data[$count]->title;
-                    $this->Books_published->from_text = $data[$count]->description;
+                    $this->Books_published->to_int = $data[$count]->description;
                     $at = date('Y-m-01', strtotime($data[$count]->published_at));
-                    $this->Books_published->to_int = $at;
+                    $this->Books_published->from_text = $at;
 
                     $this->update_by_id($element['title'], $data[$count]->title, 'title');
                     $this->update_by_id($element['description'], $data[$count]->description, 'description');
@@ -195,6 +217,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Books_published_api = new Books_published_api();
     if (isset($_GET['ID'])) {
         $Books_published_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Books_published_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Books_published_api->get();
     }

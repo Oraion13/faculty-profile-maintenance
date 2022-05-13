@@ -2,7 +2,13 @@
 
 require_once 'model.php';
 
-// Operations for 'faculty_additional_responsibilities_present, faculty_honors, faculty_invited_lectures' is handeled here
+// Operations for 
+// faculty_additional_responsibilities_present, 
+// faculty_honors, 
+// faculty_invited_lectures
+// faculty_invigilation_duties
+// faculty_onduty_orders
+// is handeled here
 class Type_4 implements model
 {
     private $conn;
@@ -17,6 +23,9 @@ class Type_4 implements model
     public $user_id = 0;
     public $text = '';
     public $from = '';
+
+    public $start = '';
+    public $end = '';
 
     // Connect to the DB
     public function __construct($db)
@@ -52,6 +61,30 @@ class Type_4 implements model
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
 
         $stmt->bindParam(':user_id', $this->user_id);
+
+        if ($stmt->execute()) {
+            // If data exists, return the data
+            if ($stmt) {
+                return $stmt;
+            }
+        }
+
+        return false;
+    }
+
+    // Read all data by dates
+    public function read_row_date()
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->from_name . ' BETWEEN :start AND :end' ;
+
+        $stmt = $this->conn->prepare($query);
+
+        // Clean the data
+        $this->start = htmlspecialchars(strip_tags($this->start));
+        $this->end = htmlspecialchars(strip_tags($this->end));
+
+        $stmt->bindParam(':start', $this->start);
+        $stmt->bindParam(':end', $this->end);
 
         if ($stmt->execute()) {
             // If data exists, return the data

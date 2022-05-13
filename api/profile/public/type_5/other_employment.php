@@ -75,6 +75,28 @@ class Other_employment_api extends Type_5 implements api
             die();
         }
     }
+        
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Other_employment->start = $start;
+        $this->Other_employment->end = $end;
+        $all_data = $this->Other_employment->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about other employment found');
+            die();
+        }
+    }
+
     // POST a new user's other_employment
     public function post()
     {
@@ -200,6 +222,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Other_employment_api = new Other_employment_api();
     if (isset($_GET['ID'])) {
         $Other_employment_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Other_employment_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Other_employment_api->get();
     }

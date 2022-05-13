@@ -75,6 +75,28 @@ class Special_respresentations_api extends Type_5 implements api
             die();
         }
     }
+            
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Special_representations->start = $start;
+        $this->Special_representations->end = $end;
+        $all_data = $this->Special_representations->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about special representations found');
+            die();
+        }
+    }
+
     // POST a new user's special_representation
     public function post()
     {
@@ -200,6 +222,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Special_respresentations_api = new Special_respresentations_api();
     if (isset($_GET['ID'])) {
         $Special_respresentations_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Special_respresentations_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Special_respresentations_api->get();
     }
