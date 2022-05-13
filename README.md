@@ -14,6 +14,12 @@
     - 📄 [verify.php](api/login_register/verify.php)
     - 📄 [verify_mail.php](api/login_register/verify_mail.php)
   - 📂 **profile**
+    - 📂 **private**
+      - 📂 **type_4**
+        - 📄 [invigilation_duties.php](api/profile/private/type_4/invigilation_duties.php)
+        - 📄 [onduty_orders.php](api/profile/private/type_4/onduty_orders.php)
+      - 📂 **type_6**
+        - 📄 [incharge_duty_files.php](api/profile/private/type_6/incharge_duty_files.php)
     - 📂 **public**
       - 📂 **type_0**
         - 📄 [positions_prev.php](api/profile/public/type_0/positions_prev.php)
@@ -54,20 +60,7 @@
 - 📂 **data**
   - 📄 [data.jsx](data/data.jsx)
   - 📄 [faculty_profile_maintenance.sql.gz](data/faculty_profile_maintenance.sql.gz)
-- 📂 **docs**
-  - 📂 **diagrams**
-    - 📂 **DFD**
-      - 📄 [level\-0.drawio.png](docs/diagrams/DFD/level-0.drawio.png)
-      - 📄 [level\-1.drawio.png](docs/diagrams/DFD/level-1.drawio.png)
-      - 📄 [level\-2\-1.drawio.png](docs/diagrams/DFD/level-2-1.drawio.png)
-      - 📄 [level\-2\-2.drawio.png](docs/diagrams/DFD/level-2-2.drawio.png)
-      - 📄 [level\-2\-3.drawio.png](docs/diagrams/DFD/level-2-3.drawio.png)
-      - 📄 [level\-2\-4.drawio.png](docs/diagrams/DFD/level-2-4.drawio.png)
-    - 📂 **UML**
-      - 📄 [ER diagram light.png](docs/diagrams/UML/ER%20diagram%20light.png)
-      - 📄 [Use case Diagram.drawio.png](docs/diagrams/UML/Use%20case%20Diagram.drawio.png)
-      - 📄 [class diagram light.png](docs/diagrams/UML/class%20diagram%20light.png)
-      - 📄 [sequence diagram.drawio.png](docs/diagrams/UML/sequence%20diagram.drawio.png)
+- 📄 [list.md](list.md)
 - 📂 **models**
   - 📄 [Positions_prev.php](models/Positions_prev.php)
   - 📄 [Type_2.php](models/Type_2.php)

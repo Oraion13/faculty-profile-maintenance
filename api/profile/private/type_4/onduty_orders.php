@@ -74,6 +74,28 @@ class Onduty_orders_api extends Type_4 implements api
             die();
         }
     }
+            
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Onduty_orders->start = $start;
+        $this->Onduty_orders->end = $end;
+        $all_data = $this->Onduty_orders->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about onduty orders found');
+            die();
+        }
+    }
+
     // POST a new user's onduty order
     public function post()
     {
@@ -196,6 +218,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Onduty_orders_api = new Onduty_orders_api();
     if (isset($_GET['ID'])) {
         $Onduty_orders_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Onduty_orders_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Onduty_orders_api->get();
     }
