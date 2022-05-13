@@ -76,6 +76,28 @@ class Sponsored_projects_completed_api extends Type_6 implements api
             die();
         }
     }
+            
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Sponsored_projects_completed->start = $start;
+        $this->Sponsored_projects_completed->end = $end;
+        $all_data = $this->Sponsored_projects_completed->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about sponsered projects completed found');
+            die();
+        }
+    }
+
     // POST a new user's project
     public function post()
     {
@@ -205,6 +227,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Sponsored_projects_completed_api = new Sponsored_projects_completed_api();
     if (isset($_GET['ID'])) {
         $Sponsored_projects_completed_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Sponsored_projects_completed_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Sponsored_projects_completed_api->get();
     }

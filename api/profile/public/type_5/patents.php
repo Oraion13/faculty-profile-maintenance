@@ -33,8 +33,8 @@ class Patents_api extends Type_5 implements api
         // Set column names
         $this->Patents->id_name = 'patent_id';
         $this->Patents->text_name = 'patent';
-        $this->Patents->from_name = 'file_number';
-        $this->Patents->to_name = 'patent_at';
+        $this->Patents->from_name = 'patent_at';
+        $this->Patents->to_name = 'file_number';
     }
 
     // Get all data
@@ -75,6 +75,28 @@ class Patents_api extends Type_5 implements api
             die();
         }
     }
+            
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Patents->start = $start;
+        $this->Patents->end = $end;
+        $all_data = $this->Patents->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about patents found');
+            die();
+        }
+    }
+
     // POST a new user's patent
     public function post()
     {
@@ -135,9 +157,9 @@ class Patents_api extends Type_5 implements api
         while ($count < count($data)) {
             // Clean the data
             $this->Patents->text_title = $data[$count]->patent;
-            $this->Patents->from_text = $data[$count]->file_number;
+            $this->Patents->to_int = $data[$count]->file_number;
             $at = date('Y-m-01', strtotime($data[$count]->patent_at));
-            $this->Patents->to_int = $at;
+            $this->Patents->from_text = $at;
 
             if ($data[$count]->patent_id === 0) {
                 $this->post();
@@ -171,9 +193,9 @@ class Patents_api extends Type_5 implements api
                 if ($element['patent_id'] == $data[$count]->patent_id) {
                     $this->Patents->id = $element['patent_id'];
                     $this->Patents->text_title = $data[$count]->patent;
-                    $this->Patents->from_text = $data[$count]->file_number;
+                    $this->Patents->to_int = $data[$count]->file_number;
                     $at = date('Y-m-01', strtotime($data[$count]->patent_at));
-                    $this->Patents->to_int = $at;
+                    $this->Patents->from_text = $at;
 
                     $this->update_by_id($element['patent'], $data[$count]->patent, 'patent');
                     $this->update_by_id($element['file_number'], $data[$count]->file_number, 'file_number');
@@ -195,6 +217,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Patents_api = new Patents_api();
     if (isset($_GET['ID'])) {
         $Patents_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Patents_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Patents_api->get();
     }
