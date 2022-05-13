@@ -33,9 +33,9 @@ class Incharge_duty_files_api extends Type_6 implements api
         // Set column names
         $this->Incharge_duty_file->id_name = 'incharge_duty_file_id';
         $this->Incharge_duty_file->text_name = 'incharge_duty_file_name';
-        $this->Incharge_duty_file->from_name = 'incharge_duty_file_type';
+        $this->Incharge_duty_file->from_name = 'incharge_duty_file_at';
         $this->Incharge_duty_file->to_name = 'incharge_duty_file';
-        $this->Incharge_duty_file->text_int_name = 'incharge_duty_file_at';
+        $this->Incharge_duty_file->text_int_name = 'incharge_duty_file_type';
     }
 
     // Get all data
@@ -79,6 +79,29 @@ class Incharge_duty_files_api extends Type_6 implements api
         }
     }
 
+            
+    // Get all data by dates
+    public function get_by_date($start, $end)
+    {
+        // Get data from DB
+        $this->Incharge_duty_file->start = $start;
+        $this->Incharge_duty_file->end = $end;
+        $all_data = $this->Incharge_duty_file->read_row_date();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no info about incharge duty files found');
+            die();
+        }
+    }
+
+
     public function update_by_id($DB_data, $to_update, $update_str)
     {
         if (!$this->Incharge_duty_file->update_row($update_str)) {
@@ -99,16 +122,16 @@ class Incharge_duty_files_api extends Type_6 implements api
         // Clean the data
         $this->Incharge_duty_file->user_id = $_SESSION['user_id'];
         $this->Incharge_duty_file->text = $_POST['name'];
-        $this->Incharge_duty_file->from = $_FILES['incharge_duty_file']['type'];
+        $this->Incharge_duty_file->text_int = $_FILES['incharge_duty_file']['type'];
         $this->Incharge_duty_file->to = file_get_contents($_FILES['incharge_duty_file']['tmp_name']);
 
         $new_date = date('Y-m-01', strtotime($_POST['incharge_duty_file_at']));
-        $this->Incharge_duty_file->text_int = $new_date;
+        $this->Incharge_duty_file->from = $new_date;
 
         if ($this->Incharge_duty_file->post()) {
             $this->get_by_id($_SESSION['user_id']);
         } else {
-            send(400, 'error', 'incharge_duty_file cannot be uploaded');
+            send(400, 'error', 'incharge duty file cannot be uploaded');
         }
     }
 
@@ -124,7 +147,7 @@ class Incharge_duty_files_api extends Type_6 implements api
         if ($this->Incharge_duty_file->delete_row()) {
             send(200, 'message', 'image deleted successfully');
         } else {
-            send(400, 'error', 'incharge_duty_file cannot deleted');
+            send(400, 'error', 'incharge duty file cannot deleted');
         }
     }
 }
@@ -139,6 +162,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $Incharge_duty_files_api = new Incharge_duty_files_api();
     if (isset($_GET['ID'])) {
         $Incharge_duty_files_api->get_by_id($_GET['ID']);
+    } else if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1 && isset($_GET['from']) && isset($_GET['to'])) {
+        $Incharge_duty_files_api->get_by_date($_GET['from'], $_GET['to']);
     } else {
         $Incharge_duty_files_api->get();
     }

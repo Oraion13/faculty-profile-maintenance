@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2022 at 08:47 AM
+-- Generation Time: May 13, 2022 at 02:44 PM
 -- Server version: 8.0.28
 -- PHP Version: 8.1.4
 
@@ -215,7 +215,7 @@ CREATE TABLE `faculty_honors` (
 --
 
 INSERT INTO `faculty_honors` (`honor_id`, `user_id`, `honor`, `honored_at`) VALUES
-(4, 25, 'Best Paper Award given by MIT, Anna University Chennai from India', '0000-00-00'),
+(4, 25, 'Best Paper Award given by MIT, Anna University Chennai from India', '2011-05-01'),
 (6, 25, 'blah blah blah', '2009-08-09'),
 (11, 24, 'blah blah blah', '1999-04-24'),
 (12, 24, 'fsdfsdfd', '1999-04-24');
@@ -603,6 +603,7 @@ INSERT INTO `faculty_sponsored_projects_completed` (`project_id`, `user_id`, `pr
 
 CREATE TABLE `faculty_users` (
   `user_id` int NOT NULL,
+  `is_admin` int NOT NULL DEFAULT '0',
   `honorific` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
   `full_name` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
   `username` int NOT NULL,
@@ -618,9 +619,10 @@ CREATE TABLE `faculty_users` (
 -- Dumping data for table `faculty_users`
 --
 
-INSERT INTO `faculty_users` (`user_id`, `honorific`, `full_name`, `username`, `email`, `password`, `verification_code`, `is_verified`, `password_reset_token`, `password_reset_token_expire`) VALUES
-(24, 'Mr.', 'Kannan', 1234, 'kannan13112@gmail.com', '$2y$10$7QADwVL4pbNhs6/7JmGVCec8PgA1ZTUQeyKXxiHbiB3eAC6kXCj82', '411988774bc5d7e0e70a3413ba0244f618c457fa6bd9fd9a43dd70d07dc07500', 1, NULL, NULL),
-(25, 'Mr.', 'Me', 12345, 'kannan11132@gmail.com', '$2y$10$Ky9D5MFMQQ05BlrysGb2Qu8UMJHvAtlo64hAsLCbzdcqC8nl7G4ey', '7a13868f42666a590f0f1a2ff60d4c33175e3cc321723bf87f8277917e9c1ef2', 1, NULL, NULL);
+INSERT INTO `faculty_users` (`user_id`, `is_admin`, `honorific`, `full_name`, `username`, `email`, `password`, `verification_code`, `is_verified`, `password_reset_token`, `password_reset_token_expire`) VALUES
+(24, 0, 'Mr.', 'Kannan', 1234, 'kannan13112@gmail.com', '$2y$10$7QADwVL4pbNhs6/7JmGVCec8PgA1ZTUQeyKXxiHbiB3eAC6kXCj82', '411988774bc5d7e0e70a3413ba0244f618c457fa6bd9fd9a43dd70d07dc07500', 1, NULL, NULL),
+(25, 0, 'Mr.', 'Me', 12345, 'kannan11132@gmail.com', '$2y$10$Ky9D5MFMQQ05BlrysGb2Qu8UMJHvAtlo64hAsLCbzdcqC8nl7G4ey', '7a13868f42666a590f0f1a2ff60d4c33175e3cc321723bf87f8277917e9c1ef2', 1, NULL, NULL),
+(38, 1, 'Mr.', 'admin', 1456, 'admin@gmail.com', '$2a$10$SbvBEwJwSGg1iCP3kvXtxe8rDsLXCH4xxAAjqupw689r5PjD/ai4u', '0', 1, '0', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -1039,7 +1041,7 @@ ALTER TABLE `faculty_sponsored_projects_completed`
 -- AUTO_INCREMENT for table `faculty_users`
 --
 ALTER TABLE `faculty_users`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `faculty_user_info`
