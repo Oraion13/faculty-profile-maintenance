@@ -27,6 +27,9 @@ class Type_6 implements model
     public $from = '';
     public $to = '';
     public $text_int = '';
+    
+    public $start = '';
+    public $end = '';
 
     // Connect to the DB
     public function __construct($db)
@@ -62,6 +65,31 @@ class Type_6 implements model
         $this->user_id = htmlspecialchars(strip_tags($this->user_id));
 
         $stmt->bindParam(':user_id', $this->user_id);
+
+        if ($stmt->execute()) {
+            // If data exists, return the data
+            if ($stmt) {
+                return $stmt;
+            }
+        }
+
+        return false;
+    }
+
+    // Read all data by dates
+    public function read_row_date()
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->from_name . ' BETWEEN ' . $this->start
+                    . ' AND ' . $this->end ;
+
+        $stmt = $this->conn->prepare($query);
+
+        // Clean the data
+        $this->start = htmlspecialchars(strip_tags($this->start));
+        $this->end = htmlspecialchars(strip_tags($this->end));
+
+        $stmt->bindParam(':start', $this->start);
+        $stmt->bindParam(':end', $this->end);
 
         if ($stmt->execute()) {
             // If data exists, return the data

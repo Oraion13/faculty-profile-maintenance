@@ -54,9 +54,11 @@ class Login_api extends Users
                 $_SESSION['user_id'] = $validate['user_id'];
                 $_SESSION['username'] = $validate['username'];
                 $_SESSION['is_verified'] = $validate['is_verified'];
+                $_SESSION['is_admin'] = $validate['is_admin'];
                 echo json_encode(
                     array(
                         'user_id' => $validate['user_id'],
+                        'is_admin' => $validate['is_admin'],
                         'username' => $validate['username'],
                         'email' => $validate['email'],
                         'full_name' => $validate['full_name'],
