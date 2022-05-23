@@ -1,67 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,400;1,700&display=swap');
-
-*{
+* {
     margin: 0px;
     padding: 0px;
 }
 
-body{
-    background-image: url(/Front-end/src/static/images/1428482.jpg);
+body {
+    background-image: url(../images/img7.jpg);
     background-size: cover;
     background-attachment: fixed;
     font-family: new time roman;
 }
 
-h1{
+h1 {
     font-size: 50px;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     margin-top: 200px;
 }
 
-h2{
+h2 {
     font-size: 50px;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     margin-top: 80px;
 }
 
-p{
+p {
     font-size: 17px;
-    color:rgb(255, 253, 253);
+    color: rgb(48, 48, 48);
 }
 
-h3{
+h3 {
     font-size: 25px;
     color: white;
 }
 
-.glyphicon-pencil{
+.glyphicon-pencil {
     font-size: 35px;
     color: white;
     float: right;
     margin-top: 20px;
 }
 
-.col-md-5{
+.col-md-5 {
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 80px;
-    box-shadow: -1px 1px 60px 10px black;
-    background: rgba(0,0,0,0.4);
+    box-shadow: -1px 1px 60px 10px rgb(78, 78, 78);
+    background: rgba(68, 68, 68, 0.4);
     border-left: 1px solid rgba(255, 255, 255, 0.4);
     border-top: 1px solid rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(1px);
 }
 
-.label{
+.label {
     font-weight: normal;
     margin-top: 15px;
     color: white;
     font-size: 20px;
 }
 
-.form-control{
+.form-control {
     background: transparent;
     border-radius: 0px;
     border: 0px;
@@ -72,36 +71,36 @@ h3{
     color: white;
 }
 
-a{
+a {
     font-weight: 700;
     transition: all 0.4s ease;
 }
 
-img{
+img {
     width: 100%;
 }
 
-small{
+small {
     font-size: 12px;
     letter-spacing: 2px;
     font-weight: 700;
 }
 
-section{
+section {
     padding-top: 100px;
     padding-bottom: 100px;
 }
 
-.navbar{
+.navbar {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.navbar .navlink{
+.navbar .navlink {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 10px;
 }
 
-.navbar-light .navbar-nav .nav-link.active{
+.navbar-light .navbar-nav .nav-link.active {
     color: #E93B81;
 }

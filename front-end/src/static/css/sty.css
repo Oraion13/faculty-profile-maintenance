@@ -207,15 +207,6 @@ table {
     padding: 13px;
 }
 
-#show2 th,
-#show2 td {
-    padding: 13px;
-}
-
 #btna td input {
     width: 100%;
-}
-
-h1 {
-    padding-top: 40px;
 }
