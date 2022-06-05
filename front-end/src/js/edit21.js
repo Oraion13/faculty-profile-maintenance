@@ -216,7 +216,7 @@ const setup_user_info = () => {
 
                     let last = "";
                     for (let index = 0; index < addresses.length - 2; index++) {
-                        last += addresses[index];
+                        last = last + addresses[index] + ", ";
                     }
 
                     address.value = last;
