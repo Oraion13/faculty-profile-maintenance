@@ -1,76 +1,115 @@
 <!DOCTYPE html>
 <html>
-    <span class="border border-dark"></span>
-    <head>
-        <title>Login Form</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet" href="static/css/style.css">
-    </head>
-    <body>
-      <nav class="navbar navbar-expand-lg navbar-light bg-white">
+<span class="border border-dark"></span>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./static/css/style5.css">
+</head>
+
+<style>
+    /* body {
+        background-image: url('./static/images/img4.jpg');
+         background-size: cover; 
+        background-attachment: fixed;
+        font-family: new time roman;
+    } */
+    
+    .center {
+        border: 5px solid #FFFF00;
+        text-align: center;
+    }
+    
+    input {
+        width: 500px;
+    }
+    /* p {
+        text-align: center;
+        padding-left: 400px;
+    } */
+</style>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
-          <a class="navbar-brand" href="#"><img src="static/images/Anna-University-Recruitment-2021.jpg" style="width: 200px; padding:10px 5px" alt="logo"></a>
-          <a class="navbar-brand" href="#">Anna University Regional Campus Tirunelveli</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#"><img src="static/images/Anna-University-Recruitment-2021.jpg" style="width: 200px; padding:10px 5px" alt="logo"></a>
+            <a class="navbar-brand" href="#">Anna University Regional Campus Tirunelveli</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <!--
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!--
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>-->
-              <li class="nav-item">
-                <a class="nav-link" href="home.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="register.html">Register</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#report">Report</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="login.html">login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
-              </li>
-            </ul>
-          </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#report">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="login.html">login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </nav>
-        
+    </nav>
+
+    <div class="center">
         <div class="container my-5">
-        <div class="login Form"></div>
-        <h1>Login form</h1>
-        <p>                  
-            The University is in the process of collecting the general and professional details of all the faculty members into a database system.
-             The main purpose of this initiative is to provide necessary details about the faculty members as and when required by the concerned authorities in time. 
-             Kindly co-operate and fill up the details.</p>
-             <br>
-          <p> The data can be entered and saved periodically.</p> 
+            <div class="login Form"></div>
+            <h1>Login form</h1>
+            <p>
+                The University is in the process of collecting the general and professional details of all the faculty members into a database system. The main purpose of this initiative is to provide necessary details about the faculty members as and when required by
+                the concerned authorities in time. Kindly co-operate and fill up the details.</p>
             <br>
-           <p> To start with you can use your Employee ID as your password and there is a provision to change it later.
+            <p> The data can be entered and saved periodically.</p>
+            <br>
+            <p> To start with you can use your Employee ID as your password and there is a provision to change it later.
 
 
-        </p>
-           <br>
-        <form action="#" method="post">
-            <p>User Name</p>
-            <input type="text" name="user" placeholder="User Name">
-            <div>
-              <br>
-            <p>Password</p>
-            <input type="password" name="password" placeholder="password">
-          <br>
-            <a href="loginpage.html">login</a><br>
+            </p>
             <br>
-            <a href="forgetpassword.html">forget password</a><br>
-            <br>
-                              <a style="padding: 0.50% 0px;" href="" class="btn btn-primary btn-block" role="button">LEARN MORE</a> 
-                            </div>
-                         </div>
-         <script src="js/bootstrap.bundle.js"></script>
-    </body>
+            <form id="login_form">
+                <h2>User ID</h2>
+                <input type="text" id="username" name="user" placeholder="User ID">
+                <div>
+                    <br>
+                    <h2>Password</h2>
+                    <input type="password" id="password" name="password" placeholder="******">
+                    <br>
+                    <!-- <a href="loginpage.html">login</a><br>
+                <br> -->
+                    <a href="forgetpassword.html">forget password</a><br>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- <p><img src="./static/images/img5.jpg" style="float:right;width:700px;height:400px;"></p> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <!-- <script src="./js/"></script> -->
+    <script src="./js/login.js"></script>
+
+</body>
+
 </html>

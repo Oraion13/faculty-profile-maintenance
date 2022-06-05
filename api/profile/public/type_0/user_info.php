@@ -74,16 +74,6 @@ class User_info_api extends User_info implements api
         // Get input data as json
         $data = json_decode(file_get_contents("php://input"));
 
-        // Clean the data
-        $this->User_info->user_id = $_SESSION['user_id'];
-        $this->User_info->address = $data->address;
-        $this->User_info->phone = $data->phone;
-        $this->User_info->position_id = $data->position_id;
-        $this->User_info->department_id = $data->department_id;
-        $this->User_info->position_present_where = $data->position_present_where;
-
-        $from = date('Y-m-01', strtotime($data->position_present_from));
-        $this->User_info->position_present_from = $from;
 
 
         // Get the user info from DB
@@ -155,7 +145,11 @@ class User_info_api extends User_info implements api
             // If updated successfully, get_by_id the data, else throw an error message 
             $this->get_by_id($_SESSION['user_id']);
         } else {
-            send(400, 'error', 'no user info found');
+            if ($this->User_info->post()) {
+                $this->get_by_id($_SESSION['user_id']);
+            } else {
+                send(400, 'error', 'user info cannot be created');
+            }
         }
     }
 
@@ -182,13 +176,13 @@ loggedin_verified();
 // If a user logged in ...
 
 // POST a new user info
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $User_info_api = new User_info_api();
-    $User_info_api->post();
-}
+// if () {
+//     $User_info_api = new User_info_api();
+//     $User_info_api->post();
+// }
 
 // UPDATE (PUT) a existing user's info
-if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT') {
     $User_info_api = new User_info_api();
     $User_info_api->put();
 }

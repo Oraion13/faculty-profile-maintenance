@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Faculty Profile</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style4.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="static/images/Anna-University-Recruitment-2021.jpg" style="width: 200px; padding: 10px 5px" alt="logo" /></a>
+            <a class="navbar-brand" href="#">Anna University Regional Campus Tirunelveli</a
+      >
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <!--
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>-->
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="register.html">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#report">Report</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="edit.html">Edit</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="logout_form">logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+
+    <!-- <div class="container"> -->
+    <!-- <div class="row"> -->
+    <!-- <div class="col-md-5"> -->
+
+    <div class="btn2">
+        <span class="fas fa-bars"></span>
+    </div>
+    <nav class="sidebar">
+        <div class="text">
+            Side Menu
+        </div>
+        <ul>
+            <li><a href="edit2.html">Personal Info</a></li>
+            <li><a href="edq.html">Educational Qualification</a></li>
+            <li>
+                <a href="#" class="feat-btn2">Work
+              <span class="fas fa-caret-down first"></span>
+              </a>
+                <ul class="feat-show">
+                    <li>
+                        <a href="position.html">Position</a></li>
+                    <li><a href="responsibility.html">Responsibility</a></li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href="#" class="serv-btn2">Research
+              <span class="fas fa-caret-down second"></span>
+              </a>
+                <ul class="serv-show">
+                    <li><a href="paperpub.html">Paper Published</a></li>
+                    <li class="active"><a href="paperpres.html">Paper Presented</a></li>
+                    <li><a href="bookpub.html">Book Published</a></li>
+                    <li><a href="project.html">Project</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="serv2-btn2">Programme
+              <span class="fas fa-caret-down third"></span>
+              </a>
+                <ul class="serv2-show">
+                    <li><a href="progchair.html">Programme Chaired</a></li>
+                    <li><a href="progorg.html">Programme Organized</a></li>
+                    <li><a href="progatten.html">Programme Attended</a></li>
+                    <li><a href="specialrep.html">Special Representation</a></li>
+                </ul>
+            </li>
+            <li><a href="honors.html">Honors</a></li>
+            <li><a href="experience.html">Experience Abroad</a></li>
+            <li><a href="lectures.html">Lectures</a></li>
+            <li><a href="extension.html">Extension & Outreach Programme</a></li>
+        </ul>
+    </nav>
+    <!-- </div> -->
+
+    <div class="container mt-5">
+        <div class="color">
+            <h1 style="text-align: center; font-weight: bold ">Edit Your Information</h1>
+            <div class="container">
+
+                <div class="d-flex flex-column gap-5 m-5 p-5 text center rounded-3 shadow-lg">
+                    <h3 style="text-align: center; font-weight: bold;">Paper Presented</h3>
+                    <!--
+              </div>
+              <div class="shadow-none p-3 mt-5 bg-light rounded">
+              -->
+                    <form class="row g-3" id="paperpres_form">
+                        <div class="alert1 text-center" role="alert"></div>
+                        <div class="col-md-12">
+                            <label for="paperpresen" class="form-label">Paper Presented </label>
+                            <input type="text" class="form-control" id="paper_presented" name="paperpresen" placeholder="Position">
+                        </div>
+
+                        </br>
+                        <div class="col-md-6">
+                            <label for="paperpresenat" class="form-label">Paper Presented At </label>
+                            <input type="month" class="form-control" id="paper_presented_at" name="paperpresenat" placeholder="At">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="international" class="form-label">Is International </label>
+                            <select name="international" id="is_international">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="add_paper_pres">Add</button>
+
+                        <!-- <table border="3" id="show">
+                            <thead>
+                                <tr>
+                                    <th>Paper Presented </th>
+                                    <th>Paper Presented At</th>
+                                </tr>
+                            </thead>
+                        </table> -->
+
+                        <!-- 
+                    <div class="col-md-6">
+                        <label for="paperpubby" class="form-label">Paper Published BY </label>
+                        <input type="text" class="form-control" id="paperpubby" name="paperpubby" placeholder="By" required>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="international" class="form-label">Is International </label>
+                        <select name="international" id="international">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                         <input type="text" class="form-control" id="international" name="international" placeholder="comments" required> 
+                        <textarea class="form-control" id="international" name="international" placeholder="comments" rows="3-5"></textarea>
+                    </div>
+                    </br>
+                    </br> -->
+
+                        <!-- <div class="col-md-12">
+                        <label for="prerespon" class="form-label">Previous Responsibility </label>
+                        <input type="text" class="form-control" id="prerespon" name="prerespon" placeholder="Position" required>
+                    </div>
+
+                    </br>
+                    <div class="col-md-6">
+                        <label for="preresponfrom" class="form-label">Previous Responsibility From </label>
+                        <input type="month" class="form-control" id="preresponfrom" name="preresponfrom" placeholder="From" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="preresponto" class="form-label">Previous Responsibility To </label>
+                        <input type="month" class="form-control" id="preresponto" name="preresponto" placeholder="To" required>
+                    </div> -->
+
+
+
+                        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="add" class="btn btn-info">Add</button>
+                    </div> -->
+                    <div id="papers_presented"></div>
+                        <div class="col-md-1">
+                            <button type="clearall" class="btn btn-danger" id="clear_all">Clearall</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                        <div class="row-cols-md-4">
+                            <a href="paperpub.html" id="previous" class="btn btn-primary" role="button">Previous</a>
+                        </div>
+                        <div class="row-cols-md-4">
+                            <a href="bookpub.html" id="next" class="btn btn-primary" role="button">Next</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        $('.btn2').click(function() {
+            $(this).toggleClass("click");
+            $('.sidebar').toggleClass("show");
+        });
+        $('.feat-btn2').click(function() {
+            $('nav ul .feat-show').toggleClass("show");
+            $('nav ul .first').toggleClass("rotate");
+        });
+        $('.serv-btn2').click(function() {
+            $('nav ul .serv-show').toggleClass("show1");
+            $('nav ul .second').toggleClass("rotate");
+        });
+        $('.serv2-btn2').click(function() {
+            $('nav ul .serv2-show').toggleClass("show2");
+            $('nav ul .third').toggleClass("rotate");
+        });
+        $('nav ul li').click(function() {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    </script>
+
+
+    <!-- <script>
+        var list1 = [];
+        var list2 = [];
+        var list3 = [];
+        var list4 = [];
+
+        var n = 1;
+        var x = 0;
+
+        function AddRow() {
+
+            var AddRown = document.getElementById('show');
+            var NewRow = AddRown.insertRow(n);
+
+            list1[x] = document.getElementById("paper_presented").value;
+            list2[x] = document.getElementById("paper_presented_at").value;
+            // list3[x] = document.getElementById("paperpubby").value;
+            // list4[x] = document.getElementById("is_international").value;
+
+            var cel1 = NewRow.insertCell(0);
+            var cel2 = NewRow.insertCell(1);
+            // var cel3 = NewRow.insertCell(2);
+            // var cel4 = NewRow.insertCell(3);
+
+            cel1.innerHTML = list1[x];
+            cel2.innerHTML = list2[x];
+            // cel3.innerHTML = list3[x];
+            // cel4.innerHTML = list4[x];
+
+            n++;
+            x++;
+        }
+    </script>
+
+    <script>
+        function clearall() {
+            document.getElementById("show").reset();
+            // document.getElementsByName("Addrow()").reset();
+        }
+    </script> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="./js/logout.js"></script>
+    <script src="./js/paperpres.js"></script>
+</body>
+
+</html>

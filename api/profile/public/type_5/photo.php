@@ -81,10 +81,11 @@ class Photo_api extends Type_5 implements api
             );
             echo json_encode($photo);
             die();
-        } else {
-            send(400, 'error', 'no photo found');
-            die();
-        }
+        } 
+        // else {
+        //     send(400, 'error', 'no photo found');
+        //     die();
+        // }
     }
 
     public function update_by_id($DB_data, $to_update, $update_str)

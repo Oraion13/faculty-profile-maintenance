@@ -141,7 +141,7 @@ class Positions_prev_api extends Positions_prev implements api
             $to = date('Y-m-01', strtotime($data[$count]->position_prev_to));
             $this->Positions_prev->position_prev_to = $to;
 
-            if ($data[$count]->position_prev_id === 0) {
+            if ($data[$count]->position_prev_id == 0) {
                 $this->post();
                 array_splice($data, $count, 1);
                 continue;
