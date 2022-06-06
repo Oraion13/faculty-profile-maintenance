@@ -14,7 +14,15 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div id="nav-placeholder">
+
+    </div>
+    <script>
+        $(function() {
+            $("#nav-placeholder").load("nav.html");
+        });
+    </script>
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
             <a class="navbar-brand" href="#"><img src="static/images/Anna-University-Recruitment-2021.jpg" style="width: 200px; padding: 10px 5px" alt="logo" /></a>
             <a class="navbar-brand" href="#">Anna University Regional Campus Tirunelveli</a
@@ -32,10 +40,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <!--
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>-->
+         
             <li class="nav-item">
                 <a class="nav-link" href="index.html">Home</a>
             </li>
@@ -57,7 +62,7 @@
             </ul>
         </div>
         </div>
-    </nav>
+    </nav> -->
 
     <!-- <div class="container"> -->
     <!-- <div class="row"> -->
@@ -66,7 +71,8 @@
     <div class="btn2">
         <span class="fas fa-bars"></span>
     </div>
-    <nav class="sidebar">
+
+    <!-- <nav class="sidebar">
         <div class="text">
             Side Menu
         </div>
@@ -110,7 +116,9 @@
             <li><a href="lectures.html">Lectures</a></li>
             <li><a href="extension.html">Extension & Outreach Programme</a></li>
         </ul>
-    </nav>
+    </nav> -->
+
+
     <!-- </div> -->
 
     <div class="container mt-5">
@@ -124,23 +132,23 @@
               <div class="shadow-none p-3 mt-5 bg-light rounded">
               -->
                     <form class="row g-3" id="position_form">
-                        
+
                         <div class="alert text-center" role="alert"></div>
                         <div class="col-md-12">
                             <label for="previous_postion" class="form-label">Previous Position </label>
-                            <select id="previous_position">
+                            <select class="form-control" id="previous_position">
                                 <option value="default">Choose Position ...</option>
                             </select>
                         </div>
 
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <label for="cpositionat" class="form-label">Previous Position At</label>
                             <input type="text" class="form-control" id="previous_position_at" name="cpositionat" placeholder="Eg:Anna University">
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="department" class="form-label">Department</label>
-                            <select id="department">
+                            <select class="form-control" id="department">
                                 <option value="default">Choose Department ...</option>
                             </select>
                         </div>
@@ -190,21 +198,25 @@
             $(this).toggleClass("click");
             $('.sidebar').toggleClass("show");
         });
-        $('.feat-btn2').click(function() {
-            $('nav ul .feat-show').toggleClass("show");
-            $('nav ul .first').toggleClass("rotate");
-        });
-        $('.serv-btn2').click(function() {
-            $('nav ul .serv-show').toggleClass("show1");
-            $('nav ul .second').toggleClass("rotate");
-        });
-        $('.serv2-btn2').click(function() {
-            $('nav ul .serv2-show').toggleClass("show2");
-            $('nav ul .third').toggleClass("rotate");
-        });
-        $('nav ul li').click(function() {
-            $(this).addClass("active").siblings().removeClass("active");
-        });
+        // $('.feat-btn2').click(function() {
+        //     $('nav ul .feat-show').toggleClass("show");
+        //     $('nav ul .first').toggleClass("rotate");
+        // });
+        // $('.serv-btn2').click(function() {
+        //     $('nav ul .serv-show').toggleClass("show1");
+        //     $('nav ul .second').toggleClass("rotate");
+        // });
+        // $('.serv2-btn2').click(function() {
+        //     $('nav ul .serv2-show').toggleClass("show2");
+        //     $('nav ul .third').toggleClass("rotate");
+        // });
+        // $('.serv3-btn2').click(function() {
+        //     $('nav ul .serv3-show').toggleClass("show3");
+        //     $('nav ul .four').toggleClass("rotate");
+        // });
+        // $('nav ul li').click(function() {
+        //     $(this).addClass("active").siblings().removeClass("active");
+        // });
     </script>
 
     <!-- <script>
