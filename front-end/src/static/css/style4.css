@@ -7,6 +7,20 @@
     font-family: 'Poppins', sans-serif;
 }
 
+.navbar {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar .navlink {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #E93B81;
+}
+
 .btn2 {
     position: absolute;
     top: 55px;
@@ -37,10 +51,16 @@
 .sidebar {
     position: fixed;
     width: 300px;
+    overflow-y: scroll;
     height: 100%;
     left: -300px;
     background: #1b1b1b;
     transition: left 0.4s ease;
+}
+
+.sidebar {
+    max-height: calc(100vh - 9rem);
+    overflow-y: scroll;
 }
 
 .sidebar.show {
@@ -113,6 +133,10 @@ nav ul .serv2-show.show2 {
     display: block;
 }
 
+nav ul .serv3-show.show3 {
+    display: block;
+}
+
 nav ul ul li {
     line-height: 42px;
     border-top: none;
@@ -168,20 +192,6 @@ nav ul li a span.rotate {
     font-weight: 500;
 }
 
-.navbar {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.navbar .navlink {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 10px;
-}
-
-.navbar-light .navbar-nav .nav-link.active {
-    color: #E93B81;
-}
-
 label {
     font-size: 20px;
     font-weight: 500;
@@ -212,10 +222,19 @@ table {
     padding: 13px;
 }
 
+#show3 th,
+#show3 td {
+    padding: 13px;
+}
+
 #btna td input {
     width: 100%;
 }
 
 h1 {
+    padding-top: 40px;
+}
+
+h3 {
     padding-top: 40px;
 }
