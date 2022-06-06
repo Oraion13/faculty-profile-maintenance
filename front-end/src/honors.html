@@ -126,12 +126,10 @@
               <div class="shadow-none p-3 mt-5 bg-light rounded">
               -->
                     <form class="row g-3" id="honors_form">
-
-
-
+                        <div class="alert1 text-center" role="alert"></div>
                         <div class="col-md-12">
                             <label for="honor" class="form-label">Honors</label>
-                            <input type="text" class="form-control" id="honor" name="honor" placeholder="Title" required>
+                            <input type="text" class="form-control" id="honor" name="honor" placeholder="Title">
                         </div>
 
                         </br>
@@ -150,21 +148,21 @@
 
                         <div class="col-md-6">
                             <label for="honorat" class="form-label">Honors At</label>
-                            <input type="month" class="form-control" id="honor_at" name="honorat" placeholder="From" required>
+                            <input type="month" class="form-control" id="honored_at" name="honorat" placeholder="From">
                         </div>
 
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="AddRow()">Add</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="add_honor">Add</button>
 
-                        <table border="3" id="show">
+                        <!-- <table border="3" id="show">
                             <thead>
                                 <tr>
                                     <th>Honors</th>
-                                    <th>Honors At</th>
-                                    <!-- <th>Programme Organized To</th> -->
-                                </tr>
+                                    <th>Honors At</th> -->
+                        <!-- <th>Programme Organized To</th> -->
+                        <!-- </tr>
                             </thead>
-                        </table>
+                        </table> -->
                         <!-- <div class="col-md-6">
                         <label for="sperepto" class="form-label">Honors To</label>
                         <input type="month" class="form-control" id="sperepto" name="sperepto" placeholder="To" required>
@@ -197,17 +195,18 @@
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="add" class="btn btn-info">Add</button>
                         </div> -->
+                        <div id="all_honors"></div>
                         <div class="col-md-1">
-                            <button type="clearall" class="btn btn-danger" onclick="clearall()">Clearall</button>
+                            <button type="clearall" class="btn btn-danger" id="clear_all">Clearall</button>
                         </div>
                         <div class="col-md-11">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="specialrep.html" class="btn btn-primary" role="button">Previous</a>
+                            <a href="#" id="previous" class="btn btn-primary" role="button">Previous</a>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="experience.html" class="btn btn-primary" role="button">Next</a>
+                            <a href="#" id="next" class="btn btn-primary" role="button">Next</a>
                         </div>
                     </form>
                 </div>
@@ -239,7 +238,7 @@
         });
     </script>
 
-    <script>
+    <!-- <script>
         var list1 = [];
         var list2 = [];
         var list3 = [];
@@ -278,7 +277,7 @@
             document.getElementById("show").reset();
             // document.getElementsByName("Addrow()").reset();
         }
-    </script>
+    </script> -->
 
 
 

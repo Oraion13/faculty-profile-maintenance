@@ -124,6 +124,7 @@
               <div class="shadow-none p-3 mt-5 bg-light rounded">
               -->
                     <form class="row g-3" id="responsibility_form">
+                        <div class="alert1 text-center" role="alert"></div>
 
                         <div class="col-md-12">
                             <label for="prespon" class="form-label">Present Responsibility </label>
@@ -135,37 +136,29 @@
                             <label for="presponfrom" class="form-label">Present Responsibility From </label>
                             <input type="month" class="form-control" id="additional_responsibility_present_from" name="presponfrom" placeholder="From" required>
                         </div>
-
+                        <!-- 
                         <div class="col-md-6">
                             <label for="presponto" class="form-label">Present Responsibility To </label>
                             <input type="month" class="form-control" id="additional_responsibility_present_to" name="presponto" placeholder="To" required>
-                        </div>
+                        </div> -->
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="AddRow()">Add</button>
-
-                        <table border="3" id="show">
-                            <thead>
-                                <tr>
-                                    <th>Responsibility</th>
-                                    <th>Responsibility From</th>
-                                    <th>Responsibility To</th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="add_present">Add</button>
 
                         <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="add" class="btn btn-info">Add</button>
                         </div> -->
+                        <div id="presents"></div>
                         <div class="col-md-1">
-                            <button type="clearall" class="btn btn-danger" onclick="clearall1()">Clearall</button>
+                            <button type="clearall" class="btn btn-danger" id="clear_all_present">Clearall</button>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button id="submit_present" class="btn btn-primary">Submit</button>
                         </div>
 
                         </br>
 
                         <br><br><br>
+                        <div class="alert2 text-center" role="alert"></div>
                         <div class="col-md-12">
                             <label for="prerespon" class="form-label">Previous Responsibility </label>
                             <input type="text" class="form-control" id="additional_responsibility_prev" name="prerespon" placeholder="Position" required>
@@ -182,32 +175,24 @@
                             <input type="month" class="form-control" id="additional_responsibility_prev_to" name="preresponto" placeholder="To" required>
                         </div>
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="AddRow2()">Add</button>
-
-                        <table border="3" id="show2">
-                            <thead>
-                                <tr>
-                                    <th>Previous Responsibility</th>
-                                    <th>Previous Responsibility From</th>
-                                    <th>Previous Responsibility To</th>
-                                </tr>
-                            </thead>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="add_prev">Add</button>
                         </table>
 
                         <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="add" class="btn btn-info">Add</button>
                         </div> -->
+                        <div id="previouses"></div>
                         <div class="col-md-1">
-                            <button type="clearall" class="btn btn-danger" onclick="clearall2()">Clearall</button>
+                            <button type="clearall" class="btn btn-danger" id="clear_all_prev">Clearall</button>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit2" class="btn btn-primary">Submit</button>
+                            <button id="submit_prev" class="btn btn-primary">Submit</button>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="position.html" class="btn btn-primary" role="button">Previous</a>
+                            <a href="#" id="previous" class="btn btn-primary" role="button">Previous</a>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="paperpub.html" class="btn btn-primary" role="button">Next</a>
+                            <a href="#" id="next" class="btn btn-primary" role="button">Next</a>
                         </div>
                     </form>
                 </div>
@@ -239,7 +224,7 @@
         });
     </script>
 
-    <script>
+    <!-- <script>
         var list1 = [];
         var list2 = [];
         var list3 = [];
@@ -322,7 +307,7 @@
             document.getElementById("show2").reset();
             // document.getElementsByName("Addrow()").reset();
         }
-    </script>
+    </script> -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -330,6 +315,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/logout.js"></script>
     <script src="./js/responsibility.js"></script>
+    <script src="./js/responsibility2.js"></script>
 </body>
 
 </html>

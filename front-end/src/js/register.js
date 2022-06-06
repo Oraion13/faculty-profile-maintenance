@@ -1,16 +1,4 @@
-var password = document.getElementById("password"),
-    confirm_password = document.getElementById("confirm_password");
-
-function validatePassword() {
-    if (password.value != confirm_password.value) {
-        confirm_password.setCustomValidity("Passwords Don't Match");
-    } else {
-        confirm_password.setCustomValidity('');
-    }
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
+const confirm_password = document.getElementById("confirm_password");
 
 
 const register_form = document.getElementById("register_form");
@@ -25,6 +13,11 @@ register_form.addEventListener("submit", register);
 function register(e) {
     e.preventDefault();
     //validate
+    if (confirm_password.value != password.value) {
+        window.alert("password not match");
+        return;
+    }
+
     const register = {
         "honorific": honorific.value,
         "full_name": full_name.value,
@@ -36,7 +29,8 @@ function register(e) {
     // console.log(Login);
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "../../api/login_register/register.php", true);
+
+    xhr.open("POST", `../../api/login_register/register.php`, true);
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {

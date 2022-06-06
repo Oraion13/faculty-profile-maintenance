@@ -79,8 +79,8 @@
               </a>
                 <ul class="feat-show">
                     <li>
-                        <a href="#">Position</a></li>
-                    <li><a href="#">Responsibility</a></li>
+                        <a href="./position.html">Position</a></li>
+                    <li><a href="./responsibility.html">Responsibility</a></li>
                 </ul>
             </li>
             <li>
@@ -88,10 +88,10 @@
               <span class="fas fa-caret-down second"></span>
               </a>
                 <ul class="serv-show">
-                    <li><a href="#">Paper Published</a></li>
-                    <li><a href="#">Paper Presented</a></li>
-                    <li><a href="#">Book Published</a></li>
-                    <li><a href="#">Project</a></li>
+                    <li><a href="./paperpub.html">Paper Published</a></li>
+                    <li><a href="./paperpub.html">Paper Presented</a></li>
+                    <li><a href="./bookpub.html">Book Published</a></li>
+                    <li><a href="./project.html">Project</a></li>
                 </ul>
             </li>
             <li>
@@ -99,16 +99,16 @@
               <span class="fas fa-caret-down third"></span>
               </a>
                 <ul class="serv2-show">
-                    <li><a href="#">Programme Chaired</a></li>
-                    <li><a href="#">Programme Organized</a></li>
-                    <li><a href="#">Programme Attended</a></li>
-                    <li><a href="#">Special Representation</a></li>
+                    <li><a href="./progchair.html">Programme Chaired</a></li>
+                    <li><a href="./progorg.html">Programme Organized</a></li>
+                    <li><a href="./progatten.html">Programme Attended</a></li>
+                    <li><a href="./specialrep.html">Special Representation</a></li>
                 </ul>
             </li>
-            <li><a href="#">Honors</a></li>
-            <li><a href="#">Experience Abroad</a></li>
-            <li><a href="#">Lectures</a></li>
-            <li><a href="#">Extension & Outreach Programme</a></li>
+            <li><a href="./honors.html">Honors</a></li>
+            <li><a href="./experience.html">Experience Abroad</a></li>
+            <li><a href="./lectures.html">Lectures</a></li>
+            <li><a href="./extension.html">Extension & Outreach Programme</a></li>
         </ul>
     </nav>
     <!-- </div> -->
@@ -124,26 +124,47 @@
               <div class="shadow-none p-3 mt-5 bg-light rounded">
               -->
                     <form class="row g-3" id="edit2_form">
+                        <div class="col-md-2">
+                            <label class="form-label">Honorific</label>
 
-                        <div class="col-md-6">
-                            <label for="fname" class="form-label">First Name </label>
-                            <input type="text" class="form-control" id="full_name" name="fname" placeholder="First name" required>
+                            <select class="form-control" aria-label="Default select example" id="honorific">
+                          <option selected>Select</option>
+                          <option value="Mr.">Mr.</option>
+                          <option value="Ms.">Ms.</option>
+                          <option value="Dr.">Dr.</option>
+                          <option value="Prof.">Prof.</option>
+                        </select>
+
+                        </div>
+                        <div class="col-md-10">
+                            <label for="full_name" class="form-label">Full Name </label>
+                            <input type="text" class="form-control" id="full_name" placeholder="Full name" required />
                         </div>
 
-                        <div class="col-md-6">
-                            <label for="lname" class="form-label">Last Name </label>
-                            <input type="text" class="form-control" id="full_name" name="lname" placeholder="Last name" required>
+                        <div class="col-md-4">
+                            <label for="username" class="form-label">Faculty ID</label>
+                            <input type="number" class="form-control" id="username" placeholder="Username" required>
                         </div>
+                        <div class="col-md-8">
+                            <label for="email" class="form-label">Email </label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required><br>
+                        </div>
+                        <button id="update_user" class="col-md-4 btn btn-primary">Update</button>
                         <br>
                         <br></br>
 
 
 
                         <div class="col-md-12">
-                            <label for="photo" class="form-label">Choose a file for Profile Photo </label>
+                            <label class="form-label">Choose a file for Profile Photo </label>
                         </div>
-                        <div class="col-md-12">
-                            <input type="file" class="file-upload-input" id="photo" name="photo" onchange="readURL(this)" accept="Image/*" required>
+                        <div class="col-md-12" id="display_photo">
+                        </div>
+                        <div class="col-md-3">
+                            <input type="file" class="file-upload-input" id="photo" onchange="readURL(this)" accept="Image/*" required>
+                        </div>
+                        <div class="col-md-9">
+                            <button id="upload_photo" class="btn btn-primary">Upload</button>
                         </div>
 
                         <br>
@@ -151,50 +172,50 @@
 
 
                         <div class="col-md-6">
-                            <label for="position" class="form-label">Faculty Position </label>
-                            <input type="text" class="form-control" id="position_id" name="position" placeholder="Position" required>
+                            <label for="faculty_position" class="form-label">Faculty Position </label>
+                            <select id="faculty_position">
+                                <option value="default">Choose Current Position ...</option>
+                            </select>
                         </div>
 
                         <div class="col-md-6">
-                            <label for="dept" class="form-label">Department</label>
-                            <input type="text" class="form-control" id="department_id" name="dept" placeholder="Department" required>
+                            <label for="department" class="form-label">Faculty Department</label>
+                            <select id="department">
+                                <option value="default">Choose Department ...</option>
+                            </select>
                         </div>
 
                         <br><br>
                         <div class="col-md-8">
                             <label for="Positionat" class="form-label">Position at</label>
-                            <input type="email" class="form-control" id="position_present_where" name="positionat" placeholder="Anna University Regional Campus" required><br>
+                            <input type="email" class="form-control" id="position_present_where" placeholder="Anna University Regional Campus" required><br>
                         </div>
 
                         <div class="col-md-4">
                             <label for="positionfrom" class="form-label">Position From</label>
-                            <input type="month" class="form-control" id="position_present_from" name="positionfrom" placeholder="month" required><br>
+                            <input type="month" class="form-control" id="position_present_from" placeholder="month" required><br>
                         </div>
 
                         <br><br>
-                        <div class="col-md-8">
-                            <label for="email" class="form-label">Email </label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required><br>
-                        </div>
 
                         <div class="col-md-4">
                             <label for="phone" class="form-label">Phone Number </label>
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="+91 (9987562645)" required><br>
+                            <input type="text" class="form-control" id="phone" placeholder="+91 (9987562645)" required><br>
                         </div>
 
-                        <div class="col-md-8">
+                        <!-- <div class="col-md-8">
                             <label for="email" class="form-label">Secondary Email </label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Email(optional)"><br>
-                        </div>
+                        </div> -->
 
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <label for="contactno" class="form-label">Secondary Phone Number </label>
                             <input type="text" class="form-control" id="contactno" name="contactno" placeholder="(optional)"><br>
-                        </div>
+                        </div> -->
 
                         <div class="col-md-12">
                             <label for="address" class="form-label"> Address Line 1</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address Line 1" required><br>
+                            <input type="text" class="form-control" id="address" placeholder="Address Line 1" required><br>
                         </div>
 
                         <!-- <div class="col-md-12">
@@ -258,12 +279,12 @@
                                               </select>
                         </div>
 
-                        <div class="form-group col-md-4">
+                        <!-- <div class="form-group col-md-4">
                             <label for="inputDistrict">District</label>
                             <select class="form-control" id="inputDistrict">
                                 <option value="">-- select one -- </option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="form-group col-md-2">
                             <label for="zipcode">Zip code</label>
@@ -277,15 +298,15 @@
                         <!-- <div class=" form-group col-md-2">
                             <label for="zipcode" class="form-label"> Zip code</label>
                         </div> -->
-
+                        <!-- 
 
                         <div class="col-md-12">
                             <label for="comments" class="form-label">Comments</label>
                             <textarea class="form-control" id="comments" rows="3-5"></textarea>
-                        </div>
+                        </div> -->
 
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button id="update_user_info" class="btn btn-primary">update</button>
                         </div>
 
                         <div class="col-md-12">
@@ -294,6 +315,8 @@
                     </form>
                 </div>
             </div>
+
+
 
 
         </div>
@@ -334,7 +357,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
     <script src="./js/logout.js"></script>
-    <script src="./js/edit2.js"></script>
+    <<<<<<< HEAD <script src="./js/edit2.js">
+        </script>
+        =======
+        <!-- <script src="./js/edit2.js"></script> -->
+        <script src="./js/edit21.js"></script>
+        >>>>>>> upstream/main
 
 </body>
 

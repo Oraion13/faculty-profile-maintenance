@@ -126,12 +126,10 @@
               <div class="shadow-none p-3 mt-5 bg-light rounded">
               -->
                     <form class="row g-3" id="experience_form">
-
-
-
+                        <div class="alert1 text-center" role="alert"></div>
                         <div class="col-md-12">
                             <label for="expab" class="form-label">Experience Abroad</label>
-                            <input type="text" class="form-control" id="exp_abroad" name="expab" placeholder="Title" required>
+                            <input type="text" class="form-control" id="exp_abroad" name="expab" placeholder="Title">
                         </div>
 
                         </br>
@@ -146,11 +144,11 @@
 
                         <div class="col-md-6">
                             <label for="expabfrom" class="form-label">Experience Abroad From</label>
-                            <input type="month" class="form-control" id="exp_abroad_from" name="expabfrom" placeholder="From" required>
+                            <input type="month" class="form-control" id="exp_abroad_from" name="expabfrom" placeholder="From">
                         </div>
                         <div class="col-md-6">
                             <label for="expabto" class="form-label">Experience Abroad To</label>
-                            <input type="month" class="form-control" id="exp_abroad_to" name="expabto" placeholder="To" required>
+                            <input type="month" class="form-control" id="exp_abroad_to" name="expabto" placeholder="To">
                         </div>
                         <div class="col-md-12">
                             <label for="profrom" class="form-label">Purpose of visit </label>
@@ -158,9 +156,9 @@
                             <textarea class="form-control" id="purpose_of_visit" name="Description" placeholder="comments" rows="3-5"></textarea>
                         </div>
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="AddRow()">Add</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="add_exp">Add</button>
 
-                        <table border="3" id="show">
+                        <!-- <table border="3" id="show">
                             <thead>
                                 <tr>
                                     <th>Experience Abroad</th>
@@ -169,7 +167,7 @@
                                     <th>Purpose of visit</th>
                                 </tr>
                             </thead>
-                        </table>
+                        </table> -->
                         <!-- <div class="col-md-6">
                         <label for="procost" class="form-label">Cost</label>
                         <input type="text" class="form-control" id="procost" name="procost" placeholder="cost" required>
@@ -198,17 +196,18 @@
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="add" class="btn btn-info">Add</button>
                         </div> -->
+                        <div id="all_exp"></div>
                         <div class="col-md-1">
-                            <button type="clearall" class="btn btn-danger">Clearall</button>
+                            <button type="clearall" class="btn btn-danger" id="clear_all">Clearall</button>
                         </div>
                         <div class="col-md-11">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="honors.html" class="btn btn-primary" role="button">Previous</a>
+                            <a href="#" id="previous" class="btn btn-primary" role="button">Previous</a>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="lectures.html" class="btn btn-primary" role="button">Next</a>
+                            <a href="#" id="next" class="btn btn-primary" role="button">Next</a>
                         </div>
                     </form>
                 </div>

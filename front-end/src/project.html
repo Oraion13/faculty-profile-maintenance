@@ -126,12 +126,10 @@
               <div class="shadow-none p-3 mt-5 bg-light rounded">
               -->
                     <form class="row g-3" id="project_form">
-
-
-
+                        <div class="alert1 text-center" role="alert"></div>
                         <div class="col-md-12">
                             <label for="project" class="form-label">Project Title </label>
-                            <input type="text" class="form-control" id="project" name="project" placeholder="Title" required>
+                            <input type="text" class="form-control" id="project" name="project" placeholder="Title">
                         </div>
 
                         </br>
@@ -150,20 +148,20 @@
 
                         <div class="col-md-6">
                             <label for="profrom" class="form-label">From</label>
-                            <input type="month" class="form-control" id="project_from" name="profrom" placeholder="From" required>
+                            <input type="month" class="form-control" id="project_from" name="profrom" placeholder="From">
                         </div>
                         <div class="col-md-6">
                             <label for="proto" class="form-label">To</label>
-                            <input type="month" class="form-control" id="project_to" name="proto" placeholder="to" required>
+                            <input type="month" class="form-control" id="project_to" name="proto" placeholder="to">
                         </div>
                         <div class="col-md-6">
                             <label for="procost" class="form-label">Cost</label>
-                            <input type="text" class="form-control" id="project_cost" name="procost" placeholder="cost" required>
+                            <input type="text" class="form-control" id="project_cost" name="procost" placeholder="cost">
                         </div>
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="AddRow()">Add</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="add_project">Add</button>
 
-                        <table border="3" id="show">
+                        <!-- <table border="3" id="show">
                             <thead>
                                 <tr>
                                     <th>Project Title </th>
@@ -173,7 +171,7 @@
 
                                 </tr>
                             </thead>
-                        </table>
+                        </table> -->
                         <!-- </br>
                     </br>  -->
 
@@ -198,17 +196,18 @@
                         <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="add" class="btn btn-info">Add</button>
                         </div> -->
+                        <div id="projects"></div>
                         <div class="col-md-1">
-                            <button type="clearall" class="btn btn-danger" onclick="clearall()">Clearall</button>
+                            <button type="clearall" class="btn btn-danger" id="clear_all">Clearall</button>
                         </div>
                         <div class="col-md-11">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="bookpub.html" class="btn btn-primary" role="button">Previous</a>
+                            <a href="#" id="previous" class="btn btn-primary" role="button">Previous</a>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="progchair.html" class="btn btn-primary" role="button">Next</a>
+                            <a href="#" id="next" class="btn btn-primary" role="button">Next</a>
                         </div>
                     </form>
                 </div>

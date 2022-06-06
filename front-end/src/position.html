@@ -125,115 +125,56 @@
               -->
                     <form class="row g-3" id="position_form">
 
+                        <div class="alert text-center" role="alert"></div>
                         <div class="col-md-12">
-                            <label for="cposition" class="form-label">Current Position </label>
-                            <input type="text" class="form-control" id="cposition" name="cposition" placeholder="Position" required>
+                            <label for="previous_postion" class="form-label">Previous Position </label>
+                            <select id="previous_position">
+                                <option value="default">Choose Position ...</option>
+                            </select>
                         </div>
 
                         <div class="col-md-8">
-                            <label for="cpositionat" class="form-label">Current Position At</label>
-                            <input type="text" class="form-control" id="cposition" name="cpositionat" placeholder="Eg:Anna University" required>
+                            <label for="cpositionat" class="form-label">Previous Position At</label>
+                            <input type="text" class="form-control" id="previous_position_at" name="cpositionat" placeholder="Eg:Anna University">
                         </div>
 
                         <div class="col-md-4">
-                            <label for="dept" class="form-label">Department</label>
-                            <input type="text" class="form-control" id="cposition" name="dept" placeholder="CSE" required>
-                        </div>
-
-                        </br>
-                        <div class="col-md-6">
-                            <label for="cposifrom" class="form-label">Current Position From </label>
-                            <input type="month" class="form-control" id="cposifrom" name="cposifrom" placeholder="From" required>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="cposito" class="form-label">Current Position To </label>
-                            <input type="month" class="form-control" id="cposito" name="cposito" placeholder="To" required>
-                        </div>
-
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="AddRow()">Add</button>
-
-                        <table border="3" id="show">
-                            <thead>
-                                <tr>
-                                    <th>Position</th>
-                                    <th>Position At</th>
-                                    <th>Department</th>
-                                    <th>Position From</th>
-                                    <th>Position To</th>
-                                </tr>
-                            </thead>
-                        </table>
-
-                        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="add" class="btn btn-info">Add</button>
-                        </div> -->
-                        <div class="col-md-1">
-                            <button type="clearall" class="btn btn-danger" onclick="clearall1()">Clearall</button>
-                        </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-
-                        </br>
-
-                        <br><br><br>
-                        <div class="col-md-12">
-                            <label for="pposition" class="form-label">Previous Position </label>
-                            <input type="text" class="form-control" id="pposition" name="pposition" placeholder="Position" required>
-                        </div>
-
-                        <div class="col-md-8">
-                            <label for="cpositionat" class="form-label">Current Position At</label>
-                            <input type="text" class="form-control" id="cposition" name="cpositionat" placeholder="Eg:Anna University" required>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="dept" class="form-label">Department</label>
-                            <input type="text" class="form-control" id="cposition" name="dept" placeholder="CSE" required>
+                            <label for="department" class="form-label">Department</label>
+                            <select id="department">
+                                <option value="default">Choose Department ...</option>
+                            </select>
                         </div>
 
 
                         </br>
                         <div class="col-md-6">
                             <label for="pposifrom" class="form-label">Previous Position From </label>
-                            <input type="month" class="form-control" id="pposifrom" name="pposifrom" placeholder="From" required>
+                            <input type="month" class="form-control" id="previous_position_from" name="pposifrom" placeholder="From">
                         </div>
 
                         <div class="col-md-6">
                             <label for="pposito" class="form-label">Previous Position To </label>
-                            <input type="month" class="form-control" id="pposito" name="pposito" placeholder="To" required>
+                            <input type="month" class="form-control" id="previous_position_to" name="pposito" placeholder="To">
                         </div>
 
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="AddRow()">Add</button>
-
-                        <table border="3" id="show">
-                            <thead>
-                                <tr>
-                                    <th>Previous Position</th>
-                                    <th>Previous Position At</th>
-                                    <th>Department</th>
-                                    <th>Previous Position From</th>
-                                    <th>Previous Position To</th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <button type="button" class="btn btn-primary btn-lg btn-block" id="add_position">Add</button>
 
                         <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="add" class="btn btn-info">Add</button>
                         </div> -->
+                        <div id="positions"></div>
                         <div class="col-md-1">
-                            <button type="clearall" class="btn btn-danger" onclick="clearall2()">Clearall</button>
+                            <button type="clearall" class="btn btn-danger" id="clear_all">Clearall</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="edq.html" class="btn btn-primary" role="button">Previous</a>
+                            <a href="edq.html" class="btn btn-primary" id="previous" role="button">Previous</a>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="responsibility.html" class="btn btn-primary" role="button">Next</a>
+                            <a href="responsibility.html" class="btn btn-primary" id="next" role="button">Next</a>
                         </div>
                     </form>
                 </div>
@@ -266,11 +207,12 @@
         });
     </script>
 
-    <script>
+    <!-- <script>
         var list1 = [];
         var list2 = [];
         var list3 = [];
         var list4 = [];
+        var list5 = [];
 
         var n = 1;
         var x = 0;
@@ -283,25 +225,72 @@
             list1[x] = document.getElementById("degree").value;
             list2[x] = document.getElementById("dfrom").value;
             list3[x] = document.getElementById("dto").value;
-            // list4[x] = document.getElementById("age").value;
+            list4[x] = document.getElementById("age").value;
+            list5[x] = document.getElementById("age").value;
+
 
             var cel1 = NewRow.insertCell(0);
             var cel2 = NewRow.insertCell(1);
             var cel3 = NewRow.insertCell(2);
-            // var cel4 = NewRow.insertCell(3);
+            var cel4 = NewRow.insertCell(3);
+            var cel5 = NewRow.insertCell(4);
+
 
             cel1.innerHTML = list1[x];
             cel2.innerHTML = list2[x];
             cel3.innerHTML = list3[x];
-            // cel4.innerHTML = list4[x];
+            cel4.innerHTML = list4[x];
+            cel4.innerHTML = list5[x];
+
 
             n++;
             x++;
         }
-    </script>
+    </script> -->
 
-    <script>
-        function clearall1() {
+    <!-- <script>
+        var list1 = [];
+        var list2 = [];
+        var list3 = [];
+        var list4 = [];
+        var list5 = [];
+
+        var m = 1;
+        var y = 0;
+
+        function AddRow2() {
+
+            var AddRown = document.getElementById('show2');
+            var NewRow = AddRown.insertRow(m);
+
+            list1[y] = document.getElementById("degree").value;
+            list2[y] = document.getElementById("dfrom").value;
+            list3[y] = document.getElementById("dto").value;
+            list4[y] = document.getElementById("age").value;
+            list5[y] = document.getElementById("age").value;
+
+
+            var cel1 = NewRow.insertCell(0);
+            var cel2 = NewRow.insertCell(1);
+            var cel3 = NewRow.insertCell(2);
+            var cel4 = NewRow.insertCell(3);
+            var cel5 = NewRow.insertCell(4);
+
+
+            cel1.innerHTML = list1[y];
+            cel2.innerHTML = list2[y];
+            cel3.innerHTML = list3[y];
+            cel4.innerHTML = list4[y];
+            cel4.innerHTML = list5[y];
+
+
+            m++;
+            y++;
+        }
+    </script> -->
+
+    <!-- <script>
+        function clearall() {
             document.getElementById("show").reset();
             // document.getElementsByName("Addrow()").reset();
         }
@@ -312,7 +301,7 @@
             document.getElementById("show").reset();
             // document.getElementsByName("Addrow()").reset();
         }
-    </script>
+    </script> -->
 
 
 

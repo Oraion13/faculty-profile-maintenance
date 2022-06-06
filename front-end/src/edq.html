@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="static/css/style4.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="https://kit.fontawesome.com/80e8ac0dbf.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -124,26 +125,31 @@
               <div class="shadow-none p-3 mt-5 bg-light rounded">
               -->
                     <form class="row g-3" id="edq_form">
+                        <div class="alert text-center" role="alert"></div>
 
                         <div class="col-md-12">
                             <label for="degree" class="form-label">Degree </label>
-                            <input type="text" class="form-control" id="degree" name="degree" placeholder="Completed Degree" required>
+                            <input type="text" class="form-control" id="degree" placeholder="Completed Degree">
                         </div>
 
                         </br>
                         <div class="col-md-6">
-                            <label for="dfrom" class="form-label">Degree From </label>
-                            <input type="month" class="form-control" id="degree_from" name="dfrom" placeholder="From" required>
+                            <label for="degree_from" class="form-label">Degree From </label>
+                            <input type="month" class="form-control" id="degree_from" placeholder="From">
                         </div>
 
                         <div class="col-md-6">
-                            <label for="dto" class="form-label">Degree To </label>
-                            <input type="month" class="form-control" id="degree_to" name="dto" placeholder="To" required>
+                            <label for="degree_to" class="form-label">Degree To </label>
+                            <input type="month" class="form-control" id="degree_to" placeholder="To">
                         </div>
 
-                        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="AddRow()">Add</button>
+                        <div class="col-md-12" id="edqs">
 
-                        <table border="3" id="show">
+                        </div>
+
+                        <button id="add_edq" class="btn btn-primary btn-lg btn-block">Add</button>
+
+                        <!-- <table border="3" id="show">
                             <thead>
                                 <tr>
                                     <th>Degree</th>
@@ -151,7 +157,7 @@
                                     <th>Degree To</th>
                                 </tr>
                             </thead>
-                        </table>
+                        </table> -->
 
 
 
@@ -160,16 +166,16 @@
                             <button type="add" class="btn btn-info">Add</button>
                         </div> -->
                         <div class="col-md-1">
-                            <button type="clearall" class="btn btn-danger" onclick="clearall()">Clearall</button>
+                            <button id="clear_all" class="btn btn-danger">Clearall</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="edit2.html" class="btn btn-primary" role="button">Previous</a>
+                            <a href="#" class="btn btn-primary" id="previous" role="button">Previous</a>
                         </div>
                         <div class="row-cols-md-4">
-                            <a href="position.html" class="btn btn-primary" role="button">Next</a>
+                            <a href="#" class="btn btn-primary" id="next" role="button">Next</a>
                         </div>
                     </form>
                 </div>
@@ -202,7 +208,7 @@
         });
     </script>
 
-    <script>
+    <!-- <script>
         var list1 = [];
         var list2 = [];
         var list3 = [];
@@ -234,7 +240,7 @@
             n++;
             x++;
         }
-    </script>
+    </script> -->
 
     <script>
         function clearall() {
