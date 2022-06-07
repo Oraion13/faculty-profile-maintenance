@@ -2,9 +2,9 @@ const login_form = document.getElementById("login_form");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
 
-login_form.addEventListener("submit", login);
-
+// login submit
 function login(e) {
+    console.log("fghfgh");
     e.preventDefault();
     //validate
     const register = {
@@ -33,3 +33,15 @@ function login(e) {
     };
     xhr.send(JSON.stringify(register));
 }
+
+function already_logged_in() {
+    console.log("hel");
+    if (JSON.parse(window.localStorage.getItem("user")).user_id) {
+        window.location.replace("./edit2.html");
+    }
+}
+
+// if already logged in
+window.addEventListener("DOMContentLoaded", already_logged_in);
+// submit
+login_form.addEventListener("submit", login);
