@@ -138,14 +138,14 @@ class Incharge_duty_files_api extends Type_6 implements api
     // Delete a user pic
     public function delete_by_id()
     {
-        if (isset($_GET['ID'])) {
+        if (!isset($_GET['ID'])) {
             send(400, "error", "provide an ID");
             die();
         }
 
         $this->Incharge_duty_file->id = $_GET['ID'];
         if ($this->Incharge_duty_file->delete_row()) {
-            send(200, 'message', 'image deleted successfully');
+            send(200, 'message', 'file deleted successfully');
         } else {
             send(400, 'error', 'incharge duty file cannot deleted');
         }
