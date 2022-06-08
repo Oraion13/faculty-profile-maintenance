@@ -4,7 +4,6 @@ const password = document.getElementById("password");
 
 // login submit
 function login(e) {
-    console.log("fghfgh");
     e.preventDefault();
     //validate
     const register = {
@@ -35,7 +34,6 @@ function login(e) {
 }
 
 function already_logged_in() {
-    console.log("hel");
     if (JSON.parse(window.localStorage.getItem("user")).user_id) {
         window.location.replace("./edit2.html");
     }
