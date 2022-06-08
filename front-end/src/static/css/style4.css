@@ -116,6 +116,10 @@ nav ul li a:hover {
     background: #1e1e1e;
 }
 
+nav ul li a nav-link:hover {
+    background: #ffffff;
+}
+
 nav ul ul {
     position: static;
     display: none;
@@ -157,6 +161,11 @@ nav ul li.active ul li a {
 nav ul ul li a:hover {
     color: cyan!important;
     background: #1e1e1e!important;
+}
+
+nav ul ul li a nav-link:hover {
+    color: cyan!important;
+    background: #1e1e1e00!important;
 }
 
 nav ul li a span {

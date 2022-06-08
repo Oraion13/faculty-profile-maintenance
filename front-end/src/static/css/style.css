@@ -58,6 +58,8 @@ section {
 
 #home {
     background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(49, 160, 245, 0.489)), url(../images/15.png);
+    background-position: fixed;
+    opacity: 0.9;
     min-height: 500px;
     background-size: cover;
     background-position: center;
