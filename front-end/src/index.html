@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link rel="stylesheet" href="./static/css/style.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./static/css/style.css" />
     <title>Home Faculty Profile</title>
-</head>
+  </head>
 
-<style>
+  <style>
     body {
-        /* background-image: url('./static/images/pexels-aleksandr-slobodianyk-989946.jpg'); */
-        background: linear-gradient(rgb(7, 214, 255), rgba(7, 214, 255, 0.077));
-        background-size: auto;
-        background-attachment: fixed;
-        font-family: new time roman;
+      /* background-image: url('./static/images/pexels-aleksandr-slobodianyk-989946.jpg'); */
+      background: linear-gradient(rgb(7, 214, 255), rgba(7, 214, 255, 0.077));
+      background-size: auto;
+      background-attachment: fixed;
+      font-family: new time roman;
     }
-</style>
+  </style>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="./static/images/Anna-University-Recruitment-2021.jpg" style="width: 200px; padding: 10px 5px" alt="logo" /></a>
-            <a class="navbar-brand" href="#">Anna University Regional Campus Tirunelveli</a
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><img
+            src="./static/images/Anna-University-Recruitment-2021.jpg"
+            style="width: 200px; padding: 10px 5px"
+            alt="logo"
+        /></a>
+        <a class="navbar-brand" href="#"
+          >Anna University Regional Campus Tirunelveli</a
         >
         <button
           class="navbar-toggler"
@@ -43,23 +53,23 @@
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>-->
             <li class="nav-item">
-                <a class="nav-link active" href="index.html">Home</a>
+              <a class="nav-link active" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.html">Register</a>
+              <a class="nav-link" href="register.html">Register</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#report">Report</a>
+              <a class="nav-link" href="#report">Report</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="login.html">login</a>
+              <a class="nav-link" href="login.html">login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="contact.html">Contact</a>
             </li>
-            </ul>
+          </ul>
         </div>
-        </div>
+      </div>
     </nav>
 
     <!-- <img
@@ -68,40 +78,47 @@
             alt="logo"
         /> -->
     <section id="home">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <h1>Faculty Profile Information</h1>
-                    <br />
-                    <p>
-                        Helps you to find out details or Information about the staff either a teaching staff or a non teaching staff who works in the institution
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <br>
-    <div class="container" text-align="center">
+      <div class="container text-center">
         <div class="row justify-content-center">
-            <div class="col-md-10">
-                <h1>Departments</h1>
-                <br>
-                <div class="container" text-align="center">
-                    <ul class="deparment" text-align="center">
-                        <li>
-                            <a href=""> Department of computer Science and engineering </a></li><br>
-                        <li>
-                            <a href=""> Department of Electronics and Communication Engineering</a> </li><br>
-                        <li>
-                            <a href=""> Department of Geo informatics andengineering</a> </li><br>
-                        <li>
-                            <a href=""> Department of Mechanical engineering </a></li><br>
-                    </ul>
-                </div>
-            </div>
+          <div class="col-md-10">
+            <h1>Faculty Profile Information</h1>
+            <br />
+            <p>
+              Helps you to find out details or Information about the staff
+              either a teaching staff or a non teaching staff who works in the
+              institution
+            </p>
+          </div>
         </div>
+      </div>
+    </section>
+    <br />
+    <div class="container" text-align="center">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <h1>Departments</h1>
+          <br />
+          <div class="container" text-align="center">
+            <select class="form-control" id="departments">
+              <option value="default">Choose a department...</option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <div class="container" text-align="center">
+      <div class="row justify-content-center" id="faculty_infos">
+          <table class="table">
+              <thead>
+                  <td>Faculty Name</td>
+                  <td>Position</td>
+                  <td>Details</td>
+              </thead>
+              <tbody id="table_body"></tbody>
+          </table>
+      </div>
+    </div>
 
     <!--
     <nav class="navbar navbar-light bg-primary">
@@ -114,10 +131,23 @@
 
     -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
     <script src="./js/logout.js"></script>
-</body>
-
+    <script src="./js/index/fill_departments.js"></script>
+    <script src="./js/index/faculty_infos.js"></script>
+  </body>
 </html>

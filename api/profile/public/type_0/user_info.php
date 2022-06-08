@@ -62,6 +62,26 @@ class User_info_api extends User_info implements api
         }
     }
 
+    // Get all data of a user info by Department
+    public function get_by_dept($id)
+    {
+        // Get the user info from DB
+        $this->User_info->department_id = $id;
+        $all_data = $this->User_info->read_by_dept();
+
+        if ($all_data) {
+            $data = array();
+            while ($row = $all_data->fetch(PDO::FETCH_ASSOC)) {
+                array_push($data, $row);
+            }
+            echo json_encode($data);
+            die();
+        } else {
+            send(400, 'error', 'no user info found');
+            die();
+        }
+    }
+
     // POST a new user info
     public function post()
     {
@@ -165,6 +185,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $User_info_api = new User_info_api();
     if (isset($_GET['ID'])) {
         $User_info_api->get_by_id($_GET['ID']);
+    } else if(isset($_GET['dept'])){
+        $User_info_api->get_by_dept($_GET['dept']);
     } else {
         $User_info_api->get();
     }

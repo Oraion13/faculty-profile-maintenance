@@ -83,6 +83,38 @@ class User_info implements model
         return false;
     }
 
+    // read by department
+    public function read_by_dept()
+    {
+        $columns = $this->table . '.user_info_id, ' . $this->table . '.user_id, ' . $this->table . '.phone, '
+            . $this->table . '.address, ' . $this->table . '.position_id, ' . $this->positions . '.position, '
+            . $this->table . '.department_id, ' . $this->departments . '.department, '
+            . $this->table . '.position_present_where, ' . $this->table . '.position_present_from, '
+            . $this->users . '.honorific, ' . $this->users . '.full_name';
+        $query = 'SELECT ' . $columns . ' FROM (((' . $this->table . ' INNER JOIN ' . $this->users . ' ON '
+            . $this->table . '.department_id = :department_id AND ' . $this->table
+            . '.user_id = ' . $this->users . '.user_id) INNER JOIN ' . $this->positions
+            . ' ON ' . $this->table . '.position_id = ' . $this->positions . '.position_id) INNER JOIN '
+            . $this->departments . ' ON ' . $this->table . '.department_id = ' . $this->departments .
+            '.department_id)';
+
+        $stmt = $this->conn->prepare($query);
+
+        // Clean the data
+        $this->department_id = htmlspecialchars(strip_tags($this->department_id));
+
+        $stmt->bindParam(':department_id', $this->department_id);
+
+        if ($stmt->execute()) {
+            // If data exists, return the data
+            if ($stmt) {
+                return $stmt;
+            }
+        }
+
+        return false;
+    }
+
     // Insert user info
     public function post()
     {
