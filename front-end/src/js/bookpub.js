@@ -403,10 +403,10 @@ clear_all.addEventListener("click", clear_items);
 // previous button
 previous.addEventListener("click", () => {
     window.localStorage.removeItem("books_published_storage");
-    window.location.replace("./paperpres.html");
+    window.location.replace("./patets.html");
 });
 // next button
 next.addEventListener("click", () => {
     window.localStorage.removeItem("books_published_storage");
-    window.location.replace("./project.html");
+    window.location.replace("./other_employment.html");
 });

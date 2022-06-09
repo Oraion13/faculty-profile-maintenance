@@ -8,7 +8,8 @@ function view_faculty(e){
     const element = e.currentTarget.parentElement.parentElement;
     const id = element.dataset.id;
 
-    // console.log("id", id);
+    window.localStorage.setItem("faculty_id", id)
+    window.location.replace("./profile_preview.html");
 }
 
 // append faculty to the table
