@@ -672,8 +672,10 @@ function setup_papers_published() {
             }
 
             list_tag.innerHTML += `
-                            <li style="padding-left: 1em">${item.paper_published}, Is International?: ${item.is_international} at 
-                            ${item.paper_published_at}</li>`;
+                            <li style="padding-left: 1em">${
+                              item.paper_published
+                            }, Is International?: ${item.is_international} at 
+                            ${month_year(item.paper_published_at)}</li>`;
 
             if (index + 1 == array.length) {
               // append list to main element
@@ -697,6 +699,190 @@ function setup_papers_published() {
 
 // ------------------------------------------------ Papers Presented in Programmes  ------------------------------------------------ //
 function setup_papers_presented() {
+  return new Promise((resolve, reject) => {
+    // get faculty id from local storage
+    const id = get_faculty_id();
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.open(
+      "GET",
+      `../../api/profile/public/type_5/papers_presented.php?ID=${id}`,
+      true
+    );
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        const got = JSON.parse(xhr.responseText);
+
+        if (got.error) {
+          // if can't get the data, thorw an error
+          reject(window.alert(got.error));
+        } else {
+          // create a main element and list element
+          const element = document.createElement("div");
+          const list_tag = document.createElement("ul");
+
+          // check for empty array
+          if (got.length == 0) {
+            resolve();
+            return;
+          }
+
+          let intern = 0;
+          let non_intern = 0;
+          // create list
+          got.forEach((item, index, array) => {
+            if (item.is_international == "yes") {
+              intern += 1;
+            } else {
+              non_intern += 1;
+            }
+
+            list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.paper_presented
+                              }, Is International?: ${item.is_international} at 
+                              ${month_year(item.paper_presented_at)}</li>`;
+
+            if (index + 1 == array.length) {
+              // append list to main element
+              element.innerHTML = `
+                            <h2>Papers Presented in Programmes</h2>
+                            <p style="padding-left: 1em">Research Papers Presented in International Programmes : ${intern}</p>
+                            <p style="padding-left: 1em">Research Papers Presented in National Programmes : ${non_intern}</p>
+                            `;
+              element.appendChild(list_tag);
+            }
+          });
+
+          // finally resolve main element
+          resolve(faculty_profile_container.appendChild(element));
+        }
+      }
+    };
+    xhr.send();
+  });
+}
+
+// ------------------------------------------------ Books Published  ------------------------------------------------ //
+function setup_books_published() {
+  return new Promise((resolve, reject) => {
+    // get faculty id from local storage
+    const id = get_faculty_id();
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.open(
+      "GET",
+      `../../api/profile/public/type_5/books_published.php?ID=${id}`,
+      true
+    );
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        const got = JSON.parse(xhr.responseText);
+
+        if (got.error) {
+          // if can't get the data, thorw an error
+          reject(window.alert(got.error));
+        } else {
+          // create a main element and list element
+          const element = document.createElement("div");
+          const list_tag = document.createElement("ul");
+
+          // check for empty array
+          if (got.length == 0) {
+            resolve();
+            return;
+          }
+
+          // create list
+          got.forEach((item, index, array) => {
+            list_tag.innerHTML += `
+                            <li style="padding-left: 1em">${item.title} - ${
+              item.description
+            } (${month_year(item.published_at)})</li>`;
+
+            if (index + 1 == array.length) {
+              // append list to main element
+              element.innerHTML = `
+                          <h2>Books Published</h2>
+                          `;
+              element.appendChild(list_tag);
+            }
+          });
+
+          // finally resolve main element
+          resolve(faculty_profile_container.appendChild(element));
+        }
+      }
+    };
+    xhr.send();
+  });
+}
+
+// ------------------------------------------------ Sponsored Projects Completed  ------------------------------------------------ //
+function setup_sponsored_projs() {
+  return new Promise((resolve, reject) => {
+    // get faculty id from local storage
+    const id = get_faculty_id();
+
+    const xhr = new XMLHttpRequest();
+
+    xhr.open(
+      "GET",
+      `../../api/profile/public/type_6/sponsored_projects_completed.php?ID=${id}`,
+      true
+    );
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        const got = JSON.parse(xhr.responseText);
+
+        if (got.error) {
+          // if can't get the data, thorw an error
+          reject(window.alert(got.error));
+        } else {
+          // create a main element and list element
+          const element = document.createElement("div");
+          const list_tag = document.createElement("ul");
+
+          // check for empty array
+          if (got.length == 0) {
+            resolve();
+            return;
+          }
+
+          // create list
+          got.forEach((item, index, array) => {
+            list_tag.innerHTML += `
+                            <li style="padding-left: 1em">${
+                              item.project
+                            } (${month_year(item.project_from)} - ${month_year(
+              item.project_to
+            )}). Project Cost: ${item.project_cost}</li>`;
+
+            if (index + 1 == array.length) {
+              // append list to main element
+              element.innerHTML = `
+                          <h2>Sponsored Projects Completed</h2>
+                          `;
+              element.appendChild(list_tag);
+            }
+          });
+
+          // finally resolve main element
+          resolve(faculty_profile_container.appendChild(element));
+        }
+      }
+    };
+    xhr.send();
+  });
+}
+
+// ------------------------------------------------ Programme Chaired  ------------------------------------------------ //
+function setup_programme_chaired() {
     return new Promise((resolve, reject) => {
       // get faculty id from local storage
       const id = get_faculty_id();
@@ -705,7 +891,7 @@ function setup_papers_presented() {
   
       xhr.open(
         "GET",
-        `../../api/profile/public/type_5/papers_presented.php?ID=${id}`,
+        `../../api/profile/public/type_5/programme_chaired.php?ID=${id}`,
         true
       );
   
@@ -727,26 +913,19 @@ function setup_papers_presented() {
               return;
             }
   
-            let intern = 0;
-            let non_intern = 0;
             // create list
             got.forEach((item, index, array) => {
-              if (item.is_international == "yes") {
-                intern += 1;
-              } else {
-                non_intern += 1;
-              }
-  
               list_tag.innerHTML += `
-                              <li style="padding-left: 1em">${item.paper_presented}, Is International?: ${item.is_international} at 
-                              ${item.paper_presented_at}</li>`;
+                              <li style="padding-left: 1em">${
+                                item.programme_chaired
+                              } from ${month_year(item.programme_chaired_from)} - ${month_year(
+                item.programme_chaired_to
+              )}</li>`;
   
               if (index + 1 == array.length) {
                 // append list to main element
                 element.innerHTML = `
-                            <h2>Papers Presented in Programmes</h2>
-                            <p style="padding-left: 1em">Research Papers Presented in International Programmes : ${intern}</p>
-                            <p style="padding-left: 1em">Research Papers Presented in National Programmes : ${non_intern}</p>
+                            <h2>Programme Chaired</h2>
                             `;
                 element.appendChild(list_tag);
               }
@@ -760,8 +939,471 @@ function setup_papers_presented() {
       xhr.send();
     });
   }
-  
 
+  // ------------------------------------------------ Programme Organized  ------------------------------------------------ //
+function setup_programme_organized() {
+    return new Promise((resolve, reject) => {
+      // get faculty id from local storage
+      const id = get_faculty_id();
+  
+      const xhr = new XMLHttpRequest();
+  
+      xhr.open(
+        "GET",
+        `../../api/profile/public/type_5/programme_organized.php?ID=${id}`,
+        true
+      );
+  
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          const got = JSON.parse(xhr.responseText);
+  
+          if (got.error) {
+            // if can't get the data, thorw an error
+            reject(window.alert(got.error));
+          } else {
+            // create a main element and list element
+            const element = document.createElement("div");
+            const list_tag = document.createElement("ul");
+  
+            // check for empty array
+            if (got.length == 0) {
+              resolve();
+              return;
+            }
+  
+            // create list
+            got.forEach((item, index, array) => {
+              list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.programme_organized
+                              } from ${month_year(item.programme_organized_from)} - ${month_year(
+                item.programme_organized_to
+              )}</li>`;
+  
+              if (index + 1 == array.length) {
+                // append list to main element
+                element.innerHTML = `
+                            <h2>Programme Organized</h2>
+                            `;
+                element.appendChild(list_tag);
+              }
+            });
+  
+            // finally resolve main element
+            resolve(faculty_profile_container.appendChild(element));
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
+
+  // ------------------------------------------------ Programme Attended  ------------------------------------------------ //
+function setup_programme_attended() {
+    return new Promise((resolve, reject) => {
+      // get faculty id from local storage
+      const id = get_faculty_id();
+  
+      const xhr = new XMLHttpRequest();
+  
+      xhr.open(
+        "GET",
+        `../../api/profile/public/type_5/programme_attended.php?ID=${id}`,
+        true
+      );
+  
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          const got = JSON.parse(xhr.responseText);
+  
+          if (got.error) {
+            // if can't get the data, thorw an error
+            reject(window.alert(got.error));
+          } else {
+            // create a main element and list element
+            const element = document.createElement("div");
+            const list_tag = document.createElement("ul");
+  
+            // check for empty array
+            if (got.length == 0) {
+              resolve();
+              return;
+            }
+  
+            // create list
+            got.forEach((item, index, array) => {
+              list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.programme_attended
+                              } from ${month_year(item.programme_attended_from)} - ${month_year(
+                item.programme_attended_to
+              )}</li>`;
+  
+              if (index + 1 == array.length) {
+                // append list to main element
+                element.innerHTML = `
+                            <h2>Programme Attended</h2>
+                            `;
+                element.appendChild(list_tag);
+              }
+            });
+  
+            // finally resolve main element
+            resolve(faculty_profile_container.appendChild(element));
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
+
+
+  // ------------------------------------------------ Special Reprasentations  ------------------------------------------------ //
+function setup_special_representations() {
+    return new Promise((resolve, reject) => {
+      // get faculty id from local storage
+      const id = get_faculty_id();
+  
+      const xhr = new XMLHttpRequest();
+  
+      xhr.open(
+        "GET",
+        `../../api/profile/public/type_5/special_representations.php?ID=${id}`,
+        true
+      );
+  
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          const got = JSON.parse(xhr.responseText);
+  
+          if (got.error) {
+            // if can't get the data, thorw an error
+            reject(window.alert(got.error));
+          } else {
+            // create a main element and list element
+            const element = document.createElement("div");
+            const list_tag = document.createElement("ul");
+  
+            // check for empty array
+            if (got.length == 0) {
+              resolve();
+              return;
+            }
+  
+            // create list
+            got.forEach((item, index, array) => {
+              list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.special_representation
+                              } from ${month_year(item.special_representation_from)} - ${month_year(
+                item.special_representation_to
+              )}</li>`;
+  
+              if (index + 1 == array.length) {
+                // append list to main element
+                element.innerHTML = `
+                            <h2>Special Reprasentations</h2>
+                            `;
+                element.appendChild(list_tag);
+              }
+            });
+  
+            // finally resolve main element
+            resolve(faculty_profile_container.appendChild(element));
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
+
+   // ------------------------------------------------ Honours  ------------------------------------------------ //
+function setup_honours() {
+    return new Promise((resolve, reject) => {
+      // get faculty id from local storage
+      const id = get_faculty_id();
+  
+      const xhr = new XMLHttpRequest();
+  
+      xhr.open(
+        "GET",
+        `../../api/profile/public/type_4/honors.php?ID=${id}`,
+        true
+      );
+  
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          const got = JSON.parse(xhr.responseText);
+  
+          if (got.error) {
+            // if can't get the data, thorw an error
+            reject(window.alert(got.error));
+          } else {
+            // create a main element and list element
+            const element = document.createElement("div");
+            const list_tag = document.createElement("ul");
+  
+            // check for empty array
+            if (got.length == 0) {
+              resolve();
+              return;
+            }
+  
+            // create list
+            got.forEach((item, index, array) => {
+              list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.honor
+                              } at ${month_year(item.honored_at)}</li>`;
+  
+              if (index + 1 == array.length) {
+                // append list to main element
+                element.innerHTML = `
+                            <h2>Honours</h2>
+                            `;
+                element.appendChild(list_tag);
+              }
+            });
+  
+            // finally resolve main element
+            resolve(faculty_profile_container.appendChild(element));
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
+
+     // ------------------------------------------------ Patents  ------------------------------------------------ //
+function setup_patents() {
+    return new Promise((resolve, reject) => {
+      // get faculty id from local storage
+      const id = get_faculty_id();
+  
+      const xhr = new XMLHttpRequest();
+  
+      xhr.open(
+        "GET",
+        `../../api/profile/public/type_5/patents.php?ID=${id}`,
+        true
+      );
+  
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          const got = JSON.parse(xhr.responseText);
+  
+          if (got.error) {
+            // if can't get the data, thorw an error
+            reject(window.alert(got.error));
+          } else {
+            // create a main element and list element
+            const element = document.createElement("div");
+            const list_tag = document.createElement("ul");
+  
+            // check for empty array
+            if (got.length == 0) {
+              resolve();
+              return;
+            }
+  
+            // create list
+            got.forEach((item, index, array) => {
+              list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.patent
+                              }. File Number: ${item.file_number} patent at ${month_year(item.patent_at)}</li>`;
+  
+              if (index + 1 == array.length) {
+                // append list to main element
+                element.innerHTML = `
+                            <h2>Patents Field</h2>
+                            `;
+                element.appendChild(list_tag);
+              }
+            });
+  
+            // finally resolve main element
+            resolve(faculty_profile_container.appendChild(element));
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
+
+    // ------------------------------------------------ Experience Abroad  ------------------------------------------------ //
+function setup_exp_abroad() {
+    return new Promise((resolve, reject) => {
+      // get faculty id from local storage
+      const id = get_faculty_id();
+  
+      const xhr = new XMLHttpRequest();
+  
+      xhr.open(
+        "GET",
+        `../../api/profile/public/type_6/exp_abroad.php?ID=${id}`,
+        true
+      );
+  
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          const got = JSON.parse(xhr.responseText);
+  
+          if (got.error) {
+            // if can't get the data, thorw an error
+            reject(window.alert(got.error));
+          } else {
+            // create a main element and list element
+            const element = document.createElement("div");
+            const list_tag = document.createElement("ul");
+  
+            // check for empty array
+            if (got.length == 0) {
+              resolve();
+              return;
+            }
+  
+            // create list
+            got.forEach((item, index, array) => {
+              list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.exp_abroad
+                              } from ${item.exp_abroad_from} to ${month_year(item.exp_abroad_to)}
+                              Purpose of visit: ${item.purpose_of_visit}</li>`;
+  
+              if (index + 1 == array.length) {
+                // append list to main element
+                element.innerHTML = `
+                            <h2>Experience Abroad</h2>
+                            `;
+                element.appendChild(list_tag);
+              }
+            });
+  
+            // finally resolve main element
+            resolve(faculty_profile_container.appendChild(element));
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
+
+     // ------------------------------------------------ Invited Lectures  ------------------------------------------------ //
+function setup_invited_lectures() {
+    return new Promise((resolve, reject) => {
+      // get faculty id from local storage
+      const id = get_faculty_id();
+  
+      const xhr = new XMLHttpRequest();
+  
+      xhr.open(
+        "GET",
+        `../../api/profile/public/type_4/invited_lectures.php?ID=${id}`,
+        true
+      );
+  
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          const got = JSON.parse(xhr.responseText);
+  
+          if (got.error) {
+            // if can't get the data, thorw an error
+            reject(window.alert(got.error));
+          } else {
+            // create a main element and list element
+            const element = document.createElement("div");
+            const list_tag = document.createElement("ul");
+  
+            // check for empty array
+            if (got.length == 0) {
+              resolve();
+              return;
+            }
+  
+            // create list
+            got.forEach((item, index, array) => {
+              list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.invited_lecture
+                              } at ${month_year(item.invited_lecture_at)}</li>`;
+  
+              if (index + 1 == array.length) {
+                // append list to main element
+                element.innerHTML = `
+                            <h2>Invited Lectures</h2>
+                            `;
+                element.appendChild(list_tag);
+              }
+            });
+  
+            // finally resolve main element
+            resolve(faculty_profile_container.appendChild(element));
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
+
+     // ------------------------------------------------ Extension & Outreach Programme  ------------------------------------------------ //
+function setup_extension_outreach() {
+    return new Promise((resolve, reject) => {
+      // get faculty id from local storage
+      const id = get_faculty_id();
+  
+      const xhr = new XMLHttpRequest();
+  
+      xhr.open(
+        "GET",
+        `../../api/profile/public/type_6/extension_outreach.php?ID=${id}`,
+        true
+      );
+  
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          const got = JSON.parse(xhr.responseText);
+  
+          if (got.error) {
+            // if can't get the data, thorw an error
+            reject(window.alert(got.error));
+          } else {
+            // create a main element and list element
+            const element = document.createElement("div");
+            const list_tag = document.createElement("ul");
+  
+            // check for empty array
+            if (got.length == 0) {
+              resolve();
+              return;
+            }
+  
+            // create list
+            got.forEach((item, index, array) => {
+              list_tag.innerHTML += `
+                              <li style="padding-left: 1em">${
+                                item.extension_outreach
+                              } during ${month_year(item.extension_outreach_from)} and ${month_year(item.extension_outreach_to)}
+                              . No. of participants: ${item.number_of_participants}</li>`;
+  
+              if (index + 1 == array.length) {
+                // append list to main element
+                element.innerHTML = `
+                            <h2>Extension & Outreach Programme</h2>
+                            `;
+                element.appendChild(list_tag);
+              }
+            });
+  
+            // finally resolve main element
+            resolve(faculty_profile_container.appendChild(element));
+          }
+        }
+      };
+      xhr.send();
+    });
+  }
 // Initially
 window.addEventListener("DOMContentLoaded", async () => {
   await setup_user()
@@ -774,5 +1416,16 @@ window.addEventListener("DOMContentLoaded", async () => {
     .then(() => setup_area_of_spec())
     .then(() => setup_membership())
     .then(() => setup_papers_published())
-    .then(() => setup_papers_presented());
+    .then(() => setup_papers_presented())
+    .then(() => setup_books_published())
+    .then(() => setup_sponsored_projs())
+    .then(() => setup_programme_chaired())
+    .then(() => setup_programme_organized())
+    .then(() => setup_programme_attended())
+    .then(() => setup_special_representations())
+    .then(() => setup_honours())
+    .then(() => setup_patents())
+    .then(() => setup_exp_abroad())
+    .then(() => setup_invited_lectures())
+    .then(() => setup_extension_outreach());
 });
