@@ -24,7 +24,7 @@ const append_table_body = (user_id, honorific, full_name, position) => {
     <td>${honorific} ${full_name}</td>
     <td>${position}</td>
     <td><button type="button" class="view-btn btn btn-info">
-    <i class="fas fa-eye"></i>
+    View</i>
   </button></td>
     `;
 
