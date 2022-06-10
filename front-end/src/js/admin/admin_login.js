@@ -6,6 +6,11 @@ const password = document.getElementById("password");
 const login_admin = () => {
   const xhr = new XMLHttpRequest();
 
+  const admin = {
+    username: username.value,
+    password: password.value,
+  };
+
   xhr.open("POST", "../../api/login_register/login.php", true);
   xhr.onreadystatechange = function () {
     if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -24,7 +29,7 @@ const login_admin = () => {
     }
   };
 
-  xhr.send();
+  xhr.send(JSON.stringify(admin));
 };
 
 // logout all user if any

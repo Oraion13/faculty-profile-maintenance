@@ -81,8 +81,10 @@ class Research_degree_api extends Type_6 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Research_degree->start = $start;
-        $this->Research_degree->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Research_degree->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Research_degree->end = $to;
         $all_data = $this->Research_degree->read_row_date();
 
         if ($all_data) {

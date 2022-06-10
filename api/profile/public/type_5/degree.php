@@ -80,8 +80,10 @@ class Degree_api extends Type_5 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Degree->start = $start;
-        $this->Degree->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Degree->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Degree->end = $to;
         $all_data = $this->Degree->read_row_date();
 
         if ($all_data) {

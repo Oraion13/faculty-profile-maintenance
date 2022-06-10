@@ -80,8 +80,10 @@ class Patents_api extends Type_5 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Patents->start = $start;
-        $this->Patents->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Patents->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Patents->end = $to;
         $all_data = $this->Patents->read_row_date();
 
         if ($all_data) {

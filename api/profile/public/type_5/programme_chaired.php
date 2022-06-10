@@ -80,8 +80,10 @@ class Programme_chaired_api extends Type_5 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Programme_chaired->start = $start;
-        $this->Programme_chaired->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Programme_chaired->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Programme_chaired->end = $to;
         $all_data = $this->Programme_chaired->read_row_date();
 
         if ($all_data) {

@@ -79,8 +79,10 @@ class Invited_lectures_api extends Type_4 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Invited_lectures->start = $start;
-        $this->Invited_lectures->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Invited_lectures->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Invited_lectures->end = $to;
         $all_data = $this->Invited_lectures->read_row_date();
 
         if ($all_data) {

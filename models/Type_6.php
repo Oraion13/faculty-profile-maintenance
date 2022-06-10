@@ -79,8 +79,7 @@ class Type_6 implements model
     // Read all data by dates
     public function read_row_date()
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->from_name . ' BETWEEN ' . $this->start
-                    . ' AND ' . $this->end ;
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->from_name . ' BETWEEN :start AND :end' ;
 
         $stmt = $this->conn->prepare($query);
 

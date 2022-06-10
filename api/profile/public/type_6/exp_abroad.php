@@ -81,8 +81,10 @@ class Exp_abroad_api extends Type_6 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Exp_abroad->start = $start;
-        $this->Exp_abroad->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Exp_abroad->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Exp_abroad->end = $to;
         $all_data = $this->Exp_abroad->read_row_date();
 
         if ($all_data) {

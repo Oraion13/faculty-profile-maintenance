@@ -86,12 +86,12 @@ class Type_5 implements model
     // Read all data by dates
     public function read_row_date()
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->from_name . ' BETWEEN ' . $this->start
-                    . ' AND ' . $this->end ;
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->from_name . ' BETWEEN :start AND :end' ;
+        // $query = "SELECT * FROM " . $this->table . " WHERE " . $this->from_name . " BETWEEN '1999-09-01' AND '2020-01-01'" ;
 
         $stmt = $this->conn->prepare($query);
 
-        // Clean the data
+        // // Clean the data
         $this->start = htmlspecialchars(strip_tags($this->start));
         $this->end = htmlspecialchars(strip_tags($this->end));
 

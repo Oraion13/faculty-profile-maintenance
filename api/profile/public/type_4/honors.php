@@ -79,8 +79,10 @@ class Honors_api extends Type_4 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Honors->start = $start;
-        $this->Honors->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Honors->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Honors->end = $to;
         $all_data = $this->Honors->read_row_date();
 
         if ($all_data) {

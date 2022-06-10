@@ -81,8 +81,10 @@ class Extension_outreach_api extends Type_6 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Extension_outreach->start = $start;
-        $this->Extension_outreach->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Extension_outreach->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Extension_outreach->end = $to;
         $all_data = $this->Extension_outreach->read_row_date();
 
         if ($all_data) {

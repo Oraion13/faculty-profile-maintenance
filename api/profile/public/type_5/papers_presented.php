@@ -80,8 +80,10 @@ class Papers_presented_api extends Type_5 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Papers_presented->start = $start;
-        $this->Papers_presented->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Papers_presented->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Papers_presented->end = $to;
         $all_data = $this->Papers_presented->read_row_date();
 
         if ($all_data) {

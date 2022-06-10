@@ -75,13 +75,15 @@ class Additional_responsibilities_prev_api extends Type_5 implements api
             die();
         }
     }
-        
+
     // Get all data by dates
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Additional_responsibilities_prev->start = $start;
-        $this->Additional_responsibilities_prev->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Additional_responsibilities_prev->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Additional_responsibilities_prev->end = $to;
         $all_data = $this->Additional_responsibilities_prev->read_row_date();
 
         if ($all_data) {

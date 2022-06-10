@@ -80,8 +80,10 @@ class Programme_organized_api extends Type_5 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Programme_organized->start = $start;
-        $this->Programme_organized->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Programme_organized->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Programme_organized->end = $to;
         $all_data = $this->Programme_organized->read_row_date();
 
         if ($all_data) {

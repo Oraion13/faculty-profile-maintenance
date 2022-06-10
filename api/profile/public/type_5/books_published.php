@@ -80,8 +80,10 @@ class Books_published_api extends Type_5 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Books_published->start = $start;
-        $this->Books_published->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Books_published->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Books_published->end = $to;
         $all_data = $this->Books_published->read_row_date();
 
         if ($all_data) {

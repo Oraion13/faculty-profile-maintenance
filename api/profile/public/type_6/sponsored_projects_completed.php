@@ -81,8 +81,10 @@ class Sponsored_projects_completed_api extends Type_6 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Sponsored_projects_completed->start = $start;
-        $this->Sponsored_projects_completed->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Sponsored_projects_completed->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Sponsored_projects_completed->end = $to;
         $all_data = $this->Sponsored_projects_completed->read_row_date();
 
         if ($all_data) {

@@ -80,8 +80,10 @@ class Other_employment_api extends Type_5 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Other_employment->start = $start;
-        $this->Other_employment->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Other_employment->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Other_employment->end = $to;
         $all_data = $this->Other_employment->read_row_date();
 
         if ($all_data) {

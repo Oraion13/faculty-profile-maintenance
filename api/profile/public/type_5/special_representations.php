@@ -80,8 +80,10 @@ class Special_respresentations_api extends Type_5 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Special_representations->start = $start;
-        $this->Special_representations->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Special_representations->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Special_representations->end = $to;
         $all_data = $this->Special_representations->read_row_date();
 
         if ($all_data) {

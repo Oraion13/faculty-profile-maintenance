@@ -79,8 +79,10 @@ class Additional_responsibilities_present_api extends Type_4 implements api
     public function get_by_date($start, $end)
     {
         // Get data from DB
-        $this->Additional_responsibilities_present->start = $start;
-        $this->Additional_responsibilities_present->end = $end;
+        $from = date('Y-m-01', strtotime($start));
+        $this->Additional_responsibilities_present->start = $from;
+        $to = date('Y-m-01', strtotime($end));
+        $this->Additional_responsibilities_present->end = $to;
         $all_data = $this->Additional_responsibilities_present->read_row_date();
 
         if ($all_data) {
