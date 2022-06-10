@@ -36,10 +36,7 @@
 
                 <div class="d-flex flex-column gap-5 m-5 p-5 text center rounded-3 shadow-lg">
                     <h3 style="text-align: center; font-weight: bold;">Book Published</h3>
-                    <!--
-              </div>
-              <div class="shadow-none p-3 mt-5 bg-light rounded">
-              -->
+                
                     <form class="row g-3" id="bookpub_form">
                         <div class="alert1 text-center" role="alert"></div>
                         <div class="col-md-12">
@@ -49,11 +46,6 @@
 
                         </br>
 
-                        <!-- 
-                    <div class="col-md-6">
-                        <label for="paperpubby" class="form-label">Paper Published BY </label>
-                        <input type="text" class="form-control" id="paperpubby" name="paperpubby" placeholder="By" required>
-                    </div>-->
 
 
 
@@ -64,48 +56,13 @@
 
                         <div class="col-md-12">
                             <label for="Description" class="form-label">Description </label>
-                            <!-- <input type="text" class="form-control" id="Description" name="Description" placeholder="comments" required> -->
+                        
                             <textarea class="form-control" id="description" name="Description" placeholder="comments" rows="3-5"></textarea>
                         </div>
 
                         <button type="button" class="btn btn-primary btn-lg btn-block" id="add_book_pub">Add</button>
 
-                        <!-- <table border="3" id="show">
-                            <thead>
-                                <tr>
-                                    <th>Book Title</th>
-                                    <th>Book Presented At </th>
-                                    <th>Description</th>
-
-
-                                </tr>
-                            </thead>
-                        </table> -->
-
-                        <!-- </br>
-                    </br>  -->
-
-                        <!-- <div class="col-md-12">
-                        <label for="prerespon" class="form-label">Previous Responsibility </label>
-                        <input type="text" class="form-control" id="prerespon" name="prerespon" placeholder="Position" required>
-                    </div>
-
-                    </br>
-                    <div class="col-md-6">
-                        <label for="preresponfrom" class="form-label">Previous Responsibility From </label>
-                        <input type="month" class="form-control" id="preresponfrom" name="preresponfrom" placeholder="From" required>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="preresponto" class="form-label">Previous Responsibility To </label>
-                        <input type="month" class="form-control" id="preresponto" name="preresponto" placeholder="To" required>
-                    </div> -->
-
-
-                        <!-- 
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="add" class="btn btn-info">Add</button>
-                        </div> -->
+                       
                         <div id="books_published"></div>
                         <div class="col-md-1">
                             <button type="clearall" class="btn btn-danger" id="clear_all">Clearall</button>
@@ -132,21 +89,21 @@
             $(this).toggleClass("click");
             $('.sidebar').toggleClass("show");
         });
-        $('.feat-btn2').click(function() {
-            $('nav ul .feat-show').toggleClass("show");
-            $('nav ul .first').toggleClass("rotate");
-        });
-        $('.serv-btn2').click(function() {
-            $('nav ul .serv-show').toggleClass("show1");
-            $('nav ul .second').toggleClass("rotate");
-        });
-        $('.serv2-btn2').click(function() {
-            $('nav ul .serv2-show').toggleClass("show2");
-            $('nav ul .third').toggleClass("rotate");
-        });
-        $('nav ul li').click(function() {
-            $(this).addClass("active").siblings().removeClass("active");
-        });
+        // $('.feat-btn2').click(function() {
+        //     $('nav ul .feat-show').toggleClass("show");
+        //     $('nav ul .first').toggleClass("rotate");
+        // });
+        // $('.serv-btn2').click(function() {
+        //     $('nav ul .serv-show').toggleClass("show1");
+        //     $('nav ul .second').toggleClass("rotate");
+        // });
+        // $('.serv2-btn2').click(function() {
+        //     $('nav ul .serv2-show').toggleClass("show2");
+        //     $('nav ul .third').toggleClass("rotate");
+        // });
+        // $('nav ul li').click(function() {
+        //     $(this).addClass("active").siblings().removeClass("active");
+        // });
     </script>
 
     <!-- <script>

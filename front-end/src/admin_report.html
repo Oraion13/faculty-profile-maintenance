@@ -4,9 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/style5.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
+
+<style>
+    /* body {
+       
+    } */
+    @import url('https://fonts.googleapis.com/css2?family=Supermercado+One&family=Tai+Heritage+Pro&display=swap');
+    
+    body {
+        /* background-image: url('./static/images/img2.jpg');
+        opacity: 10px;
+        background-size: cover; */
+        /* background: linear-gradient(rgba(254, 220, 220, 0.173), rgba(255, 0, 0, 0.173)); */
+        /* background-attachment: fixed; */
+        /* font-family: new time roman; */
+        border: 5px solid #FFFF00;
+        text-align: center;
+    }
+
+    label {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #000000;
+    /* color: #11245a; */
+    }
+    
+    input {
+        width: 500px;
+    }
+    /* p {
+        text-align: center;
+        padding-left: 400px;
+    } */
+</style>
+
 <body>
+    <div id="nav-placeholder">
+
+    </div>
+    <script>
+        $(function() {
+            $("#nav-placeholder").load("nav2.html");
+        });
+    </script>
+
+
+
     <label for="all_section">Select a category</label>
     <select id="all_section">
         <option value="default">Choose a Category...</option>
@@ -36,14 +87,15 @@
 
     </select>
 
-    <br>
+    <br><br>
     <label for="from_date">From</label>
     <input type="month" id="from_date">
     <br><br>
     <label for="to_date">To</label>
     <input type="month" id="to_date">
     <br>
-    <button id="search_report">Search</button>
+    <br>
+    <button id="search_report" class="btn btn-primary btn block" >Search</button>
 </body>
 <script src="./js/admin/admin_report.js"></script>
 </html>
