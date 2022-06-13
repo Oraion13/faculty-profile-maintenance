@@ -76,7 +76,7 @@ class Register_api extends Users
             'Thanks for registration!<br>
     Click the link below to verify the account,<br>',
             'verify'
-        )) {
+        ) ) {
             send(201, 'message', 'check email to verify account');
         } else {
             send(400, 'error', 'unable to create user');

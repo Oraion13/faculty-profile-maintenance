@@ -327,9 +327,9 @@ const setup_photo = () => {
                 if (got.error) {
                     reject(window.alert(got.error));
                 } else {
-                    display_photo.innerHTML = `<iframe src = "data:${got.photo_type};base64,${got.photo}"
-                    height = "100%"
-                    width = "100%"> </iframe>`;
+                    display_photo.innerHTML = `<img src="data:${got.photo_type};base64,${got.photo}"
+                    alt="profile pic"
+                                          width = "170px">`;
                 }
             }
         };
@@ -339,11 +339,37 @@ const setup_photo = () => {
 
 // initialize info
 async function initialize() {
+    const user = get_user();
+
+    if(user.is_verified == 1){
+        document.getElementById("verify_btn").classList.add("disable_verify");
+    }
+
     await setup_user();
     await setup_position();
     await setup_departments();
     await setup_user_info();
     await setup_photo();
+}
+
+// logout
+function logout(){
+    const xhr = new XMLHttpRequest();
+
+    xhr.open("GET", "../../api/login_register/logout.php", true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            const got = JSON.parse(xhr.responseText);
+            if (got.error) {
+                window.alert(got.error);
+            } else {
+                window.localStorage.removeItem("user");
+                window.location.replace("./login.html");
+            }
+        }
+    };
+
+    xhr.send();
 }
 
 // upload user pic
@@ -354,3 +380,27 @@ update_user_info.addEventListener("click", submit_user_info);
 update_user.addEventListener("click", submit_user);
 // initialize data from db
 window.addEventListener("DOMContentLoaded", initialize);
+// verify btn
+document.getElementById("verify_btn").addEventListener("click", () => {
+    const xhr = new XMLHttpRequest();
+
+        xhr.open(
+            "GET",
+            `../../api/login_register/verify_mail.php`,
+            true
+        );
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                const got = JSON.parse(xhr.responseText);
+
+                if (got.error) {
+                    window.alert(got.error);
+                } else {
+                    window.alert("Email verification link will be sent to your mail, please check");
+                    logout();
+                }
+            }
+        };
+        xhr.send();
+})

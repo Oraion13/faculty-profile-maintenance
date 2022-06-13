@@ -14,6 +14,10 @@ class Type_6 implements model
     private $conn;
 
     public $table = '';
+    private $users = 'faculty_users';
+    private $user_info = 'faculty_user_info';
+    private $positions = 'faculty_positions';
+    private $departments = 'faculty_departments';
 
     public $id_name = '';
     public $text_name = '';
@@ -79,7 +83,19 @@ class Type_6 implements model
     // Read all data by dates
     public function read_row_date()
     {
-        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->from_name . ' BETWEEN :start AND :end' ;
+        $columns = $this->table . '.' . $this->id_name . ', '
+                    . $this->table . '.' . $this->text_name . ', '
+                    . $this->table . '.' . $this->from_name . ', '
+                    . $this->users . '.user_id, '
+                    . $this->users . '.honorific, '
+                    . $this->users . '.full_name, '
+                    . $this->departments . '.department, '
+                    . $this->positions . '.position';
+        $query = 'SELECT ' . $columns . ' FROM ((((' . $this->table . ' INNER JOIN ' . $this->users . ' ON ' . $this->table . '.' . $this->from_name 
+        . ' BETWEEN :start AND :end AND ' . $this->table . '.user_id = ' . $this->users . '.user_id) INNER JOIN '
+        . $this->user_info . ' ON ' . $this->users . '.user_id = ' . $this->user_info . '.user_id) INNER JOIN '
+        . $this->positions . ' ON ' . $this->user_info . '.position_id = ' . $this->positions . '.position_id) INNER JOIN '
+        . $this->departments . ' ON ' . $this->departments . '.department_id = ' . $this->user_info . '.department_id)';
 
         $stmt = $this->conn->prepare($query);
 

@@ -113,7 +113,7 @@ nav ul li.active a {
 }
 
 nav ul li a:hover {
-    background: #1e1e1e;
+    background: #d4d4d4;
 }
 
 nav ul li a nav-link:hover {

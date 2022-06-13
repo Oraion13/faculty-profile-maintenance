@@ -27,6 +27,7 @@ const month_year = (db_date) => {
 const get_faculty_id = () => window.localStorage.getItem("faculty_id");
 const user_div = document.createElement("div");
 const div_around = document.createElement("div");
+const pos_prev = document.createElement("div");
 
 // ------------------------------------------------ User  ------------------------------------------------ //
 // Get user
@@ -57,7 +58,6 @@ function setup_user() {
                     element.classList.add("w-75");
                     user_div.appendChild(element);
 
-                    div_around.classList.add("d-flex");
                     resolve();
                 }
             }
@@ -88,10 +88,16 @@ const setup_photo = () => {
 
                     element.innerHTML = `<img src="data:${got.photo_type};base64,${got.photo}"
                     alt="profile pic"
-                                          height = "100px"
-                                          width = "100px">`;
+                                          width = "170px">`;
 
+                    div_around.classList.add("d-flex");
+                    div_around.classList.add("justify-content-between");
+
+                    div_around.appendChild(user_div);
                     div_around.appendChild(element);
+
+                    faculty_profile_container.appendChild(div_around);
+                    faculty_profile_container.appendChild(pos_prev);
                     resolve();
                 }
             }
@@ -123,14 +129,13 @@ function setup_user_info() {
                     reject(window.alert(got.error));
                 } else {
                     const element = document.createElement("section");
-                    const element1 = document.createElement("div");
 
                     element.innerHTML = `
                       <p><b>Cellphone : </b>${got.phone}</p>
                       <p><b>Address : </b>${got.address}</p>
                       `;
 
-                    element1.innerHTML = `
+                    pos_prev.innerHTML = `
             <h2>Present Position</h2>
             <p style="padding-left: 1em">${got.position}, ${got.department}, ${
             got.position_present_where
@@ -139,9 +144,6 @@ function setup_user_info() {
             `;
 
                     user_div.appendChild(element);
-
-                    faculty_profile_container.appendChild(div_around);
-                    faculty_profile_container.appendChild(element1);
 
                     resolve();
                 }
@@ -1458,8 +1460,8 @@ function setup_extension_outreach() {
 // Initially
 window.addEventListener("DOMContentLoaded", async() => {
     await setup_user()
-        .then(() => setup_photo())
         .then(() => setup_user_info())
+        .then(() => setup_photo())
         .then(() => setup_present_add_respo())
         .then(() => setup_previous_positions())
         .then(() => setup_previous_add_respo())
