@@ -38,7 +38,10 @@ class Verify_api extends Users
         if ($validate) {
             if ($validate['is_verified'] === 0) {
                 if ($this->Users->update_verification()) {
-                    $_SESSION['is_verified'] = 1;
+                    // if (isset($_SESSION['is_verified'])) {
+                    //     $_SESSION['is_verified'] = 1;
+                    // }
+
                     send(200, 'message', 'email verified successfully');
                 } else {
                     send(400, 'error', 'unable to verify user');

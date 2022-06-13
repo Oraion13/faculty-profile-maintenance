@@ -19,13 +19,13 @@ function verification_mail($email, $username, $verification_code, $title, $messa
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = 'forprojectfpm@gmail.com';                     //SMTP username
+        $mail->Username   = 'forprojectfpm@yahoo.com';                     //SMTP username
         $mail->Password   = 'Pr0j3C7F9m';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         //Recipients
-        $mail->setFrom('forprojectfpm@gmail.com', 'Faculty profile maintenance');
+        $mail->setFrom('forprojectfpm@yahoo.com', 'Faculty profile maintenance');
         $mail->addAddress($email, $username);     //Add a recipient
         // $mail->addAddress('ellen@example.com');               //Name is optional
         // $mail->addReplyTo('info@example.com', 'Information');
@@ -48,6 +48,7 @@ function verification_mail($email, $username, $verification_code, $title, $messa
         $mail->send();
         return true;
     } catch (Exception $e) {
+        print_r($e);
         return false;
     }
 }
