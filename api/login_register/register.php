@@ -68,7 +68,7 @@ class Register_api extends Users
         $this->Users->is_verified = 0;
 
         // Creates an user and send an email verification link
-        if (verification_mail(
+        if ($this->Users->create() && verification_mail(
             $data->email,
             $data->username,
             $verification_code,
@@ -76,7 +76,7 @@ class Register_api extends Users
             'Thanks for registration!<br>
     Click the link below to verify the account,<br>',
             'verify'
-        ) && $this->Users->create()) {
+        ) ) {
             send(201, 'message', 'check email to verify account');
         } else {
             send(400, 'error', 'unable to create user');

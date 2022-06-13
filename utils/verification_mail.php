@@ -48,7 +48,7 @@ function verification_mail($email, $username, $verification_code, $title, $messa
         $mail->send();
         return true;
     } catch (Exception $e) {
-        print_r($e);
+        // print_r($e);
         return false;
     }
 }
