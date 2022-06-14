@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+      integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"
+      integrity="sha512-SgWewGM3r8xXm8LNXt4ZHqKVKu/7eKrJ1aBCbMaX44xXXaCcIvCAvD2kj9qnC1lhyjAu04mcPiTzcc/CaACnUQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <title>Faculty Profile</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="static/images/Anna-University-Recruitment-2021.jpg" style="width: 200px; padding: 10px 5px" alt="logo" /></a>
-            <a class="navbar-brand" href="#">Anna University Regional Campus Tirunelveli</a
-      >
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-         
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><img
+            src="static/images/Anna-University-Recruitment-2021.jpg"
+            style="width: 200px; padding: 10px 5px"
+            alt="logo"
+        /></a>
+        <a class="navbar-brand" href="#"
+          >Anna University Regional Campus Tirunelveli</a
+        >
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-                <a class="nav-link" href="./profile_preview.html">Back</a>
+              <a class="nav-link" href="./profile_preview.html">Back</a>
             </li>
-            </ul>
+          </ul>
         </div>
-        </div>
+      </div>
     </nav>
 
     <div class="container mt-5">
-        <div class="color">
-            <div class="container">
-                <table>
-                    <tbody id="table_faculty_body"></tbody>
-                </table>
-            </div>
+      <div class="color">
+        <div class="container">
+          <table id="table_faculty" style="text-align: left;">
+            <tbody id="table_faculty_body"></tbody>
+          </table>
         </div>
+      </div>
     </div>
-</body>
-<script src="./js/index/preview_profile.js"></script>
-<script src="./js/index/generate_profile.js"></script>
-
+  </body>
+  <script src="./js/index/preview_profile.js"></script>
+  <script src="./js/index/generate_pdf.js"></script>
 </html>

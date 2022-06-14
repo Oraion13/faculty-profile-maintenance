@@ -25,9 +25,9 @@
 
 
 //             });
-const generate_pdf = document.getElementById("generate_pdf");
+// const generate_pdf = document.getElementById("generate_pdf");
 
-generate_pdf.addEventListener("click", () => {
-    // html2pdf(faculty_profile_container);
-    window.location.replace("./preview_profile.html");
-});
+// generate_pdf.addEventListener("click", () => {
+//     // html2pdf(faculty_profile_container);
+//     window.location.replace("./preview_profile.html");
+// });
