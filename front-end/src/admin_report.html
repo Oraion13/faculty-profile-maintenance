@@ -17,6 +17,19 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+      integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"
+      integrity="sha512-SgWewGM3r8xXm8LNXt4ZHqKVKu/7eKrJ1aBCbMaX44xXXaCcIvCAvD2kj9qnC1lhyjAu04mcPiTzcc/CaACnUQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
 
   <style>
@@ -122,11 +135,32 @@
       name="pposifrom"
       placeholder="From"
     />
+    <div class="col-md-6">
+      <label for="department" class="form-label">Faculty Department</label>
+      <select id="department">
+          <option value="default">Choose Department ...</option>
+      </select>
+  </div>
     <br />
     <br />
     <button id="search_report" class="btn btn-primary btn block">Search</button>
+    <button id="generate_report" class="btn btn-secondary btn block">
+      Generate Report
+    </button>
 
-    <table class="table" id="report_table"></table>
+    <div class="container" text-align="center">
+      <div class="row justify-content-center" id="faculty_infos">
+        <table class="table" id="report_table">
+          <thead>
+            <td>Faculty Name</td>
+            <td>Position</td>
+            <td>Department</td>
+            <td>Details</td>
+          </thead>
+          <tbody id="table_body"></tbody>
+        </table>
+      </div>
+    </div>
   </body>
   <script src="./js/admin/admin_report.js"></script>
 </html>

@@ -86,6 +86,7 @@ class Type_4 implements model
                     . $this->users . '.honorific, '
                     . $this->users . '.full_name, '
                     . $this->departments . '.department, '
+                    . $this->departments . '.department_id, '
                     . $this->positions . '.position';
         $query = 'SELECT ' . $columns . ' FROM ((((' . $this->table . ' INNER JOIN ' . $this->users . ' ON ' . $this->table . '.' . $this->from_name 
         . ' BETWEEN :start AND :end AND ' . $this->table . '.user_id = ' . $this->users . '.user_id) INNER JOIN '

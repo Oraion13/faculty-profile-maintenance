@@ -49,3 +49,22 @@ function logout_all(e) {
 }
 
 admin_form.addEventListener("submit", logout_all);
+// initially
+window.addEventListener("DOMContentLoaded", () => {
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", "../../api/login_register/login.php", true);
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == XMLHttpRequest.DONE) {
+      const got = JSON.parse(xhr.responseText);
+
+      if (
+        got.error.includes("already logged in") &&
+        JSON.parse(window.localStorage.getItem("admin")).user_id
+      ) {
+        window.location.replace("./admin_report.html");
+      }
+    }
+  };
+  xhr.send();
+})
