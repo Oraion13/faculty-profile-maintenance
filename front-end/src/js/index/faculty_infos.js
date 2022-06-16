@@ -9,7 +9,7 @@ function view_faculty(e){
     const id = element.dataset.id;
 
     window.localStorage.setItem("faculty_id", id)
-    window.location.replace("./profile_preview.html");
+    window.location.replace("./front-end/src/profile_preview.html");
 }
 
 // append faculty to the table
@@ -45,7 +45,7 @@ departments.addEventListener("change", () => {
 
   xhr.open(
     "GET",
-    `../../api/profile/public/type_0/user_info.php?dept=${departments.value}`,
+    `./api/profile/public/type_0/user_info.php?dept=${departments.value}`,
     true
   );
 

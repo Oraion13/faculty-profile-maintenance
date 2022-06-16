@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // get departments
   const xhr = new XMLHttpRequest();
 
-  xhr.open("GET", `../../api/profile/public/type_2/departments.php`, true);
+  xhr.open("GET", `./api/profile/public/type_2/departments.php`, true);
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState == XMLHttpRequest.DONE) {

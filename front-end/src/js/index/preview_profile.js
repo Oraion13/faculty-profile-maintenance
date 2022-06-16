@@ -206,7 +206,7 @@ function setup_present_add_respo() {
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
                         e.innerHTML = `
-            <td>O.O</td>
+            <td>${index + 1})</td>
             <td>${item.additional_responsibility_present}
                      from ${month_year(
                        item.additional_responsibility_present_from
@@ -267,7 +267,7 @@ function setup_previous_positions() {
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
                         e.innerHTML = `
-            <td>O.O</td>
+            <td>${index + 1})</td>
                     <td>${item.position}, ${item.department}, ${
               item.position_prev_where
             }
@@ -328,7 +328,7 @@ function setup_previous_add_respo() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                       <td style="padding-left: 1em">${
                         item.additional_responsibility_prev
                       }
@@ -390,7 +390,7 @@ function setup_other_employment() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                         <td style="padding-left: 1em">${item.other_employment}
                      during ${month_year(
                        item.other_employment_from
@@ -449,7 +449,7 @@ function setup_other_employment() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                           <td style="padding-left: 1em">${item.degree}
                        (${month_year(item.degree_from)} and ${month_year(
               item.degree_to
@@ -508,7 +508,7 @@ function setup_research_degree() {
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
 
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                             <td style="padding-left: 1em">${
                               item.research_degree
                             }
@@ -570,7 +570,7 @@ function setup_area_of_spec() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                             <td style="padding-left: 1em">${item.specialization}</td>`;
 
                         table_faculty_body.appendChild(e);
@@ -626,7 +626,7 @@ function setup_membership() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                             <td style="padding-left: 1em">${item.membership}</td>`;
                         table_faculty_body.appendChild(e);
                         if (index + 1 == array.length) {
@@ -764,7 +764,7 @@ function setup_papers_published() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                               <td>${item.paper_published}, Is International?: ${
               item.is_international
             } at 
@@ -845,7 +845,7 @@ function setup_papers_presented() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${
                                   item.paper_presented
                                 }, Is International?: ${
@@ -903,7 +903,7 @@ function setup_books_published() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                               <td>${item.title} - ${
               item.description
             } (${month_year(item.published_at)})</td>`;
@@ -959,7 +959,7 @@ function setup_sponsored_projs() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                               <td>${item.project} (${month_year(
               item.project_from
             )} - ${month_year(item.project_to)}). Project Cost: ${
@@ -1016,7 +1016,7 @@ function setup_programme_chaired() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${item.programme_chaired} from ${month_year(
               item.programme_chaired_from
             )} - ${month_year(item.programme_chaired_to)}</td>`;
@@ -1072,7 +1072,7 @@ function setup_programme_organized() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${
                                   item.programme_organized
                                 } from ${month_year(
@@ -1130,7 +1130,7 @@ function setup_programme_attended() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${
                                   item.programme_attended
                                 } from ${month_year(
@@ -1188,7 +1188,7 @@ function setup_special_representations() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${
                                   item.special_representation
                                 } from ${month_year(
@@ -1246,7 +1246,7 @@ function setup_honours() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${item.honor} at ${month_year(
               item.honored_at
             )}</td>`;
@@ -1302,7 +1302,7 @@ function setup_patents() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${item.patent}. File Number: ${
               item.file_number
             } patent at ${month_year(item.patent_at)}</td>`;
@@ -1357,7 +1357,7 @@ function setup_exp_abroad() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${item.exp_abroad} from ${
               item.exp_abroad_from
             } to ${month_year(item.exp_abroad_to)}
@@ -1416,7 +1416,7 @@ function setup_invited_lectures() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${item.invited_lecture} at ${month_year(
               item.invited_lecture_at
             )}</td>`;
@@ -1472,7 +1472,7 @@ function setup_extension_outreach() {
                     // create list
                     got.forEach((item, index, array) => {
                         const e = document.createElement("tr");
-                        e.innerHTML = `<td>O.O</td>
+                        e.innerHTML = `<td>${index + 1})</td>
                                 <td>${
                                   item.extension_outreach
                                 } during ${month_year(
@@ -1505,9 +1505,9 @@ function generate_jsPdf() {
                     // Header
                     doc.setFontSize(10);
                     doc.setTextColor(40);
-                    doc.text(`${faculty_name}`, data.settings.margin.right, 10);
+                    doc.text(195, 7, `${faculty_name}`, { align: 'right' }).setFont(undefined, 'bold');
                     // doc.line(1, 12, 4, 4);
-                    doc.text(`${faculty_dept}`, data.settings.margin.right, 14);
+                    doc.text(195, 11, `${faculty_dept}`, { align: 'right' }).setFont(undefined, 'bold');
 
                     // Footer
                     var str = "Page " + doc.internal.getNumberOfPages();
@@ -1519,7 +1519,10 @@ function generate_jsPdf() {
                     var pageHeight = pageSize.height ?
                         pageSize.height :
                         pageSize.getHeight();
-                    doc.text(str, data.settings.margin.left, pageHeight - 10);
+                    doc.text(str, data.settings.margin.left, pageHeight - 2);
+                    doc.setDrawColor("#000000");
+                    doc.rect(10, 13, doc.internal.pageSize.width - 20, doc.internal.pageSize.height - 19, 'S');
+                    doc.rect(11, 14, doc.internal.pageSize.width - 22, doc.internal.pageSize.height - 21, 'S');
                 }
                 // headStyles: {
                 //   valign: "middle",
@@ -1527,6 +1530,7 @@ function generate_jsPdf() {
                 //   fillColor: [255, 255, 255],
                 //   textColor: [0, 0, 0],
                 // },
+                
         });
         // border
         // doc.rect(20, 20, doc.internal.pageSize.width - 40, doc.internal.pageSize.height - 40, 'S');
