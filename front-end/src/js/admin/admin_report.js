@@ -99,7 +99,10 @@ function view_faculty(e) {
 // setup the table
 const setup_report_table = (got) => {
   table_body.innerHTML = ``;
-  console.log(got);
+  
+  // filter unique users
+  const unique_users = [...new Map(got.map(item =>
+    [item["user_id"], item])).values()];
   // header setup
   const elem = document.createElement("tr");
   elem.innerHTML = `
@@ -107,7 +110,7 @@ const setup_report_table = (got) => {
   <th colspan="2">${urls[all_section.value][1]}</th>
   `;
   table_body.appendChild(elem);
-  got.forEach((item) => {
+  unique_users.forEach((item) => {
     const element = document.createElement("tr");
 
     let attr = document.createAttribute("data-id");
