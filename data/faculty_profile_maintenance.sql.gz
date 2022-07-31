@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2022 at 02:44 PM
+-- Generation Time: Jul 31, 2022 at 08:28 AM
 -- Server version: 8.0.28
 -- PHP Version: 8.1.4
 
@@ -39,8 +39,9 @@ CREATE TABLE `faculty_additional_responsibilities_present` (
 --
 
 INSERT INTO `faculty_additional_responsibilities_present` (`additional_responsibility_present_id`, `user_id`, `additional_responsibility_present`, `additional_responsibility_present_from`) VALUES
-(3, 25, 'ATTESTING OFFICER, Office of the Controller of Examinations, Anna University, Tirunelveli', '2020-05-06'),
-(6, 25, 'Student Counsellor, Department of Mechanical Engineering, Anna University,Chennai', '0000-00-00');
+(7, 24, 'Chief Superintendent For Pg Examination, Department of Computer Science and Engineering, Anna University, Chennai', '2022-01-01'),
+(8, 24, 'Deputy Director, Centre for University Industry Collaboration, Anna University, Chennai', '2022-03-01'),
+(9, 24, 'Chief Superidentant, MCA distance education programme in CEG campus, Anna University, Chennai', '2022-04-01');
 
 -- --------------------------------------------------------
 
@@ -61,8 +62,9 @@ CREATE TABLE `faculty_additional_responsibilities_prev` (
 --
 
 INSERT INTO `faculty_additional_responsibilities_prev` (`additional_responsibility_prev_id`, `user_id`, `additional_responsibility_prev`, `additional_responsibility_prev_from`, `additional_responsibility_prev_to`) VALUES
-(4, 24, 'Scrutiny Officer, MIT, Anna University, Chennai', '2005-09-08', '2008-03-01'),
-(5, 24, 'Anti-ragging Committee - Coordinator, University College of Engineering, Arni, Anna University, Chennai', '2012-05-09', '2015-03-18');
+(4, 24, 'Scrutiny Officer, MIT, Anna University, Chennai', '2005-09-01', '2008-03-01'),
+(5, 24, 'Anti-ragging Committee - Coordinator, University College of Engineering, Arni, Anna University, Chennai', '2012-05-01', '2015-03-01'),
+(7, 24, 'Nss - Coordinator, University College of Engineering, Arni, Anna University, Chennai', '2022-02-01', '2022-07-01');
 
 -- --------------------------------------------------------
 
@@ -83,8 +85,7 @@ CREATE TABLE `faculty_area_of_specialization` (
 INSERT INTO `faculty_area_of_specialization` (`specialization_id`, `user_id`, `specialization`) VALUES
 (1, 24, 'SOCIAL NETWORKING ANALYSIS'),
 (3, 24, 'MACHINE LEARNING and DEEP LEARNIN'),
-(10, 25, 'Information Security'),
-(11, 25, 'Cloud Computing');
+(12, 24, 'something');
 
 -- --------------------------------------------------------
 
@@ -105,8 +106,9 @@ CREATE TABLE `faculty_books_published` (
 --
 
 INSERT INTO `faculty_books_published` (`book_published_id`, `user_id`, `title`, `description`, `published_at`) VALUES
-(1, 24, 'Information Security', 'authored by S.Bose and published by Centre for Distance Education Anna University Chennai, Tamil Nadu, India', '0000-00-00'),
-(3, 24, 'Communications in Computer and Information Science', '978th edition authored by Vijayakumar P, Vijayakumar P and Kannan A and published by CCIS-Springer, The Gandhigram Rural Institute-Deemed to be Univer.', '2002-10-12');
+(1, 24, 'Information Security', 'authored by S.Bose and published by Centre for Distance Education Anna University Chennai, Tamil Nadu, India', '2012-02-01'),
+(3, 24, 'Communications in Computer and Information Science', '978th edition authored by Vijayakumar P, Vijayakumar P and Kannan A and published by CCIS-Springer, The Gandhigram Rural Institute-Deemed to be Univer.', '2002-10-01'),
+(4, 24, 'Network Programming Laboratory', 'authored by S.Bose and published by Centre for Distance\nEducation Anna University Chen, Tamil Nadu, India', '2008-02-01');
 
 -- --------------------------------------------------------
 
@@ -127,8 +129,8 @@ CREATE TABLE `faculty_degree` (
 --
 
 INSERT INTO `faculty_degree` (`degree_id`, `user_id`, `degree`, `degree_from`, `degree_to`) VALUES
-(4, 24, 'M.E. in COMPUTER SCIENCE ENGINEERING , MADURAI KAMARAJAR UNIVERSITY', '2006-09-08', '2009-03-01'),
-(5, 24, 'M.B.A. ANNAMALAI UNIVERSITY, ANNAMALAI UNIVERSITY', '2010-09-08', '2012-03-01');
+(10, 24, 'BE', '2022-01-01', '2022-04-01'),
+(11, 24, 'ME', '2022-03-01', '2022-08-01');
 
 -- --------------------------------------------------------
 
@@ -171,8 +173,9 @@ CREATE TABLE `faculty_exp_abroad` (
 --
 
 INSERT INTO `faculty_exp_abroad` (`exp_abroad_id`, `user_id`, `exp_abroad`, `exp_abroad_from`, `exp_abroad_to`, `purpose_of_visit`) VALUES
-(1, 24, 'Visited WORLDCOMP-16 , USA', '2016-06-08', '0000-00-00', 'To attend and present a paper in the International Conference.'),
-(3, 24, 'Visited Thiyagarajar College of Engineering Alumni Association, Dubai', '2012-08-09', '2012-10-11', '');
+(1, 24, 'Visited WORLDCOMP-16 , USA', '2016-06-01', '0000-00-00', 'To attend and present a paper in the International Conference.'),
+(3, 24, 'Visited Thiyagarajar College of Engineering Alumni Association, Dubai', '2012-08-01', '2012-10-01', ''),
+(4, 24, 'Visited USA', '2022-01-01', '2022-04-01', 'paper presentation');
 
 -- --------------------------------------------------------
 
@@ -194,8 +197,9 @@ CREATE TABLE `faculty_extension_outreach` (
 --
 
 INSERT INTO `faculty_extension_outreach` (`extension_outreach_id`, `user_id`, `extension_outreach`, `extension_outreach_from`, `extension_outreach_to`, `number_of_participants`) VALUES
-(1, 24, 'Program Officier, Special Annual Camp by NSS, participated by 100 and funded by Anna University at Shomangalam Village in Kanchipuram', '2001-08-09', '2002-10-11', 95),
-(3, 24, 'Special Observer, H.Sc Tamil Nadu Government Examination , participated by 5000 and funded by Tamil Nadu Government at Madurai District during and', '2001-08-09', '2003-10-11', 0);
+(1, 24, 'Program Officier, Special Annual Camp by NSS, participated by 100 and funded by Anna University at Shomangalam Village in Kanchipuram', '2001-08-01', '2002-10-01', 95),
+(3, 24, 'Special Observer, H.Sc Tamil Nadu Government Examination , participated by 5000 and funded by Tamil Nadu Government at Madurai District during and .', '2001-02-01', '2003-10-01', 100),
+(4, 24, 'Program Officier, Special Annual Camp by NSS, participated by 100 and funded by Anna University at Shomangalam Village in Kanchipuram during 22-Jun-2012 and 28-Jun-2012.', '2019-02-01', '2021-06-01', 150);
 
 -- --------------------------------------------------------
 
@@ -215,10 +219,9 @@ CREATE TABLE `faculty_honors` (
 --
 
 INSERT INTO `faculty_honors` (`honor_id`, `user_id`, `honor`, `honored_at`) VALUES
-(4, 25, 'Best Paper Award given by MIT, Anna University Chennai from India', '2011-05-01'),
-(6, 25, 'blah blah blah', '2009-08-09'),
-(11, 24, 'blah blah blah', '1999-04-24'),
-(12, 24, 'fsdfsdfd', '1999-04-24');
+(11, 24, '&quot;Best Paper Award&quot; given by MIT, Anna University Chennai from India', '1999-04-01'),
+(12, 24, '&quot;Best Paper Award&quot; given by MIT, Anna University Chennai from India', '1999-04-01'),
+(13, 24, '&quot;Best Paper Award&quot; given by MIT, Anna University Chennai from India', '2013-05-01');
 
 -- --------------------------------------------------------
 
@@ -248,6 +251,14 @@ CREATE TABLE `faculty_invigilation_duties` (
   `invigilation_duty_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `faculty_invigilation_duties`
+--
+
+INSERT INTO `faculty_invigilation_duties` (`invigilation_duty_id`, `user_id`, `invigilation_duty`, `invigilation_duty_at`) VALUES
+(1, 24, 'At Anna Univ', '2021-03-01'),
+(2, 24, 'AURCT', '2022-01-01');
+
 -- --------------------------------------------------------
 
 --
@@ -266,7 +277,8 @@ CREATE TABLE `faculty_invited_lectures` (
 --
 
 INSERT INTO `faculty_invited_lectures` (`invited_lecture_id`, `user_id`, `invited_lecture`, `invited_lecture_at`) VALUES
-(1, 24, 'Delivered a Lecture on Network Programming, Security and Managemen in Faculty Development Programme organized by RCC, Anna University, Chennai - 600 025', '2010-09-08');
+(1, 24, 'Delivered a Lecture on Network Programming, Security and Managemen in Faculty Development Programme organized by RCC, Anna University, Chennai', '2010-10-01'),
+(4, 24, 'Delivered a Lecture on &quot;Network Programming, Security and Managemen&quot; in Faculty Development Programme organized by RCC, Anna University, Chennai', '2021-02-01');
 
 -- --------------------------------------------------------
 
@@ -301,6 +313,14 @@ CREATE TABLE `faculty_onduty_orders` (
   `onduty_order_at` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `faculty_onduty_orders`
+--
+
+INSERT INTO `faculty_onduty_orders` (`onduty_order_id`, `user_id`, `onduty_order`, `onduty_order_at`) VALUES
+(1, 24, 'AUKDC', '2020-03-01'),
+(2, 24, 'AURCT', '2022-01-01');
+
 -- --------------------------------------------------------
 
 --
@@ -334,8 +354,16 @@ CREATE TABLE `faculty_papers_presented` (
   `user_id` int DEFAULT NULL,
   `paper_presented` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `paper_presented_at` date DEFAULT NULL,
-  `is_international` int DEFAULT NULL
+  `is_international` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `faculty_papers_presented`
+--
+
+INSERT INTO `faculty_papers_presented` (`paper_presented_id`, `user_id`, `paper_presented`, `paper_presented_at`, `is_international`) VALUES
+(1, 24, 'P Vijayakumar, K Anand, S Bose, V Maheswari, R Kowsalya, A Kannan, \" Hierarchical key management scheme for securing mobile agents with optimal computation time\", Procedia engineering , published by Elsevier . Vol. 38, Issue 1432, pp. 1432-1443', '2012-01-01', 'no'),
+(2, 24, 'S Karthika, A Kiruthiga, S Bose, \"Behavioral profile generation for 9/11 terrorist network using efficient selection strategies\", Advances in Computer Science , published by Springer, Berlin, Heidelberg . Vol. 333, Issue 344, pp. 333-344', '2019-02-01', 'yes');
 
 -- --------------------------------------------------------
 
@@ -348,7 +376,7 @@ CREATE TABLE `faculty_papers_published` (
   `user_id` int DEFAULT NULL,
   `paper_published` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `paper_published_at` date DEFAULT NULL,
-  `is_international` int DEFAULT NULL
+  `is_international` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -356,8 +384,9 @@ CREATE TABLE `faculty_papers_published` (
 --
 
 INSERT INTO `faculty_papers_published` (`paper_published_id`, `user_id`, `paper_published`, `paper_published_at`, `is_international`) VALUES
-(1, 24, 'Adaptive multipath multimedia streaming architecture for mobile networks with proactive buffering using mobile proxies, Journal of computing and information technology, published by SRCE-SveuÄ•iliÅ¡ni raÄ•unski centar. Vol. 15, Issue 3, pp. 215-226', '2009-08-07', 0),
-(3, 24, 'The Icfai Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24', '2006-09-08', 1);
+(1, 24, 'Adaptive multipath multimedia streaming architecture for mobile networks with proactive buffering using mobile proxies, Journal of computing and information technology, published by SRCE-SveuÄ•iliÅ¡ni raÄ•unski centar. Vol. 15, Issue 3, pp. 215-226', '2009-08-01', 'yes'),
+(3, 24, 'The ICFAI Journal of Systems Management, The Icfai Journal of Systems Management, published by The Icfai University Press. Vol. 4, Issue 4, pp. 14-24', '2001-03-01', 'yes'),
+(4, 24, 'S Karthika, S Bose, &quot;A comparative study of social networking approaches in identifying the covert nodes&quot;, International Journal on Web Service Computing , published by Academy &amp; Industry Research Collaboration Center (AIRCC) . Vol. 2, Issue 3, pp. 65', '2019-02-01', 'no');
 
 -- --------------------------------------------------------
 
@@ -378,7 +407,7 @@ CREATE TABLE `faculty_patents` (
 --
 
 INSERT INTO `faculty_patents` (`patent_id`, `user_id`, `patent`, `file_number`, `patent_at`) VALUES
-(1, 24, 'Sample 2', 532554, '0000-00-00'),
+(1, 24, 'Sample 2', 532554, '2022-06-01'),
 (3, 24, 'Filed patent rights for Mini PC Device for Computer Tablein India.', 656561, '2007-01-05');
 
 -- --------------------------------------------------------
@@ -447,10 +476,8 @@ CREATE TABLE `faculty_positions_prev` (
 --
 
 INSERT INTO `faculty_positions_prev` (`position_prev_id`, `user_id`, `position_id`, `department_id`, `position_prev_where`, `position_prev_from`, `position_prev_to`) VALUES
-(29, 24, 4, 2, 'College of Engineering Guindy, Anna University, Chennai', '1993-05-02', '2000-07-07'),
-(30, 24, 4, 2, 'College of Engineering Trichy, Anna University, Trichy', '2004-05-02', '2008-08-01'),
-(31, 24, 5, 1, 'MIT, Anna University, Chennai', '2001-05-02', '2003-07-07'),
-(33, 24, 5, 1, 'Anna University Regional Campus Tirunelveli, Tirunelveli', '2010-11-12', '2015-08-08');
+(35, 24, 2, 4, 'MIT, Anna University, Chennai', '2022-01-01', '2022-03-01'),
+(36, 24, 4, 1, 'College of Engineering Guindy, Anna University', '2022-04-01', '2022-03-01');
 
 -- --------------------------------------------------------
 
@@ -471,8 +498,8 @@ CREATE TABLE `faculty_programme_attended` (
 --
 
 INSERT INTO `faculty_programme_attended` (`programme_attended_id`, `user_id`, `programme_attended`, `programme_attended_from`, `programme_attended_to`) VALUES
-(1, 24, 'Attended a National level Short Course on AICE-ISTE Winter School on Advanced Java Programming organized by PSG College of Technology', '2002-09-08', '2002-09-12'),
-(3, 24, 'Participated in a National level workshop on Object Oriented Analysis and Design using UML and Fundamentals of Rational Rose organized by Rational Software Development Company, India', '2005-09-08', '0000-00-00');
+(4, 24, 'Attended a National level Short Course on &quot;AICE-ISTE Winter School on Advanced Java Programming&quot; organized by PSG College of Technology, India', '2017-01-01', '2017-04-01'),
+(5, 24, 'Attended a National level Short Course on &quot;Digital VLSI Designing using VHDL&quot; organized by Tamil Nadu Institute of Information Technology, India', '2019-01-01', '2019-03-01');
 
 -- --------------------------------------------------------
 
@@ -487,6 +514,14 @@ CREATE TABLE `faculty_programme_chaired` (
   `programme_chaired_from` date DEFAULT NULL,
   `programme_chaired_to` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `faculty_programme_chaired`
+--
+
+INSERT INTO `faculty_programme_chaired` (`programme_chaired_id`, `user_id`, `programme_chaired`, `programme_chaired_from`, `programme_chaired_to`) VALUES
+(1, 24, 'Chairman, National level conference titled &quot;DRDO Sponsored 2nd National Conference on Emerging Trends in Information Technology &amp; Communication Systems&quot; conducted by Velammal Engineering College, Chennai', '2018-01-01', '2018-02-01'),
+(2, 24, 'Chairman, National level conference titled \"DRDO Sponsored 2nd National Conference on Emerging Trends in Information Technology and Communication Systems', '2020-01-01', '2020-12-01');
 
 -- --------------------------------------------------------
 
@@ -547,8 +582,7 @@ CREATE TABLE `faculty_research_guidance` (
 --
 
 INSERT INTO `faculty_research_guidance` (`research_guidance_id`, `user_id`, `phd_guided`, `phd_guiding`, `me_guided`, `me_guiding`, `ms_guided`, `ms_guiding`) VALUES
-(1, 24, 1, 2, 3, 4, 5, 0),
-(3, 24, 4, 5, 7, 6, 0, 0);
+(7, 24, 5, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -569,8 +603,9 @@ CREATE TABLE `faculty_special_representations` (
 --
 
 INSERT INTO `faculty_special_representations` (`special_representation_id`, `user_id`, `special_representation`, `special_representation_from`, `special_representation_to`) VALUES
-(1, 24, 'Advisory Board Member in International Congress on Pervasive Computing and Management', '2005-09-08', '0000-00-00'),
-(3, 24, 'Reviewer in The International Journal of Computers and Applications,ACTA', '2002-09-08', '2002-10-12');
+(1, 24, 'Advisory Board Member in International Congress on Pervasive Computing and Management', '2005-09-01', '2005-02-01'),
+(3, 24, 'Reviewer in The International Journal of Computers and Applications,ACTA', '2002-09-01', '2002-10-01'),
+(4, 24, 'Reviewer in The International Journal of Ad Hoc and Ubiquitous Computi', '2020-01-01', '2020-03-01');
 
 -- --------------------------------------------------------
 
@@ -592,8 +627,8 @@ CREATE TABLE `faculty_sponsored_projects_completed` (
 --
 
 INSERT INTO `faculty_sponsored_projects_completed` (`project_id`, `user_id`, `project`, `project_from`, `project_to`, `project_cost`) VALUES
-(4, 24, 'Cross Lingual Information Access System', '2004-08-09', '2005-10-11', 0),
-(5, 24, 'A Virtual Walk Through Of A Home, funded by Solutionstar Services India Private Limited', '2001-08-09', '2002-10-11', 31.43);
+(5, 24, 'A Virtual Walkthrough Of A Home, funded by Solutionstar Services India Private Limited', '2001-02-01', '2002-11-01', 31),
+(13, 24, 'something something', '2019-02-01', '2021-06-01', 23.54);
 
 -- --------------------------------------------------------
 
@@ -620,9 +655,8 @@ CREATE TABLE `faculty_users` (
 --
 
 INSERT INTO `faculty_users` (`user_id`, `is_admin`, `honorific`, `full_name`, `username`, `email`, `password`, `verification_code`, `is_verified`, `password_reset_token`, `password_reset_token_expire`) VALUES
-(24, 0, 'Mr.', 'Kannan', 1234, 'kannan13112@gmail.com', '$2y$10$7QADwVL4pbNhs6/7JmGVCec8PgA1ZTUQeyKXxiHbiB3eAC6kXCj82', '411988774bc5d7e0e70a3413ba0244f618c457fa6bd9fd9a43dd70d07dc07500', 1, NULL, NULL),
-(25, 0, 'Mr.', 'Me', 12345, 'kannan11132@gmail.com', '$2y$10$Ky9D5MFMQQ05BlrysGb2Qu8UMJHvAtlo64hAsLCbzdcqC8nl7G4ey', '7a13868f42666a590f0f1a2ff60d4c33175e3cc321723bf87f8277917e9c1ef2', 1, NULL, NULL),
-(38, 1, 'Mr.', 'admin', 1456, 'admin@gmail.com', '$2a$10$SbvBEwJwSGg1iCP3kvXtxe8rDsLXCH4xxAAjqupw689r5PjD/ai4u', '0', 1, '0', '0000-00-00');
+(24, 0, 'Mr.', 'Kannan', 1234, 'kannan13112@gmail.com', '$2y$10$7QADwVL4pbNhs6/7JmGVCec8PgA1ZTUQeyKXxiHbiB3eAC6kXCj82', 'b9fb5b50e556bb2b50314f71e494ed58b427f08cabc294ed1f27f65d1ee5f217', 0, NULL, NULL),
+(38, 1, 'Mr.', 'admin', 1456, 'admin@gmail.com', '$2a$10$5KhNm78oQJXh4lwg6.Ih.OQahNiZ10ILKS.zGw/gSx.XRJ0BYXpu2', '0', 1, '0', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -646,8 +680,7 @@ CREATE TABLE `faculty_user_info` (
 --
 
 INSERT INTO `faculty_user_info` (`user_info_id`, `user_id`, `phone`, `address`, `position_id`, `department_id`, `position_present_where`, `position_present_from`) VALUES
-(11, 24, 1234567890, '654, south street, Tirunelveli, tvl - 627 600', 4, 3, 'College of Engineering Guindy, Anna University, Chennai', '2010-05-01'),
-(12, 25, 1234567890, '51, North street, Chennai, Chennai - 600 600', 2, 4, 'College of Engineering Guindy, Anna University, Chennai', '2004-05-01');
+(11, 24, 1234567890, '654, South Street, Tamil Nadu, tvl - 627 600', 4, 3, 'College of Engineering Guindy, Anna University, Chennai', '2010-05-01');
 
 --
 -- Indexes for dumped tables
@@ -873,31 +906,31 @@ ALTER TABLE `faculty_user_info`
 -- AUTO_INCREMENT for table `faculty_additional_responsibilities_present`
 --
 ALTER TABLE `faculty_additional_responsibilities_present`
-  MODIFY `additional_responsibility_present_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `additional_responsibility_present_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `faculty_additional_responsibilities_prev`
 --
 ALTER TABLE `faculty_additional_responsibilities_prev`
-  MODIFY `additional_responsibility_prev_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `additional_responsibility_prev_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `faculty_area_of_specialization`
 --
 ALTER TABLE `faculty_area_of_specialization`
-  MODIFY `specialization_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `specialization_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `faculty_books_published`
 --
 ALTER TABLE `faculty_books_published`
-  MODIFY `book_published_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `book_published_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `faculty_degree`
 --
 ALTER TABLE `faculty_degree`
-  MODIFY `degree_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `degree_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `faculty_departments`
@@ -909,37 +942,37 @@ ALTER TABLE `faculty_departments`
 -- AUTO_INCREMENT for table `faculty_exp_abroad`
 --
 ALTER TABLE `faculty_exp_abroad`
-  MODIFY `exp_abroad_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `exp_abroad_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `faculty_extension_outreach`
 --
 ALTER TABLE `faculty_extension_outreach`
-  MODIFY `extension_outreach_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `extension_outreach_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `faculty_honors`
 --
 ALTER TABLE `faculty_honors`
-  MODIFY `honor_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `honor_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `faculty_incharge_duty_files`
 --
 ALTER TABLE `faculty_incharge_duty_files`
-  MODIFY `incharge_duty_file_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `incharge_duty_file_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `faculty_invigilation_duties`
 --
 ALTER TABLE `faculty_invigilation_duties`
-  MODIFY `invigilation_duty_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `invigilation_duty_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `faculty_invited_lectures`
 --
 ALTER TABLE `faculty_invited_lectures`
-  MODIFY `invited_lecture_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `invited_lecture_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `faculty_memberships`
@@ -951,7 +984,7 @@ ALTER TABLE `faculty_memberships`
 -- AUTO_INCREMENT for table `faculty_onduty_orders`
 --
 ALTER TABLE `faculty_onduty_orders`
-  MODIFY `onduty_order_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `onduty_order_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `faculty_other_employment`
@@ -963,13 +996,13 @@ ALTER TABLE `faculty_other_employment`
 -- AUTO_INCREMENT for table `faculty_papers_presented`
 --
 ALTER TABLE `faculty_papers_presented`
-  MODIFY `paper_presented_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `paper_presented_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `faculty_papers_published`
 --
 ALTER TABLE `faculty_papers_published`
-  MODIFY `paper_published_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `paper_published_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `faculty_patents`
@@ -981,7 +1014,7 @@ ALTER TABLE `faculty_patents`
 -- AUTO_INCREMENT for table `faculty_photo`
 --
 ALTER TABLE `faculty_photo`
-  MODIFY `photo_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `photo_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `faculty_positions`
@@ -993,25 +1026,25 @@ ALTER TABLE `faculty_positions`
 -- AUTO_INCREMENT for table `faculty_positions_prev`
 --
 ALTER TABLE `faculty_positions_prev`
-  MODIFY `position_prev_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `position_prev_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `faculty_programme_attended`
 --
 ALTER TABLE `faculty_programme_attended`
-  MODIFY `programme_attended_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `programme_attended_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `faculty_programme_chaired`
 --
 ALTER TABLE `faculty_programme_chaired`
-  MODIFY `programme_chaired_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `programme_chaired_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `faculty_programme_organized`
 --
 ALTER TABLE `faculty_programme_organized`
-  MODIFY `programme_organized_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `programme_organized_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `faculty_research_degree`
@@ -1023,25 +1056,25 @@ ALTER TABLE `faculty_research_degree`
 -- AUTO_INCREMENT for table `faculty_research_guidance`
 --
 ALTER TABLE `faculty_research_guidance`
-  MODIFY `research_guidance_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `research_guidance_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `faculty_special_representations`
 --
 ALTER TABLE `faculty_special_representations`
-  MODIFY `special_representation_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `special_representation_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `faculty_sponsored_projects_completed`
 --
 ALTER TABLE `faculty_sponsored_projects_completed`
-  MODIFY `project_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `project_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `faculty_users`
 --
 ALTER TABLE `faculty_users`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `faculty_user_info`
